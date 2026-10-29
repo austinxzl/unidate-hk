@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>UNIdate HK</title>
-<meta name="description" content="一周一个，只给对的人。香港大学生专属，每周三 21:00 为你配一个真正聊得来的港校同学。">
+<meta name="description" content="不用再滑了。做一份问卷，每周三晚 9 点，我们在九所港校里帮你配一个真的合得来的人。">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23D0281F'/%3E%3Ctext x='32' y='47' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='42' text-anchor='middle' fill='%23fff'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="UNIdate HK">
-<meta property="og:title" content="UNIdate HK · 一周一个，只给对的人。">
-<meta property="og:description" content="香港大学生专属。每周三 21:00，为你配一个真正聊得来的港校同学。">
+<meta property="og:title" content="UNIdate HK · 每周三，帮你配一个人">
+<meta property="og:description" content="港校学生限定。做一份问卷，每周三晚 9 点收到你的配对。">
 <meta property="og:url" content="https://unidatehk.com/">
 <meta property="og:image" content="https://unidatehk.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -1841,6 +1841,35 @@ Object.assign(T, {
     [["One match a week", "No endless swiping. Every Wednesday you get one person, so you can take a proper look."], ["Looks and personality both count", "You'll see photos and height. We then work out how well your values and routines fit."], ["HK uni students only", "You need a uni email to sign up, so everyone here is a fellow HK student."]]
   ]
 });
+/* ---- homepage copy, rewritten in a plainer student voice ---- */
+Object.assign(T, {
+  eyebrow: ["港校限定 · 逢星期三晚九點", "港校限定 · 每周三晚九点", "HK unis only · Wednesdays, 9pm"],
+  h1a: ["唔使再碌啦。", "不用再滑了。", "Stop swiping."],
+  h1b: ["逢星期三，幫你配一個人。", "每周三，帮你配一个人。", "One match, every Wednesday."],
+  sub: ["做份問卷，我哋喺九間港校入面幫你搵個真係夾得嚟嘅人。星期三晚九點，你會收到佢個名。", "做一份问卷，我们在九所港校里帮你找一个真的合得来的人。周三晚上 9 点，你会收到 TA 的名字。", "Answer a quick quiz and we'll find someone across nine HK unis you'll actually get along with. Wednesday at 9pm, you get their name."],
+  join: ["用學校電郵開始", "用学校邮箱开始", "Start with your uni email"],
+  seeHow2: ["睇吓點玩先", "先看看怎么玩", "How it works"],
+  nextDrop: ["距離下次配對仲有", "离下次配对还有", "Next match in"],
+  schoolsLabel: ["九間港校一齊配", "九所港校一起配", "Nine unis, one pool"],
+  howTitle: ["點玩", "怎么玩", "How it works"],
+  howEyebrow: ["每個星期都係咁", "每周都是这样", "Every week"],
+  diffTitle: ["點解唔直接|碌交友 app？", "为什么不直接|滑交友 app？", "Why not |just swipe?"],
+  prins: [
+    [["唔使碌到手軟", "一個星期得一個人，你會認真睇晒佢啲資料，唔會睇一眼就碌走。"], ["樣同夾唔夾都計", "相同身高睇得到，但分數主要睇你哋作息、價值觀夾唔夾。"], ["對面一定係港校同學", "要學校電郵先註冊到，校外嘅人入唔到嚟。"]],
+    [["不用滑到手软", "一周只有一个人，你会认真看完 TA 的资料，而不是看一眼就划走。"], ["长相和合不合拍都算", "照片和身高看得到，但分数主要看你们作息、价值观合不合。"], ["对面一定是港校同学", "要学校邮箱才能注册，校外的人进不来。"]],
+    [["No more thumb cramps", "One person a week means you actually read their profile instead of swiping past."], ["Looks count. So does the vibe.", "You'll see photos and height, but the score is mostly about whether your values and routines line up."], ["Only people from HK unis", "You need a uni email to sign up, so outsiders can't get in."]]
+  ],
+  crushEyebrow: ["偷偷話你知", "偷偷告诉你", "Psst"],
+  trustEyebrow: ["安全 · 私隱", "安全 · 私隐", "Safety · Privacy"],
+  trustTitle: ["關於安全同私隱", "关于安全和私隐", "Safety & privacy"],
+  ctaTitle: ["星期三晚九點見。", "周三晚 9 点见。", "See you Wednesday, 9pm."],
+  footLine: ["港校學生嘅每週配對。", "港校学生的每周配对。", "Weekly matches for HK uni students."]
+});
+T.steps = [
+  [["做份問卷", "大概 8 分鐘。問你作息、使錢習慣、嗌交點處理呢啲，冇標準答案，照實填就得。"], ["每個星期㩒一下報名", "星期日到星期三 6 點前，㩒一下「今個星期我都要」。唔得閒就唔㩒，冇人會知。"], ["星期三晚九點公佈", "全港一齊公佈。你會見到對方張相、資料，同埋你哋最夾嘅三樣嘢。"], ["兩個都話好，先至傾到", "48 個鐘內各自揀。兩邊都話「想識」先開到傾偈；你揀咗 pass，對方永遠唔會知。"]],
+  [["做一份问卷", "大概 8 分钟。问你作息、花钱习惯、吵架怎么处理这类问题，没有标准答案，照真实情况填就好。"], ["每周点一下报名", "周日到周三 18:00 前，点一下「这周我也要」。这周没空就不点，也没人会知道。"], ["周三晚 9 点公布", "全港一起公布。你会看到对方的照片、资料，还有你们最合拍的三个地方。"], ["两个人都说好，才能聊", "48 小时内各自选。两边都选「想认识」才开聊天；你选了 pass，对方永远不会知道。"]],
+  [["Take the quiz", "About 8 minutes. How late you sleep, how you spend, how you handle a fight. No right answers, just be honest."], ["Tap in each week", "Tap “I'm in” before Wednesday 6pm. Busy this week? Skip it. Nobody will know."], ["Wednesday, 9pm", "Everyone finds out at once. You'll see their photos, their profile, and the three things you two have most in common."], ["Both say yes, then talk", "You each have 48 hours. Chat opens only if you both say yes. If you pass, they'll never know."]]
+];
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -2482,7 +2511,7 @@ function vLanding() {
     (ui.info ? '<div class="wrap"><p class="notice ok">' + esc(ui.info) + '</p></div>' : "") +
     '<section class="hero2"><div class="wrap hero2-in">' +
       '<span class="pill">' + t("eyebrow") + '</span>' +
-      '<h1 class="h1 serif"><span>' + t("h1a") + '</span><span class="red">' + t("h1b") + '</span></h1>' +
+      '<h1 class="h1 serif"><span>' + tph("h1a") + '</span><span class="red">' + tph("h1b") + '</span></h1>' +
       '<p class="lead">' + t("sub") + '</p>' + join +
       '<div class="board"><span class="board-label">' + t("nextDrop") + '</span><span class="board-time num" data-countdown>' + countdown() + '</span></div>' +
     '</div><div class="stage"><div class="window">' + heroPlacard() +
