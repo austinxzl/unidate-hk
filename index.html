@@ -1755,6 +1755,9 @@ Object.assign(T, {
   var a = [["只限港校學生", "要用大學電郵收驗證碼先加入到。"], ["只限港校学生", "必须用大学邮箱收验证码才能加入。"], ["HK university students only", "You need a code sent to a uni email to join."]];
   for (var i = 0; i < 3; i++) T.safety[i][0] = a[i];
 })();
+Object.assign(T, {
+  signupClosed: ["而家暫時未開放新用戶註冊，請稍後再試。", "目前暂未开放新用户注册，请稍后再试。", "New sign-ups are closed for now. Please try again later."]
+});
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -2047,7 +2050,8 @@ function errKey(e) {
   var m = String((e && (e.message || e.error_description || e.msg)) || e || "");
   var codes = { UNIDATE_NOT_HK_STUDENT_EMAIL: "emailNotHK", UNIDATE_UNDER_18: "under18", UNIDATE_SELF: "crushSelf", UNIDATE_DUPLICATE: "crushDup", UNIDATE_LIMIT: "crushFull", UNIDATE_CLOSED: "closedErr", UNIDATE_ALREADY_DECIDED: "closedErr", UNIDATE_QUIZ_INCOMPLETE: "quizMissing" };
   for (var k in codes) if (m.indexOf(k) >= 0) return codes[k];
-  if (/Database error saving new user|Signups not allowed/i.test(m)) return "emailNotHK";
+  if (/Signups not allowed|signup_disabled/i.test(m) || (e && e.code === "signup_disabled")) return "signupClosed";
+  if (/Database error saving new user/i.test(m)) return "emailNotHK";
   if ((e && e.status === 429) || /rate limit|too many|security purposes/i.test(m)) return "tooMany";
   if (/failed to fetch|network|load failed/i.test(m)) return "netErr";
   return "genericErr";
