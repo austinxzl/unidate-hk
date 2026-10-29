@@ -1316,6 +1316,11 @@ button.more.trust-more{align-self:center}
 @media (min-width:900px){.rail-card{min-height:0}.rail-card h3{font-size:26px}}
 
 @media (max-width:370px){.hero2 .h1{font-size:44px}}
+/* softer, staggered reveal on the homepage */
+.rv{transition:transform .9s var(--out) var(--d,0s),opacity .9s var(--out) var(--d,0s)}
+.rv:not(.in){transform:translateY(32px) scale(.985);opacity:.35}
+.sec-head,.week,.rail-card,.crush,.trust-tile,.join-in,.me-sec,.dropcard{will-change:translate}
+@media (prefers-reduced-motion: reduce){.rv{transition:none}.rv:not(.in){transform:none;opacity:1}}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -3048,6 +3053,7 @@ function render(keepScroll) {
     if (keepScroll) jumpTo(y); else jumpTo(0);
     document.title = pageTitle2(v);
     if (changed) afterPaint(); else heroScroll();
+    setupParallax();
   };
   if (changed && canVT && lastView !== null) { try { document.startViewTransition(paint); } catch (e) { paint(); } } else paint();
   save();
@@ -3062,8 +3068,35 @@ function afterPaint() {
   var sel = S.view === "landing" ? ".sec-head,.flow-step,.rail-card,.trust-tile,.crush,.week,.join-in" : ".me-sec,.about-card,.prompt,.want-block,.prio-head,.group+.group";
   var vh = window.innerHeight || 800;
   var els = Array.prototype.filter.call(app.querySelectorAll(sel), function (el) { return S.view === "landing" || el.getBoundingClientRect().top > vh * 0.9; });
-  for (var i = 0; i < els.length; i++) { els[i].classList.add(S.view === "landing" ? "rv" : "rv-s"); revealObs.observe(els[i]); }
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i], sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+    if (S.view === "landing" && /flow-step|rail-card|trust-tile/.test(el.className)) el.style.setProperty("--d", Math.min(sib, 5) * 70 + "ms");
+    el.classList.add(S.view === "landing" ? "rv" : "rv-s"); revealObs.observe(el);
+  }
   heroScroll();
+}
+/* gentle scroll depth: some blocks drift a few pixels against the scroll, at slightly different speeds */
+var parEls = [], parBusy = false;
+var calmMotion = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+function setupParallax() {
+  parEls.forEach(function (x) { x[0].style.translate = ""; });
+  parEls = [];
+  if (calmMotion) return;
+  var spec = S.view === "landing" ? [[".sec-head", 0.05], [".week", 0.025], [".rail-card", 0.035], [".crush", 0.03], [".trust-tile:nth-child(odd)", 0.015], [".trust-tile:nth-child(even)", 0.045], [".join-in", 0.04], [".stage .window", 0.03]]
+    : (S.view === "home" || S.view === "me") ? [[".me-sec", 0.018], [".dropcard", 0.03]] : [];
+  spec.forEach(function (sp) { Array.prototype.forEach.call(app.querySelectorAll(sp[0]), function (el) { el._py = 0; parEls.push([el, sp[1]]); }); });
+  parallax();
+}
+function parallax() {
+  if (!parEls.length) return;
+  var vh = window.innerHeight || 800;
+  for (var i = 0; i < parEls.length; i++) {
+    var el = parEls[i][0], k = parEls[i][1], r = el.getBoundingClientRect(), top = r.top - (el._py || 0);
+    if (top > vh + 200 || top + r.height < -200) continue;
+    var y = Math.max(-26, Math.min(26, -(top + r.height / 2 - vh / 2) * k));
+    if (Math.abs(y - (el._py || 0)) < 0.2) continue;
+    el._py = y; el.style.translate = "0 " + y.toFixed(1) + "px";
+  }
 }
 function heroScroll() {
   var pl = S.view === "landing" && app.querySelector(".stage .window"); if (!pl) return;
@@ -3071,7 +3104,11 @@ function heroScroll() {
   var p = Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.9)));
   pl.style.setProperty("--p", p.toFixed(3));
 }
-window.addEventListener("scroll", function () { if (S.view === "landing") requestAnimationFrame(heroScroll); }, { passive: true });
+window.addEventListener("scroll", function () {
+  if (parBusy) return; parBusy = true;
+  requestAnimationFrame(function () { parBusy = false; if (S.view === "landing") heroScroll(); parallax(); });
+}, { passive: true });
+window.addEventListener("resize", function () { parallax(); }, { passive: true });
 /* press feedback: a visible pressed state on every tap (iOS needs a touch listener for :active), plus a light tick on Android */
 document.addEventListener("touchstart", function () {}, { passive: true });
 var pressed = null, pressedAt = 0;
