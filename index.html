@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="UNIdate HK">
-<meta property="og:title" content="UNIdate HK · 每周为你配一个人">
+<meta property="og:title" content="UNIdate HK · 一周一位，只给对的人">
 <meta property="og:description" content="港校学生专属。完成一份问卷，每周三晚 9 点揭晓你的配对。">
 <meta property="og:url" content="https://unidatehk.com/">
 <meta property="og:image" content="https://unidatehk.com/og.png">
@@ -1314,6 +1314,8 @@ button.more.trust-more{align-self:center}
 .rail-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.18);color:#FFFFFF}
 .rail-card h3{margin:0;font-size:24px;line-height:1.2}
 @media (min-width:900px){.rail-card{min-height:0}.rail-card h3{font-size:26px}}
+
+@media (max-width:370px){.hero2 .h1{font-size:44px}}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -1899,6 +1901,11 @@ T.steps = [
   [["完成问卷", "约 8 分钟，涵盖作息、消费习惯和相处方式等问题。没有标准答案，按真实想法作答即可。"], ["每周报名", "周日至周三 18:00 前点击「这周我也要」。当周不方便的话，不报名即可，不会有人知道。"], ["周三晚 9 点揭晓", "所有配对同时公布。你会看到对方的照片、资料，以及你们最契合的三个地方。"], ["双方同意，才能聊天", "48 小时内各自决定。只有双方都选择「想认识」才会开启聊天；如果你选择跳过，对方不会知道。"]],
   [["Take the questionnaire", "About 8 minutes, covering routines, spending habits and how you handle disagreements. There are no right answers, so just be honest."], ["Opt in each week", "Tap “I'm in” before Wednesday 6pm. If the week doesn't suit you, simply skip it. No one will know."], ["Revealed Wednesday at 9pm", "Every match is revealed at the same time. You'll see their photos, profile, and the three things you have most in common."], ["Chat when you both agree", "You each have 48 hours to decide. Chat opens only if you both say yes. If you pass, they won't know."]]
 ];
+Object.assign(T, {
+  h1a: ["一星期一位，", "一周一位，", "One a week."],
+  h1b: ["淨係俾啱嘅人。", "只给对的人。", "Only the right one."],
+  footLine: ["一星期一位，淨係俾啱嘅人。", "一周一位，只给对的人。", "One a week. Only the right one."]
+});
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
