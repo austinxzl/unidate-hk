@@ -1611,6 +1611,320 @@ html.landing-page,html.landing-page body{background:var(--d-mist)}
 .route{background:var(--d-dusk);color:#FFFFFF}
 .card-ink .route{background:rgba(255,92,138,.18);color:#FFB3C8}
 .joined{background:rgba(94,234,180,.13);color:#8EF0C6}
+
+/* ======================================================================
+   Inside — the app after you sign in, in the same "Wednesday 9pm" world.
+   Logic of colour:
+     ink        = move forward (next, verify, save)
+     love       = toward a person (opt in, I'd like to meet, open chat, send)
+     violet     = your selection / where you are (chips, progress, active tab)
+     green      = verified & private (small, informational)
+     rose-ink   = errors and destructive actions
+   ====================================================================== */
+:root{
+  --love:linear-gradient(120deg,#6A5AE0 0%,#B04FC0 52%,#FF5C8A 100%);
+  --sel-bg:#EEEBFC; --sel-ink:#4636C4; --sel-line:#8B7BF2;
+  --field-line:#E1DDEE; --field-hover:#C7C0DD;
+  --card-shadow:0 1px 2px rgba(34,30,61,.04),0 10px 30px -16px rgba(34,30,61,.16);
+}
+
+/* ---------- canvas ---------- */
+html:not(.landing-page):not(.night-page) body{background:
+  radial-gradient(90% 340px at 12% -60px,rgba(106,90,224,.13),rgba(106,90,224,0) 70%),
+  radial-gradient(70% 300px at 95% -80px,rgba(255,92,138,.10),rgba(255,92,138,0) 70%),
+  var(--d-mist) no-repeat}
+html:not(.landing-page):not(.night-page) .top{background-color:rgba(245,243,251,.72);border-bottom-color:transparent}
+html.scrolled:not(.landing-page):not(.night-page) .top{background-color:rgba(245,243,251,.84);border-bottom-color:rgba(34,30,61,.07)}
+
+/* ---------- type ---------- */
+.ptitle,.hello,.cm-title,.wd-title,.qtext,.me-name,.empty-title{font-family:var(--display);letter-spacing:-.02em;color:var(--ink)}
+.ptitle{font-weight:800;font-size:clamp(30px,7.6vw,42px);line-height:1.12}
+:lang(zh) .ptitle{font-weight:700;letter-spacing:-.01em}
+.psub{font-size:15.5px;line-height:1.7;color:var(--body);max-width:34em}
+.group legend{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ink)}
+.field>label,.field>.label,.label-row .label{font-size:14px;font-weight:600;color:var(--ink)}
+.opt-tag{font-weight:500;color:var(--muted);font-size:12px;padding:2px 7px;border-radius:999px;background:var(--fill);margin-left:6px}
+.group legend .opt-tag{font-size:12px}
+.night .ptitle,.night .cm-title,.night .wd-title{color:#FFFFFF}
+
+/* ---------- buttons ---------- */
+.btn{min-height:52px;border-radius:999px;font-weight:600;font-size:16px;border:1px solid var(--field-line);background:#FFFFFF;color:var(--ink);box-shadow:0 1px 2px rgba(34,30,61,.04)}
+.btn:hover{background:#FFFFFF;border-color:var(--field-hover)}
+.btn-sm{min-height:40px;padding:0 16px;font-size:14px}
+.btn-red{background:var(--ink);border-color:var(--ink);color:#FFFFFF;box-shadow:0 10px 24px -14px rgba(34,30,61,.7)}
+.btn-red:hover{background:#2F2959;border-color:#2F2959;transform:translateY(-1px);box-shadow:0 14px 28px -14px rgba(34,30,61,.75)}
+.btn-red:active{transform:scale(.97);box-shadow:none}
+.btn-red[aria-disabled="true"]{background:#BDB8D2;border-color:#BDB8D2;color:#FFFFFF;opacity:1;box-shadow:none}
+.btn-love{position:relative;border:0;background:var(--love);color:#FFFFFF;box-shadow:0 12px 28px -12px rgba(227,64,122,.7)}
+.btn-love:hover{background:var(--love);filter:saturate(1.08) brightness(1.04);transform:translateY(-1px);box-shadow:0 16px 34px -12px rgba(227,64,122,.8)}
+.btn-love:active{transform:scale(.97)}
+.btn-love svg{stroke:#FFFFFF}
+.btn-danger{background:var(--red-ink);border-color:var(--red-ink);color:#FFFFFF}
+.btn-danger:hover{background:#A3244F;border-color:#A3244F}
+.btn-soft{display:inline-flex;gap:6px;background:#FFFFFF;border-color:var(--field-line);color:var(--ink)}
+.btn-soft svg{color:var(--d-violet)}
+.btn-soft[aria-pressed="true"]{background:var(--sel-bg);border-color:var(--sel-line);color:var(--sel-ink)}
+.btn[data-busy]{color:transparent!important}
+/* night surfaces flip the neutral buttons */
+.night .btn,.card-ink .btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#FFFFFF;box-shadow:none}
+.night .btn:hover,.card-ink .btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.24)}
+.night .btn-red,.card-ink .btn-red,.dockbar .btn-red{background:#FFFFFF;border-color:#FFFFFF;color:var(--d-night)}
+.night .btn-red:hover,.card-ink .btn-red:hover,.dockbar .btn-red:hover{background:#EDEBFA;border-color:#EDEBFA}
+.night .btn-love,.card-ink .btn-love{background:var(--love);border:0;color:#FFFFFF}
+.backlink{color:var(--body);font-weight:500}
+.backlink:hover{color:var(--ink)}
+.backlink svg{color:var(--muted)}
+.link{color:var(--d-violet)}
+.inl{color:var(--d-violet);text-decoration-color:rgba(90,73,214,.35)}
+
+/* ---------- fields ---------- */
+.input{border:1.5px solid var(--field-line);border-radius:14px;background:#FFFFFF;color:var(--ink)}
+.input::placeholder{color:#A9A3C0}
+.input:hover{border-color:var(--field-hover)}
+.input:focus{border-color:var(--d-dusk);box-shadow:0 0 0 4px rgba(106,90,224,.16)}
+.input[aria-invalid="true"]{border-color:var(--red);background:#FFF8FB}
+.composer .input:focus{box-shadow:0 0 0 4px rgba(106,90,224,.14)}
+select.input:invalid,select.input option[disabled]{color:#A9A3C0}
+.unit span{color:var(--muted)}
+.otp{height:78px;font-family:var(--num);font-weight:700;font-size:32px;letter-spacing:.42em;border-radius:20px}
+.otp::placeholder{color:#CFCAE0}
+.field-note{color:var(--muted)}
+
+/* ---------- selection: violet ---------- */
+.chip{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--field-line);color:var(--ink);font-weight:500}
+.chip:hover{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--field-hover)}
+.chip[aria-pressed="true"],.chip[aria-checked="true"]{background:var(--sel-bg);color:var(--sel-ink);font-weight:600;box-shadow:inset 0 0 0 1.5px var(--sel-line)}
+.chips.need{box-shadow:0 0 0 2px rgba(227,64,122,.5);border-radius:18px}
+.seg{background:#ECE9F5;border-radius:12px}
+.seg::before{border-radius:10px;box-shadow:0 1px 3px rgba(34,30,61,.14),0 0 0 .5px rgba(34,30,61,.04)}
+.seg button[aria-checked="true"]{color:var(--ink);font-weight:600}
+.likert button{background:#FFFFFF;border:1.5px solid var(--field-line);color:var(--ink);font-family:var(--num)}
+.likert button:hover{border-color:var(--field-hover);background:#FFFFFF}
+.likert button[aria-checked="true"],.likert button[aria-checked="true"]:hover{background:var(--d-dusk);border-color:var(--d-dusk);color:#FFFFFF;box-shadow:0 8px 18px -8px rgba(106,90,224,.8)}
+.opt{background:#FFFFFF;border:1.5px solid var(--field-line);border-radius:16px;font-size:16.5px;color:var(--ink)}
+.opt:hover{border-color:var(--field-hover)}
+.opt[aria-checked="true"]{background:var(--sel-bg);border-color:var(--sel-line);color:var(--sel-ink);box-shadow:none;font-weight:600}
+.opt svg{color:var(--d-violet)}
+.switch[aria-checked="true"]{background:var(--d-dusk)}
+.agree{background:#FFFFFF;border:0;border-radius:18px;box-shadow:var(--card-shadow)}
+.agree.need{box-shadow:0 0 0 2px rgba(227,64,122,.55)}
+.agree-box{border-color:#C7C0DD}
+.agree input:checked+.agree-box{background:var(--d-dusk);border-color:var(--d-dusk)}
+.agree input:focus-visible+.agree-box{box-shadow:0 0 0 4px rgba(106,90,224,.22)}
+.count-pill{background:var(--fill);color:var(--muted)}
+.count-pill.ok{background:var(--sel-bg);color:var(--sel-ink)}
+
+/* ---------- progress ---------- */
+.steps i{background:#E4E0F0;height:4px}
+.steps i.done{background:linear-gradient(90deg,var(--d-dusk),#9B5BD6)}
+.steps i.cur{background:#E4E0F0}
+.steps i.cur::after{background:linear-gradient(90deg,#9B5BD6,var(--d-neon))}
+.stephead .tiny{color:var(--muted)}
+.mtr-line{background:#E4E0F0}
+.mtr-fill{background:linear-gradient(90deg,var(--d-dusk),var(--d-neon))}
+.stn{background:#FFFFFF;border-color:#D9D4EA}
+.stn.on{border-color:var(--d-dusk)}
+.stn.cur{background:var(--d-neon);border-color:#FFFFFF;box-shadow:0 0 0 3px var(--d-neon),0 0 14px 2px rgba(255,92,138,.45);animation:none}
+.qcount b{font-family:var(--num);font-weight:700;color:var(--ink);letter-spacing:-.02em}
+
+/* ---------- surfaces ---------- */
+.card,.list,.legend,.sentto,.disclose{background:#FFFFFF;border:0;box-shadow:var(--card-shadow)}
+.card{border-radius:22px}
+.list{border-radius:20px}
+.disclose{border-radius:18px}
+.list-row+.list-row::before{background:#EEEBF5}
+button.list-row:hover,a.list-row:hover{background:#FBFAFE}
+.list-row .chev{color:#BDB7D3}
+.list-row.danger{color:var(--red-ink)}
+.sec-label{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.01em}
+.sec-label svg{color:var(--d-neon)}
+
+/* onboarding: each group of questions sits on its own card */
+.form-page .group{background:#FFFFFF;border-radius:24px;padding:22px 20px 24px;box-shadow:var(--card-shadow)}
+.form-page .group+.group{padding-top:22px;border-top:0}
+.form-page .group legend{float:left;width:100%;margin-bottom:6px}
+.form-page .group legend+*{clear:both}
+.group-sub{margin-top:-14px}
+.form-page{gap:22px}
+.pagehead{gap:8px;margin-bottom:4px}
+
+/* sign-in */
+.sentto{border-radius:18px;padding:16px 18px}
+.sentto svg{color:var(--d-violet)}
+.disclose summary{font-weight:600}
+.domlist li{border-top-color:#EEEBF5}
+
+/* photos */
+.pgrid{gap:12px}
+.pslot{border-radius:20px;border:0;background:#FFFFFF;box-shadow:var(--card-shadow)}
+.pslot.add{border:1.5px dashed #C7C0DD;background:rgba(255,255,255,.6);box-shadow:none;color:var(--d-violet)}
+.pslot.add:hover{background:#FFFFFF;border-color:var(--d-dusk)}
+.pslot.ghost{border:1.5px dashed #E1DDEE;background:transparent;box-shadow:none;color:#CFCAE0}
+.pslot .tag{background:rgba(20,17,47,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.pslot .spin{border-color:var(--d-dusk);border-right-color:transparent}
+.pslot.busy{border-color:var(--d-dusk)}
+.tips.card{padding:16px 18px;gap:10px}
+
+/* quiz */
+.qsec{align-self:flex-start;display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;background:var(--sel-bg);color:var(--sel-ink);font-size:13px;font-weight:600}
+.qtext{font-weight:800;font-size:clamp(28px,7.4vw,40px);line-height:1.2;margin:0}
+:lang(zh) .qtext{font-weight:700}
+.likert button{width:clamp(40px,11.6vw,48px);height:clamp(40px,11.6vw,48px);font-size:18px}
+.quiz-foot{color:var(--muted)}
+
+/* priorities */
+.legend{border-radius:18px}
+.prio-list{background:#FFFFFF;border-radius:22px;padding:4px 18px 8px;box-shadow:var(--card-shadow)}
+.prio-head{font-family:var(--display);font-size:18px;font-weight:700;margin:18px 0 6px;color:var(--ink)}
+.prio{border-top:1px solid #EEEBF5}
+.prio-head+.prio{border-top:0}
+.icon-toggle{background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--field-line);border-radius:12px}
+.icon-toggle[aria-pressed="true"].star{background:#FFF5E0;box-shadow:inset 0 0 0 1.5px #E8B04A}
+.icon-toggle[aria-pressed="true"].lock{background:var(--ink);box-shadow:none}
+.dockbar{background:rgba(20,17,47,.9);border-radius:999px;box-shadow:0 18px 36px -14px rgba(20,17,47,.7),0 0 0 1px rgba(255,255,255,.06) inset}
+
+/* ---------- home ---------- */
+.hello{font-weight:800;font-size:clamp(28px,7vw,38px);line-height:1.15}
+:lang(zh) .hello{font-weight:700}
+.card-ink{position:relative;isolation:isolate;overflow:hidden;border-radius:28px;box-shadow:0 30px 60px -32px rgba(20,17,47,.8)}
+.card-ink::before{content:"";position:absolute;z-index:-1;width:360px;height:360px;right:-140px;top:-170px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,92,138,.4),rgba(255,92,138,0))}
+.card-ink::after{content:"";position:absolute;z-index:-1;width:420px;height:420px;left:-200px;bottom:-260px;border-radius:50%;background:radial-gradient(closest-side,rgba(106,90,224,.5),rgba(106,90,224,0))}
+.dropcard .big-count{font-family:var(--num);font-weight:700;letter-spacing:-.03em;color:#FFFFFF}
+.dc-week{color:#FFFFFF;font-weight:600}
+.dc-label{color:var(--night-muted)}
+.dc-hint{color:var(--night-text)}
+.card.prefs,.card.weekly{border-radius:22px}
+.weekly-q{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ink)}
+.home-page .inline-form .btn{background:var(--ink);border-color:var(--ink);color:#FFFFFF}
+.home-page .list,.me-page .list{border-radius:20px}
+.secure{color:var(--green)}
+
+/* ---------- the night tab: match ---------- */
+.night-page body{background:
+  radial-gradient(80% 420px at 50% -120px,rgba(106,90,224,.42),rgba(106,90,224,0) 70%),
+  radial-gradient(60% 360px at 100% 30%,rgba(255,92,138,.16),rgba(255,92,138,0) 70%),
+  var(--night) no-repeat}
+.night-page .top{background-color:rgba(20,17,47,.6);border-bottom-color:rgba(255,255,255,.05)}
+.night-page .plate b{color:#FFFFFF}
+.night-page .tabs{background:rgba(20,17,47,.82);border-top-color:rgba(255,255,255,.06)}
+.night-page .tab{color:#8F89B5}
+.night-page .tab[aria-current="page"]{color:#FFFFFF}
+.night .muted,.night .cm-sub,.night .wd-sub{color:var(--night-text)}
+.waitdrop{padding-top:32px;gap:16px}
+.bigtime{font-family:var(--num);font-weight:800;font-size:clamp(108px,32vw,168px);letter-spacing:-.045em;line-height:.92;color:#FFF3F7;text-shadow:0 0 4px rgba(255,255,255,.6),0 0 18px rgba(255,92,138,.85),0 0 46px rgba(255,92,138,.55),0 0 110px rgba(255,92,138,.4)}
+.wd-title{font-weight:700;font-size:clamp(22px,6vw,28px);margin:6px 0 0}
+.waitdrop .big-count{font-family:var(--num);font-weight:700;color:#FFFFFF}
+.cm-mark{display:grid;place-items:center;width:60px;height:60px;border-radius:20px;background:rgba(255,255,255,.08);box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 0 40px -6px rgba(255,201,121,.5);color:var(--d-lamp)}
+.cm-mark svg{stroke:currentColor}
+.cm-mark.light{background:#FFFFFF;box-shadow:var(--card-shadow);color:var(--d-violet)}
+.ok-badge{display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:rgba(94,234,180,.14);color:#8EF0C6;box-shadow:0 0 0 1px rgba(94,234,180,.3) inset}
+.cm-title{font-weight:800;font-size:clamp(30px,8vw,42px);line-height:1.15}
+:lang(zh) .cm-title{font-weight:700}
+.empty-day{padding-top:56px;gap:16px;align-items:flex-start}
+.empty-title{margin:0;font-weight:700;font-size:24px;line-height:1.35}
+
+/* reveal: the photo, then the match card */
+.mphoto{border-radius:30px;box-shadow:0 40px 80px -30px rgba(5,3,20,.9),0 0 0 1px rgba(255,255,255,.06)}
+.thumbs button{border-radius:14px}
+.thumbs button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--d-night),0 0 0 4px var(--d-neon)}
+.pdots i.on{background:#FFFFFF}
+.placard{border:0;border-radius:28px;background:#FFFFFF;box-shadow:0 40px 80px -36px rgba(5,3,20,.9),0 0 0 1px rgba(255,255,255,.08);padding:22px 24px 24px}
+.placard.glow{box-shadow:0 40px 80px -36px rgba(5,3,20,.9),0 0 90px -20px rgba(255,92,138,.55);animation:none}
+.placard-top .eyebrow{color:var(--muted);font-size:13px;font-weight:600}
+.placard .route{background:var(--d-night);color:#FFFFFF}
+.dest{font-family:var(--display);font-weight:800;color:var(--ink);letter-spacing:-.04em}
+html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
+.placard .dash{border-top:1.5px dashed #E1DDEE}
+.tick{background:var(--d-dusk)}
+.fit{border:0;background:var(--sel-bg);color:var(--sel-ink);font-weight:600}
+.about-card.night-card,.prompt{background:rgba(255,255,255,.06);box-shadow:0 0 0 1px rgba(255,255,255,.08) inset;border-radius:24px}
+.about-card .about-tags span{border-radius:999px}
+.prompt-text{font-family:var(--display);font-weight:700}
+.decide-btns .btn{min-height:56px}
+.pair-ph img,.pair-ph span,.pair-ph i{border-color:var(--night)}
+.pair-ph i{background:var(--love)}
+.pair-ph{filter:drop-shadow(0 0 30px rgba(255,92,138,.35))}
+
+/* ---------- chat ---------- */
+.chat-head{border-bottom:0;padding-bottom:6px}
+.chat-head .avatar{box-shadow:0 0 0 2px #FFFFFF,0 0 0 3.5px rgba(106,90,224,.35)}
+.chat-name{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em}
+.chat-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.days-pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;background:var(--d-night);color:#FFFFFF;font-size:13px;font-weight:600}
+.text-only{display:inline-flex;gap:6px;align-items:center}
+.ice-card{display:flex;flex-direction:column;gap:10px;padding:20px}
+.ice-label{align-self:flex-start;font-size:12.5px;font-weight:600;color:var(--sel-ink);background:var(--sel-bg);border-radius:999px;padding:4px 10px}
+.ice-q{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+.ice-ans{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
+.ice-ans span{overflow-wrap:anywhere;color:var(--body)}
+.ice-refresh{align-self:flex-start}
+.ice-card .inline-form .btn{background:var(--ink);border-color:var(--ink);color:#FFFFFF}
+.bubble{border-radius:20px}
+.bubble.me{background:linear-gradient(135deg,#7A62F0,var(--d-dusk));color:#FFFFFF}
+.bubble.them{background:#FFFFFF;color:var(--ink);box-shadow:0 1px 2px rgba(34,30,61,.06)}
+.tstamp{color:var(--muted)}
+.chat-acts{display:flex;gap:8px;flex-wrap:wrap}
+.e2e-note{margin:4px 0 0;display:flex;gap:6px;align-items:flex-start;color:var(--muted);line-height:1.55}
+.e2e-note svg{flex:none;margin-top:2px}
+.area{background:var(--sel-bg);color:var(--sel-ink)}
+.area svg{color:var(--d-violet)}
+.composer{background:rgba(255,255,255,.86);box-shadow:0 14px 34px -14px rgba(34,30,61,.35),0 0 0 1px rgba(34,30,61,.05)}
+.send{background:var(--love);box-shadow:0 8px 18px -8px rgba(227,64,122,.8)}
+.send:hover{background:var(--love);filter:brightness(1.05)}
+.confirm{background:#FFFFFF;box-shadow:0 0 0 1.5px rgba(227,64,122,.45),var(--card-shadow);border-radius:20px}
+
+/* ---------- me ---------- */
+.me-head{background:#FFFFFF;border-radius:24px;padding:16px;box-shadow:var(--card-shadow)}
+.me-photo{border-radius:18px}
+.me-name{font-weight:800;font-size:28px;line-height:1.1}
+.verified{background:#E7F6EF;color:var(--green)}
+.safety-card{gap:10px}
+.safety-item svg{color:var(--green)}
+
+/* ---------- tab bar ---------- */
+.tabs{background:rgba(250,249,255,.86);border-top:1px solid rgba(34,30,61,.06)}
+.tab{color:#8E89A6}
+.tab[aria-current="page"]{color:var(--d-violet)}
+.tdot{background:var(--d-neon)}
+.dtab{color:var(--body)}
+.dtab[aria-current="page"]{background:var(--ink);color:#FFFFFF}
+
+/* ---------- small things ---------- */
+.notice{border-radius:16px}
+.err{color:var(--red-ink)}
+.loading .plate b{color:var(--ink)}
+.loading-bar{background:#E4E0F0}
+.loading-bar i{background:var(--love)}
+#toast{background:rgba(20,17,47,.92);color:#FFFFFF}
+
+/* ---------- crush list on home ---------- */
+.crush-card{display:flex;flex-direction:column;gap:12px;padding:18px}
+.crush-card .list{box-shadow:none;background:var(--d-mist);border-radius:14px}
+.crush-card .inline-form .input{border-style:dashed;border-color:#C7C0DD;background:var(--d-mist)}
+.crush-card .inline-form .input:focus{border-style:solid;background:#FFFFFF}
+.crush-card .inline-form .btn{background:var(--love);border:0;color:#FFFFFF;box-shadow:0 10px 22px -12px rgba(227,64,122,.7)}
+.crush-card p{margin:0}
+
+/* ---------- terms / privacy sheet: informational, so violet ---------- */
+.lg-sheet{background:var(--d-mist)}
+.lg-hero{border:0;box-shadow:var(--card-shadow);background:radial-gradient(120% 90% at 100% 0%,rgba(106,90,224,.12),rgba(106,90,224,0) 60%),#FFFFFF}
+.lg-icon{background:var(--sel-bg);color:var(--d-violet)}
+.lg-eyebrow{color:var(--d-violet)}
+.lg-chip b{color:var(--d-violet)}
+.lg-num{background:var(--sel-bg);color:var(--sel-ink)}
+.lg-card li::before{background:var(--d-dusk)}
+.lg-progress i{background:linear-gradient(90deg,var(--d-dusk),var(--d-neon))}
+.lg-foot{background:linear-gradient(160deg,#2B245F,var(--d-night) 80%)}
+/* hover on night surfaces must not wash out the heart buttons (taps leave :hover behind on phones) */
+.night .btn-love:hover,.card-ink .btn-love:hover,.night-page .btn-love:hover{background:var(--love);border:0;color:#FFFFFF}
+.night .btn-red:hover,.card-ink .btn-red:hover,.night-page .btn-red:hover{background:#EDEBFA;border-color:#EDEBFA;color:var(--d-night)}
+.btn-soft[aria-pressed="true"]:hover{background:var(--sel-bg);border-color:var(--sel-line)}
+.quiz-foot{display:grid;grid-template-columns:auto 1fr;align-items:start;column-gap:8px;row-gap:4px;line-height:1.55}
+.quiz-foot svg{margin-top:3px}
+.quiz-foot .kbd-hint{grid-column:2}
+@media (min-width:700px){.quiz-foot{grid-template-columns:auto 1fr auto}.quiz-foot .kbd-hint{grid-column:3}}
+.seg button{line-height:1.25;padding-block:6px}
+.lg-sheet .lg-card li::before,.lg-sheet .lg-card ul li::before{background:var(--d-dusk)}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -2213,6 +2527,13 @@ Object.assign(T, {
   tlMarks: [["約 8 分鐘", "星期日至三 18:00 前", "星期三 21:00", "48 小時內"], ["约 8 分钟", "周日至周三 18:00 前", "周三 21:00", "48 小时内"], ["About 8 min", "Sun to Wed, before 6pm", "Wednesday, 9pm", "Within 48 hours"]]
 });
 Object.assign(T, { diffTitle: ["點解揀 |UNIdate", "为什么选择 |UNIdate", "Why UNIdate"] });
+/* ---- inside redesign copy ---- */
+Object.assign(T, {
+  nextStop: ["今個星期嘅配對", "本周配对", "This week's match"],
+  aboutG1: ["你係點樣嘅人", "你是怎样的人", "What you're like"],
+  aboutG2: ["補充資料", "补充资料", "A few extras"]
+});
+Object.assign(T, { photoCount2: ["{a} 張相", "{a} 张照片", "Photos: {a}"] });
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -2727,6 +3048,7 @@ var IC = {
   heart: '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3407A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
   check: '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   send: '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  moon: '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>',
   flag: '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h11l-2 4 2 4H5"/></svg>',
   plus: '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
   chev: '<svg class="chev" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
@@ -3061,13 +3383,15 @@ function vAbout() {
   return shellSignup('<form class="stack form-page" data-form="about" novalidate>' +
     (editing ? backLink("me") : stepTop(2, "profile")) +
     pageTitle("s5Title", t("s5Sub")) +
+    '<fieldset class="group"><legend>' + t("aboutG1") + '</legend>' +
     '<div class="field"><label for="pbio">' + t("fBio") + '</label><textarea class="input" id="pbio" data-field="bio" maxlength="150" rows="3" placeholder="' + t("bioPh") + '">' + esc(d.bio || "") + '</textarea><span class="tiny muted counter" id="biocount">' + (d.bio || "").length + ' / 150</span></div>' +
     '<div class="field"><div class="label-row"><span class="label">' + t("fTraits") + '</span>' + countPill((d.traits || []).length, 3, 5) + '</div>' + tagPicker("traits", "traits") + errBox("traits") + '</div>' +
     '<div class="field"><div class="label-row"><span class="label">' + t("fInterests") + '</span><span class="count-pill' + (n >= 3 ? " ok" : "") + '">' + n + ' / 6</span></div>' +
       '<div class="chips tags">' + optPairs("interests").map(function (o) { var on = (d.interests || []).indexOf(o[0]) >= 0; return '<button type="button" class="chip tag" data-act="chip" data-f="interests" data-v="' + o[0] + '" data-multi="1" aria-pressed="' + on + '">' + o[1] + '</button>'; }).join("") + '</div>' + errBox("interests") + '</div>' +
+    '</fieldset><fieldset class="group"><legend>' + t("aboutG2") + ' <span class="opt-tag">' + t("optional") + '</span></legend>' +
     '<div class="pair"><div class="field"><label for="pmbti">MBTI <span class="opt-tag">' + t("optional") + '</span></label><select class="input" id="pmbti" data-field="mbti">' + selOpts(MBTI.map(function (x) { return [x, x]; }), d.mbti, t("mbtiNA")) + '</select></div>' +
       '<div class="field"><label for="prel">' + t("fReligion") + ' <span class="opt-tag">' + t("optional") + '</span></label><select class="input" id="prel" data-field="religion">' + selOpts(optPairs("religion"), d.religion, t("pick")) + '</select></div></div>' +
-    '<div class="field"><span class="label">' + t("fSmoke") + ' <span class="opt-tag">' + t("optional") + '</span></span>' + chipGroup("smoking", optPairs("smoking")) + '</div>' +
+    '<div class="field"><span class="label">' + t("fSmoke") + ' <span class="opt-tag">' + t("optional") + '</span></span>' + chipGroup("smoking", optPairs("smoking")) + '</div></fieldset>' +
     (ui.errAt === "interests" || ui.errAt === "traits" ? "" : errBox()) + '<button class="btn btn-red btn-block" type="submit"' + busyAttr("about") + '>' + (ui.busy === "about" ? t("saving") : editing ? t("saveChanges") : t("next")) + '</button></form>');
 }
 function vPhoto() {
@@ -3084,7 +3408,7 @@ function vPhoto() {
     (editing ? backLink("me") : stepTop(4, "want")) +
     pageTitle("s4Title", t("s4Sub")) +
     '<div class="pgrid">' + slots + '</div><input id="photo" type="file" accept="image/jpeg,image/png,image/webp,image/*" class="sr"' + (ps.length >= 3 || ui.busy === "photo" ? " disabled" : "") + '>' +
-    '<ul class="tips">' + tips.map(function (x) { return '<li>' + IC.check + '<span>' + x + '</span></li>'; }).join("") + '</ul>' +
+    '<ul class="tips card">' + tips.map(function (x) { return '<li>' + IC.check + '<span>' + x + '</span></li>'; }).join("") + '</ul>' +
     errBox() + '<button type="button" class="btn btn-red btn-block" data-act="photoNext"' + (ps.length < 1 ? ' aria-disabled="true"' : "") + '>' + (editing ? t("done") : ps.length < 1 ? t("photoCount", ps.length) : t("cont")) + '</button></div>');
 }
 function vQuiz() {
@@ -3106,7 +3430,7 @@ function vQuiz() {
   return shell('<div class="dgrid quiz-grid"><div class="stack d-main" style="padding-top:16px;gap:24px">' +
     '<div class="row between"><button type="button" class="backlink" data-act="qback">' + IC.back + t("back") + '</button><span class="qcount"><b class="num">' + n + '</b><span>/ 40</span></span></div>' +
     mtr(n) +
-    '<div class="qanim stack" style="gap:24px"><span class="eyebrow">' + secLabel + '</span><h1 class="qtext serif">' + ph(tr(q.q)) + '</h1>' + body + '</div>' +
+    '<div class="qanim stack" style="gap:24px"><span class="qsec">' + secLabel + '</span><h1 class="qtext serif">' + ph(tr(q.q)) + '</h1>' + body + '</div>' +
     '<p class="tiny muted quiz-foot">' + IC.lockG + t("privacy") + (q.t === "text" ? "" : '<span class="kbd-hint">' + t("kbdHint") + '</span>') + '</p></div></div>', null, true);
 }
 function vPrio() {
@@ -3115,7 +3439,7 @@ function vPrio() {
     return PRIO.filter(function (q) { return q.sec === sec; }).map(function (q) {
       var st = S.star.indexOf(q.id) >= 0, lk = S.lock.indexOf(q.id) >= 0, a = S.answers[q.id];
       var ansTxt = a === undefined ? "–" : q.t === "likert" ? a + " / 7" : tr(q.o[a]);
-      return '<div class="prio' + (st || lk ? " marked" : "") + '"><div class="qt"><div>' + tr(q.q) + '</div><div class="tiny muted">' + t("yourAns") + "：" + esc(ansTxt) + '</div></div>' +
+      return '<div class="prio' + (st || lk ? " marked" : "") + '"><div class="qt"><div>' + tr(q.q) + '</div><div class="tiny muted">' + t("yourAns") + (S.lang === "en" ? ": " : "：") + esc(ansTxt) + '</div></div>' +
         '<button type="button" class="icon-toggle star" data-act="star" data-v="' + q.id + '" aria-pressed="' + st + '" aria-label="' + t("starAria") + '">' + (st ? IC.starOn : IC.star) + '</button>' +
         '<button type="button" class="icon-toggle lock" data-act="lock" data-v="' + q.id + '" aria-pressed="' + lk + '" aria-label="' + t("lockAria") + '">' + IC.lock + '</button></div>';
     }).join("");
@@ -3143,13 +3467,13 @@ function vHome() {
   var p = D.profile, st = D.st, inNow = st.opted_in, m = curMatch();
   var drop = '<div class="card-ink dropcard"><div class="row between"><span class="dc-week">' + t("weekDrop", weekLabel()) + '</span><span class="route">21:00</span></div>' +
     '<div><div class="tiny dc-label">' + t("countLabel") + '</div><div class="big-count" data-countdown>' + countdown() + '</div></div>';
-  if (m && (m.state === "pending" || m.state === "waiting")) drop += '<button type="button" class="btn btn-red btn-block" data-act="go" data-v="drop">' + t("seeMatch") + '</button>';
+  if (m && (m.state === "pending" || m.state === "waiting")) drop += '<button type="button" class="btn btn-love btn-block" data-act="go" data-v="drop">' + t("seeMatch") + '</button>';
   if (p.paused) drop += '<p class="dc-note">' + t("paused") + '</p>';
   else if (!p.quiz_done) drop += '<button type="button" class="btn btn-red btn-block" data-act="go" data-v="quiz">' + t("goQuiz") + '</button>';
   else if (myPhotos().length < 1 || !p.height_cm) drop += '<p class="dc-note">' + t("needPhotosHome") + '</p><button type="button" class="btn btn-red btn-block" data-act="go" data-v="photo">' + t("goPhotos") + '</button>';
   else if (inNow) drop += '<div class="joined' + (ui.burst ? " pop" : "") + '">' + IC.check + t("optedIn") + burstHTML() + '</div>' + (st.optin_open ? '<button type="button" class="link dc-out" data-act="optout"' + busyAttr("optin") + '>' + t("optOut") + '</button>' : "");
   else if (!st.optin_open) drop += '<p class="dc-note">' + t("optClosed") + '</p>';
-  else drop += '<button type="button" class="btn btn-red btn-block btn-lg" data-act="optin"' + busyAttr("optin") + '>' + (ui.busy === "optin" ? t("saving") : t("optIn")) + '</button>' +
+  else drop += '<button type="button" class="btn btn-love btn-block btn-lg" data-act="optin"' + busyAttr("optin") + '>' + (ui.busy === "optin" ? t("saving") : t("optIn")) + '</button>' +
     '<a class="dc-hint" href="#prefs">' + t("prefsFirst") + '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>';
   drop += errBox("optin") + '<span class="tiny dc-label">' + t("howWeek") + '</span></div>';
   var prefs = '<section class="me-sec" id="prefs"><h2 class="sec-label">' + t("prefsLabel") + '</h2><div class="card prefs">' +
@@ -3161,10 +3485,10 @@ function vHome() {
       return '<button type="button" class="chip" role="radio" aria-checked="' + (wsel === i) + '" data-act="weekly" data-v="' + i + '">' + o + '</button>';
     }).join("") + '</div></div></section>';
   var cr = D.crushes;
-  var crush = '<section class="me-sec"><div class="sec-row"><h2 class="sec-label">' + IC.heart + t("crushHome") + '</h2><span class="tiny muted">' + cr.length + ' / 3</span></div>' +
+  var crush = '<section class="me-sec"><div class="sec-row"><h2 class="sec-label">' + IC.heart + t("crushHome") + '</h2><span class="tiny muted">' + cr.length + ' / 3</span></div><div class="card crush-card">' +
     (cr.length ? '<div class="list">' + cr.map(function (c, i) { return '<div class="list-row static"><span class="mono">' + esc(c.label) + '</span><button type="button" class="x" data-act="crushDel" data-v="' + i + '" aria-label="' + t("remove") + '">' + IC.x + '</button></div>'; }).join("") + '</div>' : "") +
     (cr.length < 3 ? '<form class="inline-form" data-form="crush" novalidate><label for="crushEmail" class="sr">' + t("emailLabel") + '</label><input class="input" id="crushEmail" type="email" autocapitalize="off" spellcheck="false" placeholder="name@link.cuhk.edu.hk"><button class="btn" type="submit"' + busyAttr("crush") + '>' + t("crushAdd") + '</button></form>' : "") +
-    errBox("crush") + '<p class="tiny muted">' + t("crushNote") + '</p>' + (cr.length ? '<p class="tiny secure">' + IC.lockG + t("crushHashed") + '</p>' : "") + '</section>';
+    errBox("crush") + '<p class="tiny muted">' + t("crushNote") + '</p>' + (cr.length ? '<p class="tiny secure">' + IC.lockG + t("crushHashed") + '</p>' : "") + '</div></section>';
   return shell('<div class="stack home-page">' +
     (st.test_mode ? '<p class="notice">' + t("testMode") + '</p>' : "") +
     '<h1 class="serif hello">' + tph("hi", esc(p.name)) + '</h1>' + drop + prefs + weekly + crush +
@@ -3184,13 +3508,13 @@ function vDrop() {
     var fadeCls = roll ? "fade" : "fade now";
     inner = '<div class="reveal">' + gallery(m, roll ? "card-in" : "") + card + aboutCard(m, "night-card " + fadeCls) +
       (m.prompt ? '<div class="prompt ' + fadeCls + '"><span class="tiny muted">' + t("promptLabel") + '</span><span class="serif prompt-text">' + esc(m.prompt) + '</span></div>' : "") +
-      '<div class="' + fadeCls + ' decide"><div class="decide-btns"><button type="button" class="btn" data-act="decide" data-v="pass"' + busyAttr("decide") + '>' + t("pass") + '</button><button type="button" class="btn btn-red" data-act="decide" data-v="yes"' + busyAttr("decide") + '>' + IC.heart.replace('stroke="#E3407A"', 'stroke="#fff"') + t("yes") + '</button></div>' +
+      '<div class="' + fadeCls + ' decide"><div class="decide-btns"><button type="button" class="btn" data-act="decide" data-v="pass"' + busyAttr("decide") + '>' + t("pass") + '</button><button type="button" class="btn btn-love" data-act="decide" data-v="yes"' + busyAttr("decide") + '>' + IC.heart.replace('stroke="#E3407A"', 'stroke="#fff"') + t("yes") + '</button></div>' +
       errBox("decide") + '<span class="tiny muted decide-note">' + decideLeft(m) + '</span></div></div>';
   }
   else if (active) inner = centerMsg(t("waitTitle", esc(m.name)), t("waitSub"), '<button type="button" class="btn btn-block" data-act="refresh"' + busyAttr("refresh") + '>' + t("refresh") + '</button>', IC.check);
   else if (chatAlive) {
     if (!S.celebrated[m.id]) { S.celebrated[m.id] = true; ui.celebrate = true; }
-    inner = confetti() + centerMsg(t("mutualTitle"), t("mutualSub", esc(m.name)), '<button type="button" class="btn btn-red btn-block" data-act="go" data-v="chat">' + t("openChat") + '</button>' +
+    inner = confetti() + centerMsg(t("mutualTitle"), t("mutualSub", esc(m.name)), '<button type="button" class="btn btn-love btn-block" data-act="go" data-v="chat">' + t("openChat") + '</button>' +
       (st.opted_in ? '<p class="tiny muted center">' + t("alsoIn") + '</p>' : ""), pairPhotos(m));
   }
   else if (st.opted_in) inner = '<div class="waitdrop"><span class="bigtime">21:00</span><h1 class="serif wd-title">' + tph(soon ? "dropTitle" : "dropTitleLater") + '</h1>' +
@@ -3217,14 +3541,14 @@ function pairPhotos(m) {
   return '<span class="pair-ph" aria-hidden="true">' + one(mine, D.profile && D.profile.name) + '<i>' + IC.heart.replace('stroke="#E3407A"', 'stroke="#fff"') + '</i>' + one(theirs, m.name) + '</span>';
 }
 function centerMsg(title, sub, actions, icon) {
-  return '<div class="stack" style="gap:18px;padding-top:48px">' + (icon && icon.indexOf("pair-ph") >= 0 ? icon : icon ? '<span class="ok-badge" style="width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center">' + icon + '</span>' : '<span class="num" style="font-size:72px;line-height:1;color:var(--red)">→</span>') +
+  return '<div class="stack" style="gap:18px;padding-top:48px">' + (icon && icon.indexOf("pair-ph") >= 0 ? icon : icon ? '<span class="ok-badge">' + icon + '</span>' : '<span class="cm-mark" aria-hidden="true">' + IC.moon + '</span>') +
     '<h1 class="serif cm-title">' + ph(title) + '</h1>' + (sub ? '<p class="muted cm-sub">' + sub + '</p>' : "") + '<div class="stack cm-actions">' + actions + '</div></div>';
 }
-function centerMsgDay(msg) { return '<div class="stack" style="padding-top:56px;gap:16px;align-items:flex-start"><span class="num" style="font-size:72px;line-height:1;color:var(--red)">…</span><p class="serif" style="margin:0;font-size:24px;line-height:1.4">' + msg + '</p></div>'; }
+function centerMsgDay(msg) { return '<div class="stack empty-day"><span class="cm-mark light" aria-hidden="true">' + IC.chat + '</span><p class="empty-title">' + msg + '</p></div>'; }
 function vChat() {
   var m = curMatch();
   if (!m || (m.state !== "mutual" && m.state !== "reported")) return shell(centerMsgDay(t("chatEmpty")) + '<div class="empty-act">' +
-    (m && (m.state === "pending" || m.state === "waiting") ? '<button type="button" class="btn btn-red" data-act="go" data-v="drop">' + t("seeMatch") + '</button>' : '<button type="button" class="btn" data-act="go" data-v="home">' + t("goHomeTab") + '</button>') + '</div>', "chat");
+    (m && (m.state === "pending" || m.state === "waiting") ? '<button type="button" class="btn btn-love" data-act="go" data-v="drop">' + t("seeMatch") + '</button>' : '<button type="button" class="btn" data-act="go" data-v="home">' + t("goHomeTab") + '</button>') + '</div>', "chat");
   var left = chatDaysLeft(m), ph = m.photos && m.photos[0] ? purl(m.photos[0]) : "";
   var avatar = ph ? '<img class="avatar" src="' + esc(ph) + '" alt="" style="object-fit:cover">' : '<span class="avatar" aria-hidden="true">' + esc((m.name || "?").charAt(0)) + '</span>';
   var head = '<div class="chat-head">' + avatar +
@@ -3233,11 +3557,11 @@ function vChat() {
   if (m.state === "reported") return shell('<div class="stack">' + head + '<p class="err" style="margin:0">' + t("reported") + '</p></div>', "chat");
   if (left <= 0) return shell('<div class="stack">' + head + '<p class="muted">' + t("expired") + '</p></div>', "chat");
   var both = !!(m.my_ice && m.their_ice);
-  var ice = '<div class="card stack" style="gap:10px;background:var(--white);border-color:var(--ink)"><span class="eyebrow" style="color:var(--red)">' + t("iceLabel") + '</span><span class="serif" style="font-size:22px;line-height:1.3">' + t("iceQ") + '</span>';
+  var ice = '<div class="card ice-card"><span class="ice-label">' + t("iceLabel") + '</span><span class="ice-q">' + t("iceQ") + '</span>';
   if (!m.my_ice) ice += '<form class="stack" data-form="ice" novalidate style="gap:8px"><label for="ice" class="sr">' + t("answer") + '</label><div class="inline-form"><input class="input" id="ice" maxlength="60" placeholder="' + t("icePh") + '"><button class="btn btn-red" type="submit"' + busyAttr("ice") + '>' + t("answer") + '</button></div></form>' + errBox("ice");
-  else ice += '<div class="small" style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px"><strong>' + t("you") + '</strong><span style="overflow-wrap:anywhere">' + esc(m.my_ice) + '</span>' +
-    (m.their_ice ? '<strong>' + esc(m.name) + '</strong><span style="overflow-wrap:anywhere">' + esc(m.their_ice) + '</span>' : "") + '</div>' +
-    (m.their_ice ? "" : '<span class="tiny muted">' + t("iceWait") + '</span><button type="button" class="btn btn-sm" data-act="refresh" style="align-self:flex-start">' + t("refresh") + '</button>');
+  else ice += '<div class="ice-ans"><strong>' + t("you") + '</strong><span>' + esc(m.my_ice) + '</span>' +
+    (m.their_ice ? '<strong>' + esc(m.name) + '</strong><span>' + esc(m.their_ice) + '</span>' : "") + '</div>' +
+    (m.their_ice ? "" : '<span class="tiny muted">' + t("iceWait") + '</span><button type="button" class="btn btn-sm ice-refresh" data-act="refresh">' + t("refresh") + '</button>');
   ice += '</div>';
   var me = uid(), newId = ui.newId; ui.newId = null;
   var prev = null, msgs = D.msgs.map(function (x) {
@@ -3254,15 +3578,15 @@ function vChat() {
   }).join("") + '</div><span class="tiny muted">' + t("safeTip") + '</span></div>' : "";
   var canAttach = D.msgs.some(function (x) { return !x.err; });
   var confirm = ui.confirm === "report" ? '<div class="confirm" role="alertdialog" aria-label="' + t("report") + '"><span>' + t("reportQ", esc(m.name)) + '</span>' +
-    (canAttach ? '<label class="attach"><input type="checkbox" id="repEvidence" checked><span>' + t("reportAttach") + '</span></label>' : "") + '<div class="row"><button type="button" class="btn btn-red btn-sm" data-act="reportYes">' + t("reportYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' : "";
+    (canAttach ? '<label class="attach"><input type="checkbox" id="repEvidence" checked><span>' + t("reportAttach") + '</span></label>' : "") + '<div class="row"><button type="button" class="btn btn-danger btn-sm" data-act="reportYes">' + t("reportYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' : "";
   var ig = ui.igOpen ? '<form class="row" data-form="ig" novalidate style="flex-wrap:nowrap"><label for="ig" class="sr">' + t("igLabel") + '</label><input class="input" id="ig" placeholder="@" maxlength="30" style="flex:1 1 auto;min-width:0"><button class="btn btn-sm" type="submit">' + t("share") + '</button></form>' : "";
   var noE2E = D.e2eErr === "unsupported";
   var composer = both && noE2E ? '<div class="composer"><div class="composer-in"><p class="small" style="margin:0;padding:12px 4px">' + t("e2eUnsupported") + '</p></div></div>' : both ? '<div class="composer"><div class="composer-in"><form class="row" data-form="msg" novalidate style="flex:1 1 auto;flex-wrap:nowrap;gap:8px"><label for="msg" class="sr">' + t("msgLabel") + '</label><input class="input" id="msg" autocomplete="off" enterkeyhint="send" maxlength="300" placeholder="' + t("msgPh") + '" style="flex:1 1 auto;min-width:0;height:48px;border-radius:999px"><button class="send" type="submit" aria-label="' + t("send") + '">' + IC.send + '</button></form></div></div>' : "";
   return header(true, "chat") + '<main class="col app-main wide chat-main" style="padding-bottom:' + (both ? 220 : 140) + 'px"><div class="dgrid chat-grid"><div class="stack d-main" style="gap:12px">' + head +
-    '<div class="row between"><span class="demo" style="background:var(--ink);color:var(--paper)">' + t("daysLeft", left) + '</span><span class="tiny muted" style="display:flex;gap:6px;align-items:center">' + IC.lockG + t("textOnly") + '</span></div>' +
+    '<div class="chat-meta"><span class="days-pill">' + t("daysLeft", left) + '</span><span class="tiny muted text-only">' + IC.lockG + t("textOnly") + '</span></div>' +
     confirm + '<details class="disclose about-disclose"><summary>' + t("aboutTitle", esc(m.name || "")) + IC.chev + '</summary>' + aboutCard(m, "flat") + '</details>' + ice + (both ? '<div class="stack" style="gap:8px">' + msgs + '</div>' + errBox("msg") : "") + coffee +
-    (both ? '<div class="row"><button type="button" class="btn btn-sm" data-act="coffee" aria-pressed="' + !!ui.showCoffee + '" style="border-color:var(--red);color:var(--red-ink)">' + t("coffee") + '</button><button type="button" class="btn btn-sm" data-act="igOpen">' + t("ig") + '</button></div>' + ig : "") +
-    '<p class="tiny" style="margin:0;display:flex;gap:6px;align-items:center;color:var(--green);font-weight:600">' + IC.lockG + t("e2eeNote") + (E2E.volatile() ? " " + t("e2eVolatile") : "") + '</p>' + composer + '</div></div></main>' + tabs("chat");
+    (both ? '<div class="chat-acts"><button type="button" class="btn btn-sm btn-soft" data-act="coffee" aria-pressed="' + !!ui.showCoffee + '">' + IC.pin + t("coffee") + '</button><button type="button" class="btn btn-sm btn-soft" data-act="igOpen" aria-pressed="' + !!ui.igOpen + '">' + t("ig") + '</button></div>' + ig : "") +
+    '<p class="tiny e2e-note">' + IC.lockG + t("e2eeNote") + (E2E.volatile() ? " " + t("e2eVolatile") : "") + '</p>' + composer + '</div></div></main>' + tabs("chat");
 }
 function vMe() {
   var p = D.profile, s = school(p.school), ps = myPhotos();
@@ -3274,7 +3598,7 @@ function vMe() {
   var block = '<section class="me-sec"><h2 class="sec-label">' + t("blockTitle") + '</h2><p class="tiny muted">' + t("blockSub") + '</p>' +
     (D.blocks.length ? '<div class="list">' + D.blocks.map(function (b, i) { return '<div class="list-row static"><span class="mono">' + esc(b.label) + '</span><button type="button" class="x" data-act="blockDel" data-v="' + i + '" aria-label="' + t("remove") + '">' + IC.x + '</button></div>'; }).join("") + '</div>' : "") +
     '<form class="inline-form" data-form="block" novalidate><label for="blockEmail" class="sr">' + t("emailLabel") + '</label><input class="input" id="blockEmail" type="email" autocapitalize="off" spellcheck="false" placeholder="name@connect.polyu.hk"><button class="btn" type="submit"' + busyAttr("block") + '>' + t("crushAdd") + '</button></form>' + errBox("block") + '</section>';
-  var del = ui.confirm === "delete" ? '<div class="confirm" role="alertdialog" aria-label="' + t("delTitle") + '"><span>' + t("delQ") + '</span><div class="row"><button type="button" class="btn btn-red btn-sm" data-act="delYes"' + busyAttr("delete") + '>' + t("delYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' + errBox("delete") : "";
+  var del = ui.confirm === "delete" ? '<div class="confirm" role="alertdialog" aria-label="' + t("delTitle") + '"><span>' + t("delQ") + '</span><div class="row"><button type="button" class="btn btn-danger btn-sm" data-act="delYes"' + busyAttr("delete") + '>' + t("delYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' + errBox("delete") : "";
   return shell('<div class="stack me-page">' +
     '<div class="me-head"><button type="button" class="me-photo-btn" data-act="goPhoto" aria-label="' + t("managePhotos") + '">' + img + '</button><div class="me-id"><div class="serif me-name">' + esc(p.name) + '</div><div class="small muted">' + [ageOf(p.birth_year) ? t("ageN", ageOf(p.birth_year)) : "", tr(s.n), esc(p.faculty), yearText(p.year_of_study), p.height_cm ? t("cm", p.height_cm) : ""].filter(Boolean).join(" · ") + '</div>' +
       '<span class="verified">' + IC.verified + t("verified", tr(s.n)) + '</span></div></div>' +
