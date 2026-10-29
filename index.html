@@ -1308,6 +1308,12 @@ button.more{align-self:flex-start;padding:0;margin-top:6px;border:0;background:n
 .landing-page .flow-step,.landing-page .rail-card,.landing-page .trust-tile{transition:transform .5s var(--out)}
 
 button.more.trust-more{align-self:center}
+/* colour cards: icon on top, content flows from the top */
+.rail-card{min-height:0;gap:10px;padding:24px 24px 28px}
+.rail-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.rail-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.18);color:#FFFFFF}
+.rail-card h3{margin:0;font-size:24px;line-height:1.2}
+@media (min-width:900px){.rail-card{min-height:0}.rail-card h3{font-size:26px}}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -1825,6 +1831,16 @@ Object.assign(T, {
   ]
 });
 Object.assign(T, { fare: ["完全免費", "完全免费", "Free"] });
+Object.assign(T, {
+  diffTitle: ["同其他交友 app |有咩唔同", "和其他交友 app |有什么不同", "How it's different"],
+  howEyebrow: ["每個星期嘅流程", "每周的流程", "Your week"],
+  trustTitle: ["安全同私隱|點樣保障", "安全和私隐|怎么保障", "How we keep|you safe"],
+  prins: [
+    [["一個星期只配一個人", "唔使不停碌。逢星期三俾你一個人，可以慢慢睇清楚對方。"], ["樣貌同性格都會睇", "相同身高你都睇得到；我哋再按價值觀同作息，計你哋夾唔夾。"], ["只有港校學生", "要用大學電郵收驗證碼先註冊到，對方一定係港校同學。"]],
+    [["一周只配一个人", "不用一直滑。每周三给你一个人，可以慢慢看清楚对方。"], ["外表和性格都会看", "照片和身高你都看得到；我们再按价值观和作息，算你们合不合得来。"], ["只有港校学生", "要用大学邮箱收验证码才能注册，对方一定是港校同学。"]],
+    [["One match a week", "No endless swiping. Every Wednesday you get one person, so you can take a proper look."], ["Looks and personality both count", "You'll see photos and height. We then work out how well your values and routines fit."], ["HK uni students only", "You need a uni email to sign up, so everyone here is a fellow HK student."]]
+  ]
+});
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -2450,6 +2466,14 @@ var TRUST_IC = (function () {
     flag: svg('<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>')
   };
 })();
+var RAIL_IC = (function () {
+  function svg(d) { return '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; }
+  return [
+    svg('<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 17.2l-1.9-1.8a1.2 1.2 0 0 1 1.9-1.4 1.2 1.2 0 0 1 1.9 1.4z"/>'),
+    svg('<circle cx="9" cy="9" r="4"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 6.5a3.5 3.5 0 0 1 0 7M18.5 20a5.5 5.5 0 0 0-2.5-4.6"/>'),
+    svg('<path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11v5c0 1.5 2.2 3 5 3s5-1.5 5-3v-5"/><path d="M21 9v5"/>')
+  ];
+})();
 function vLanding() {
   var steps = tr(T.steps), prins = tr(T.prins);
   var join = '<div class="cta-row"><button type="button" class="btn btn-red btn-lg" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button><a class="more" href="#how">' + t("seeHow2") + IC.chev + '</a></div>' + errBox();
@@ -2467,7 +2491,7 @@ function vLanding() {
     '<section id="how" class="wrap sec sec-tight"><div class="sec-head"><span class="eyebrow eb-red">' + t("howEyebrow") + '</span><h2 class="h2 serif">' + tph("howTitle") + '</h2></div>' + weekBoard() +
       '<ol class="flow">' + steps.map(function (st, i) { return '<li class="flow-step"><span class="flow-n">' + (i + 1) + '</span><div><h3>' + st[0] + '</h3><p>' + st[1] + '</p></div></li>'; }).join("") + '</ol></section>' +
     '<section class="sec sec-tight"><div class="wrap"><h2 class="h2 serif">' + tph("diffTitle") + '</h2></div>' +
-      '<div class="rail" role="list">' + prins.map(function (pr, i) { return '<div class="rail-card tone' + i + '" role="listitem"><span class="rail-n">0' + (i + 1) + '</span><h3 class="serif">' + pr[0] + '</h3><p>' + pr[1] + '</p></div>'; }).join("") + '</div></section>' +
+      '<div class="rail" role="list">' + prins.map(function (pr, i) { return '<div class="rail-card tone' + i + '" role="listitem"><div class="rail-top"><span class="rail-ic">' + RAIL_IC[i] + '</span><span class="rail-n">0' + (i + 1) + '</span></div><h3 class="serif">' + pr[0] + '</h3><p>' + pr[1] + '</p></div>'; }).join("") + '</div></section>' +
     '<section id="crush" class="wrap sec"><div class="crush"><div class="stack"><span class="eyebrow" style="color:#E9B9A8">' + t("crushEyebrow") + '</span><h2 class="h2 serif">' + tph("crushTitle") + '</h2><p style="font-size:18px">' + t("crushBody") + '</p></div>' +
       '<div class="stack" style="gap:12px"><div class="slot"><span>c••••••@link.cuhk.edu.hk</span><span class="demo" style="background:var(--red);color:#fff">' + t("mutual") + '</span></div><div class="slot empty">+ ' + t("addOne") + '</div><div class="slot empty">+ ' + t("addOne") + '</div><span class="small" style="color:var(--night-muted)">' + t("crushNote") + '</span></div></div></section>' +
     '<section id="safety" class="wrap sec sec-tight"><span id="privacy" class="anchor" aria-hidden="true"></span><div class="sec-head"><span class="eyebrow eb-green">' + t("trustEyebrow") + '</span><h2 class="h2 serif">' + tph("trustTitle") + '</h2></div>' +
