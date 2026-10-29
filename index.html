@@ -1213,6 +1213,48 @@ html.sheet-open,html.sheet-open body{overflow:hidden}
 .bubble.locked svg{flex:0 0 auto}
 .confirm .attach{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--body);cursor:pointer}
 .confirm .attach input{margin-top:3px;accent-color:var(--red);width:16px;height:16px;flex:0 0 auto}
+
+/* ---------- terms sheet, v2: cards, contents, reading progress ---------- */
+.lg-sheet{background:var(--paper)}
+.lg-bar{background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
+.lg-progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none}
+.lg-progress i{display:block;height:100%;background:var(--red);transform:scaleX(0);transform-origin:left center;transition:transform .12s linear}
+.lg-body{padding:16px 16px calc(40px + env(safe-area-inset-bottom))}
+.legal-doc{max-width:640px}
+.lg-hero{position:relative;overflow:hidden;padding:26px 22px 22px;border:1px solid var(--hair);border-radius:22px;background:radial-gradient(120% 90% at 100% 0%,rgba(208,40,31,.09),rgba(208,40,31,0) 60%),#FFFFFF}
+.lg-icon{display:grid;place-items:center;width:52px;height:52px;margin-bottom:16px;border-radius:16px;background:var(--red-tint);color:var(--red-ink)}
+.lg-eyebrow{display:block;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--red-ink)}
+.legal-doc .lg-hero h1{margin:6px 0 0;font-size:30px}
+.legal-doc .lg-date{display:inline-flex;margin:12px 0 0;padding:4px 10px;border-radius:999px;background:var(--fill);font-size:12px;color:var(--muted)}
+.legal-doc .lg-lead{margin:16px 0 0;font-size:16px;line-height:1.6;color:var(--body)}
+.lg-toc{margin:18px 0 4px}
+.lg-toc-label{display:block;margin:0 4px 8px;font-size:12px;font-weight:600;color:var(--muted)}
+.lg-toc-list{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:2px 16px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.lg-toc-list::-webkit-scrollbar{display:none}
+.lg-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--hair);border-radius:999px;background:#FFFFFF;font:inherit;font-size:13px;color:var(--ink);white-space:nowrap;cursor:pointer;transition:border-color .2s,transform .2s var(--out),background-color .2s}
+.lg-chip b{font-weight:700;color:var(--red-ink)}
+.lg-chip:hover{border-color:var(--line)}
+.lg-chip.is-pressed{transform:scale(.95)}
+.legal-doc .lg-card{margin-top:12px;padding:20px 20px 12px;border:1px solid var(--hair);border-radius:18px;background:#FFFFFF;scroll-margin-top:12px}
+.legal-doc .lg-card h2{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:17px}
+.lg-num{flex:0 0 28px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--red-tint);color:var(--red-ink);font-family:var(--sys);font-size:13px;font-weight:700}
+.legal-doc .lg-card p{margin:0 0 10px}
+.legal-doc .lg-card ul{list-style:none;margin:0 0 10px;padding:0}
+.legal-doc .lg-card li{position:relative;margin:0 0 8px;padding-left:18px}
+.legal-doc .lg-card li::before{content:"";position:absolute;left:3px;top:.68em;width:6px;height:6px;border-radius:50%;background:var(--red);opacity:.75}
+.lg-foot{display:flex;flex-direction:column;gap:6px;margin-top:14px;padding:22px 20px;border-radius:18px;background:var(--ink);color:rgba(255,255,255,.78);font-size:14px}
+.lg-foot-title{font-size:17px;font-weight:600;color:#FFFFFF}
+.lg-foot a{color:#FFFFFF}
+.legal-doc .lg-foot .lg-end{margin:8px 0 0!important;padding:0;border:0;font-size:12px;color:rgba(255,255,255,.5)}
+@media (min-width:760px){
+  .lg-sheet{max-width:760px;border-radius:24px}
+  .lg-body{padding:28px 32px 48px}
+  .lg-hero{padding:34px 32px 28px}
+  .legal-doc .lg-hero h1{font-size:36px}
+  .lg-toc-list{flex-wrap:wrap;overflow:visible;margin:0;padding:0}
+  .legal-doc .lg-card{padding:24px 26px 14px}
+}
+button.more{align-self:flex-start;padding:0;margin-top:6px;border:0;background:none;font:inherit;font-size:15px;cursor:pointer}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -1700,6 +1742,19 @@ Object.assign(T, {
   ];
   for (var i = 0; i < 3; i++) { var it = T.privItems[i]; it[it.length - 1] = e[i]; }
 })();
+Object.assign(T, {
+  lgToc: ["目錄", "目录", "Contents"],
+  lgEyebrow_terms: ["使用前請讀一讀", "使用前请读一读", "Please read before using"],
+  lgEyebrow_privacy: ["我們怎樣保護你的資料", "我们怎样保护你的资料", "How we protect your data"],
+  lgEyebrow_rules: ["一齊令呢度保持舒服", "一起让这里保持舒服", "Keeping it comfortable for everyone"],
+  lgQuestions: ["仲有疑問？", "还有疑问？", "Still have questions?"],
+  lgContact: ["電郵我們：", "发邮件给我们：", "Email us:"],
+  safetyList: [["第一次見面揀人多嘅地方，同朋友講你去邊。", "唔舒服就走，冇需要解釋。", "覺得唔妥，喺傾偈頁一㩒就可以舉報。"], ["第一次见面选人多的地方，告诉朋友你去哪里。", "不舒服就离开，不需要解释。", "觉得不对劲，在聊天页一键就能举报。"], ["Meet somewhere busy the first time and tell a friend where you're going.", "If you feel uncomfortable, leave — no explanation needed.", "If something feels off, report with one tap from the chat."]]
+});
+(function () {
+  var a = [["只限港校學生", "要用大學電郵收驗證碼先加入到。"], ["只限港校学生", "必须用大学邮箱收验证码才能加入。"], ["HK university students only", "You need a code sent to a uni email to join."]];
+  for (var i = 0; i < 3; i++) T.safety[i][0] = a[i];
+})();
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -1798,7 +1853,7 @@ rules: {
 yue: { t: "社區守則", lead: "UNIdate HK 是給同學認真認識彼此的地方。請和我們一起保持它安全、真誠、舒服。", s: [
   ["做真實的自己", ["用你平時的名字和本人近照，不用別人的照片。", "年齡、身高、學校等資料要真實。", "一人一個帳戶，不冒充他人，不替朋友使用。"]],
   ["尊重對方", ["不騷擾、不威脅、不羞辱。", "不針對外貌、身材、種族、性別、性傾向、宗教或殘疾作出歧視或攻擊。", "對方說不，就是不；對方不回覆，也是一種回覆。"]],
-  ["不涉及金錢", ["不借錢、不推銷、不談投資或加密貨幣，不要求點數卡或轉賬。", "有人向你要錢，請立即舉報。"]],
+  ["不涉及金錢", ["不借錢、不推銷，不涉及任何金錢往來。", "有人向你要錢，請立即舉報。"]],
   ["不發送、不索取色情內容", ["不發送也不要求裸照、色情或性暗示內容。", "有人要求你發裸照或影片，請立即舉報。"]],
   ["保護別人的私隱", ["不截圖公開對方的配對卡、照片或聊天內容。", "不在未經同意下把對方資料告訴別人。"]],
   ["見面時注意安全", ["第一次見面選人多的公眾地方，自己安排交通。", "告訴朋友你去哪裏、和誰見面。", "不舒服就離開，不需要解釋。", "緊急情況請致電 999。"]],
@@ -1808,7 +1863,7 @@ yue: { t: "社區守則", lead: "UNIdate HK 是給同學認真認識彼此的地
 zhs: { t: "社区守则", lead: "UNIdate HK 是给同学认真认识彼此的地方。请和我们一起让它保持安全、真诚、舒服。", s: [
   ["做真实的自己", ["用你平时的名字和本人近照，不用别人的照片。", "年龄、身高、学校等资料要真实。", "一人一个账号，不冒充他人，不替朋友使用。"]],
   ["尊重对方", ["不骚扰、不威胁、不羞辱。", "不针对外貌、身材、种族、性别、性取向、宗教或残疾进行歧视或攻击。", "对方说不，就是不；对方不回复，也是一种回复。"]],
-  ["不涉及金钱", ["不借钱、不推销、不谈投资或加密货币，不要求点卡或转账。", "有人向你要钱，请立即举报。"]],
+  ["不涉及金钱", ["不借钱、不推销，不涉及任何金钱往来。", "有人向你要钱，请立即举报。"]],
   ["不发送、不索取色情内容", ["不发送也不要求裸照、色情或性暗示内容。", "有人要求你发裸照或视频，请立即举报。"]],
   ["保护别人的私隐", ["不截图公开对方的配对卡、照片或聊天内容。", "不在未经同意下把对方资料告诉别人。"]],
   ["见面时注意安全", ["第一次见面选人多的公共场所，自己安排交通。", "告诉朋友你去哪里、和谁见面。", "不舒服就离开，不需要解释。", "紧急情况请拨打 999。"]],
@@ -1818,7 +1873,7 @@ zhs: { t: "社区守则", lead: "UNIdate HK 是给同学认真认识彼此的地
 en: { t: "Community guidelines", lead: "UNIdate HK is a place for students to get to know each other properly. Help us keep it safe, genuine and comfortable.", s: [
   ["Be yourself", ["Use the name you go by and recent photos of you — never someone else’s.", "Be truthful about your age, height, school and other details.", "One account per person. Don’t pretend to be someone else or let a friend use your account."]],
   ["Respect each other", ["No harassment, threats or insults.", "No discrimination or attacks based on looks, body, race, gender, sexual orientation, religion or disability.", "No means no — and no reply is a reply too."]],
-  ["Keep money out of it", ["Don’t borrow money, sell things, talk investments or crypto, or ask for gift cards or transfers.", "If someone asks you for money, report them straight away."]],
+  ["Keep money out of it", ["Don’t borrow money or sell things — keep money out of it.", "If someone asks you for money, report them straight away."]],
   ["No sexual content", ["Don’t send or ask for nudes, sexual or sexually suggestive content.", "If someone asks you for nude photos or videos, report them straight away."]],
   ["Protect each other’s privacy", ["Don’t post screenshots of someone’s match card, photos or messages.", "Don’t share someone’s details without their consent."]],
   ["Meet safely", ["Meet somewhere public and busy the first time, and arrange your own transport.", "Tell a friend where you’re going and who you’re meeting.", "If you feel uncomfortable, leave — you don’t need to explain.", "In an emergency, call 999."]],
@@ -2358,22 +2413,45 @@ function legalText(x) {
   var mail = CFG.CONTACT_EMAIL ? '<a href="mailto:' + esc(CFG.CONTACT_EMAIL) + '">' + esc(CFG.CONTACT_EMAIL) + '</a>' : t("emailTBD");
   return esc(x).replace("{email}", mail).replace("{schools}", esc(SCHOOLS.map(function (sc) { return tr(sc.n); }).join(S.lang === "en" ? ", " : "、")));
 }
+var LG_ICON = {
+  terms: '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>',
+  privacy: '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>',
+  rules: '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5 5 0 0 0-8.8-3.2 5 5 0 0 0-8.8 3.2c0 5.6 8.8 11.4 8.8 11.4s8.8-5.8 8.8-11.4z"/></svg>'
+};
 function legalSheet() {
   if (!ui.legal) return "";
   var d = LEGAL[ui.legal][S.lang] || LEGAL[ui.legal].zhs, i = LEGAL_KEYS.indexOf(ui.legal);
-  var body = d.s.map(function (sec) {
-    return '<section><h2>' + esc(sec[0]) + '</h2>' + sec.slice(1).map(function (b) {
+  var secs = d.s.map(function (sec, n) {
+    var m = /^(\d+)\.\s*(.*)$/.exec(sec[0]);
+    return { num: m ? m[1] : String(n + 1), title: m ? m[2] : sec[0], blocks: sec.slice(1) };
+  });
+  var toc = '<nav class="lg-toc" aria-label="' + t("lgToc") + '"><span class="lg-toc-label">' + t("lgToc") + '</span><div class="lg-toc-list">' + secs.map(function (x, n) {
+    return '<button type="button" class="lg-chip" data-act="lgJump" data-v="lgsec-' + n + '"><b>' + esc(x.num) + '</b>' + esc(x.title) + '</button>';
+  }).join("") + '</div></nav>';
+  var body = secs.map(function (x, n) {
+    return '<section class="lg-card" id="lgsec-' + n + '"><h2><span class="lg-num">' + esc(x.num) + '</span><span>' + esc(x.title) + '</span></h2>' + x.blocks.map(function (b) {
       return typeof b === "string" ? '<p>' + legalText(b) + '</p>' : '<ul>' + b.map(function (li) { return '<li>' + legalText(li) + '</li>'; }).join("") + '</ul>';
     }).join("") + '</section>';
   }).join("");
+  var mail = CFG.CONTACT_EMAIL ? '<a href="mailto:' + esc(CFG.CONTACT_EMAIL) + '">' + esc(CFG.CONTACT_EMAIL) + '</a>' : t("emailTBD");
   return '<div class="lg-wrap' + (ui.legalClosing ? " closing" : "") + '" role="dialog" aria-modal="true" aria-labelledby="lg-title">' +
     '<div class="lg-scrim" data-act="legalClose" aria-hidden="true"></div>' +
     '<div class="lg-sheet"><div class="lg-bar"><span class="lg-grab" aria-hidden="true"></span>' +
       '<div class="seg lg-seg" role="tablist" style="--n:3;--i:' + i + '">' + LEGAL_KEYS.map(function (k) { return '<button type="button" role="tab" aria-selected="' + (k === ui.legal) + '" data-act="legal" data-v="' + k + '">' + t("lg_" + k) + '</button>'; }).join("") + '</div>' +
-      '<button type="button" class="lg-x" data-act="legalClose" aria-label="' + t("close") + '">' + IC.x + '</button></div>' +
-    '<div class="lg-body" id="lgBody"><article class="legal-doc" data-doc="' + ui.legal + '"><h1 id="lg-title">' + esc(d.t) + '</h1><p class="lg-date">' + t("lgUpdated", tr(LEGAL_DATE)) + '</p><p class="lg-lead">' + legalText(d.lead) + '</p>' + body +
-      '<p class="lg-end">© 2026 UNIdate HK · ' + t("notOfficial") + '</p></article></div></div></div>';
+      '<button type="button" class="lg-x" data-act="legalClose" aria-label="' + t("close") + '">' + IC.x + '</button><span class="lg-progress" aria-hidden="true"><i></i></span></div>' +
+    '<div class="lg-body" id="lgBody"><article class="legal-doc" data-doc="' + ui.legal + '">' +
+      '<header class="lg-hero"><span class="lg-icon">' + LG_ICON[ui.legal] + '</span><span class="lg-eyebrow">UNIdate HK · ' + t("lgEyebrow_" + ui.legal) + '</span>' +
+        '<h1 id="lg-title">' + esc(d.t) + '</h1><span class="lg-date">' + t("lgUpdated", tr(LEGAL_DATE)) + '</span><p class="lg-lead">' + legalText(d.lead) + '</p></header>' +
+      toc + body +
+      '<footer class="lg-foot"><span class="lg-foot-title">' + t("lgQuestions") + '</span><span>' + t("lgContact") + ' ' + mail + '</span><span class="lg-end">© 2026 UNIdate HK · ' + t("notOfficial") + '</span></footer>' +
+    '</article></div></div></div>';
 }
+/* reading progress inside the terms sheet */
+document.addEventListener("scroll", function (e) {
+  var b = e.target; if (!b || b.id !== "lgBody") return;
+  var max = b.scrollHeight - b.clientHeight, bar = document.querySelector(".lg-progress i");
+  if (bar) bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, b.scrollTop / max) : 0) + ")";
+}, true);
 function closeLegal() {
   if (!ui.legal || ui.legalClosing) return;
   ui.legalClosing = true; render(true);
@@ -2994,6 +3072,13 @@ var A = {
     ui.legal = el.dataset.v; render(true);
     var b = document.getElementById("lgBody"); if (b) b.scrollTop = 0;
     if (opening) { var x = app.querySelector(".lg-x"); if (x) try { x.focus({ preventScroll: true }); } catch (e) {} }
+  },
+  lgJump: function (el) {
+    var box = document.getElementById("lgBody"), sec = document.getElementById(el.dataset.v);
+    if (!box || !sec) return;
+    var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var top = sec.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - 12;
+    try { box.scrollTo({ top: top, behavior: calm ? "auto" : "smooth" }); } catch (x) { box.scrollTop = top; }
   },
   legalClose: function () { if (history.state && history.state.legal) history.back(); else closeLegal(); },
   go: function (el) {
