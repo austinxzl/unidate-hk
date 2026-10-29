@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>UNIdate HK</title>
-<meta name="description" content="不用再滑了。做一份问卷，每周三晚 9 点，我们在九所港校里帮你配一个真的合得来的人。">
+<meta name="description" content="港校学生专属。完成一份问卷，每周三晚 9 点为你揭晓一位真正合得来的同学。">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23D0281F'/%3E%3Ctext x='32' y='47' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='42' text-anchor='middle' fill='%23fff'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="UNIdate HK">
-<meta property="og:title" content="UNIdate HK · 每周三，帮你配一个人">
-<meta property="og:description" content="港校学生限定。做一份问卷，每周三晚 9 点收到你的配对。">
+<meta property="og:title" content="UNIdate HK · 每周为你配一个人">
+<meta property="og:description" content="港校学生专属。完成一份问卷，每周三晚 9 点揭晓你的配对。">
 <meta property="og:url" content="https://unidatehk.com/">
 <meta property="og:image" content="https://unidatehk.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -1869,6 +1869,35 @@ T.steps = [
   [["做份問卷", "大概 8 分鐘。問你作息、使錢習慣、嗌交點處理呢啲，冇標準答案，照實填就得。"], ["每個星期㩒一下報名", "星期日到星期三 6 點前，㩒一下「今個星期我都要」。唔得閒就唔㩒，冇人會知。"], ["星期三晚九點公佈", "全港一齊公佈。你會見到對方張相、資料，同埋你哋最夾嘅三樣嘢。"], ["兩個都話好，先至傾到", "48 個鐘內各自揀。兩邊都話「想識」先開到傾偈；你揀咗 pass，對方永遠唔會知。"]],
   [["做一份问卷", "大概 8 分钟。问你作息、花钱习惯、吵架怎么处理这类问题，没有标准答案，照真实情况填就好。"], ["每周点一下报名", "周日到周三 18:00 前，点一下「这周我也要」。这周没空就不点，也没人会知道。"], ["周三晚 9 点公布", "全港一起公布。你会看到对方的照片、资料，还有你们最合拍的三个地方。"], ["两个人都说好，才能聊", "48 小时内各自选。两边都选「想认识」才开聊天；你选了 pass，对方永远不会知道。"]],
   [["Take the quiz", "About 8 minutes. How late you sleep, how you spend, how you handle a fight. No right answers, just be honest."], ["Tap in each week", "Tap “I'm in” before Wednesday 6pm. Busy this week? Skip it. Nobody will know."], ["Wednesday, 9pm", "Everyone finds out at once. You'll see their photos, their profile, and the three things you two have most in common."], ["Both say yes, then talk", "You each have 48 hours. Chat opens only if you both say yes. If you pass, they'll never know."]]
+];
+/* ---- homepage copy v3: natural but composed (between brochure and chatty) ---- */
+Object.assign(T, {
+  eyebrow: ["港校學生專屬 · 逢星期三晚 9 點", "港校学生专属 · 每周三晚 9 点", "For HK uni students · Wednesdays at 9pm"],
+  h1a: ["唔使碌卡，", "不用滑卡，", "No swiping."],
+  h1b: ["每週配一位。", "每周配一位。", "One match a week."],
+  sub: ["完成一份問卷，我哋會喺九間港校入面為你搵一位真正夾得嚟嘅同學，逢星期三晚 9 點揭曉。", "完成一份问卷，我们会在九所港校中为你找到一位真正合得来的同学，每周三晚 9 点揭晓。", "Take a short questionnaire and we'll find you someone across nine HK universities you'll genuinely get along with. Revealed every Wednesday at 9pm."],
+  join: ["用學校電郵加入", "用学校邮箱加入", "Join with your uni email"],
+  seeHow2: ["了解點樣運作", "了解运作方式", "See how it works"],
+  nextDrop: ["距離下次配對", "距离下次配对", "Next match in"],
+  schoolsLabel: ["九間港校，同一個配對池", "九所港校，同一个配对池", "Nine universities, one pool"],
+  howEyebrow: ["每週流程", "每周流程", "Each week"],
+  howTitle: ["點樣運作", "如何运作", "How it works"],
+  diffTitle: ["點解揀 UNIdate", "为什么选择 UNIdate", "Why UNIdate"],
+  prins: [
+    [["每星期只配一位", "冇無止境嘅碌卡。每星期一位對象，等你有時間認真了解對方。"], ["外表同契合度都兼顧", "你睇得到相片同身高；配對分數就主要取決於你哋嘅價值觀同生活節奏。"], ["只限港校學生", "要用大學電郵驗證先可以註冊，每位用戶都來自港校。"]],
+    [["每周只配一位", "没有无止境的滑动。每周一位对象，让你有时间认真了解对方。"], ["外表与契合度兼顾", "你可以看到照片和身高；配对分数则主要取决于你们的价值观和生活节奏。"], ["只限港校学生", "需要以大学邮箱验证才能注册，每位用户都来自港校。"]],
+    [["One match a week", "No endless swiping. One person a week gives you time to properly get to know them."], ["Looks and compatibility", "You'll see photos and height, while the match score mainly reflects your values and daily rhythm."], ["HK university students only", "Sign-up requires a verified university email, so everyone here is from an HK university."]]
+  ],
+  crushEyebrow: ["隱藏功能", "隐藏功能", "Hidden feature"],
+  trustEyebrow: ["安全 · 私隱", "安全 · 私隐", "Safety · Privacy"],
+  trustTitle: ["安全同私隱", "安全与私隐", "Safety and privacy"],
+  ctaTitle: ["下一次配對：|星期三晚 9 點", "下一次配对：|周三晚 9 点", "Next match: |Wednesday, 9pm"],
+  footLine: ["香港大學生嘅每週配對", "香港大学生的每周配对", "Weekly matches for HK university students"]
+});
+T.steps = [
+  [["完成問卷", "大約 8 分鐘，涵蓋作息、消費習慣同相處方式等問題。冇標準答案，照真實諗法答就得。"], ["每週報名", "星期日至星期三 6 點前㩒「今個星期我都要」。嗰個星期唔方便，唔報名就得，唔會有人知。"], ["星期三晚 9 點揭曉", "所有配對同一時間公佈。你會見到對方嘅相、資料，同埋你哋最契合嘅三個地方。"], ["雙方同意，先可以傾偈", "48 小時內各自決定。只有雙方都揀「想認識」先會開啟傾偈；如果你揀跳過，對方唔會知道。"]],
+  [["完成问卷", "约 8 分钟，涵盖作息、消费习惯和相处方式等问题。没有标准答案，按真实想法作答即可。"], ["每周报名", "周日至周三 18:00 前点击「这周我也要」。当周不方便的话，不报名即可，不会有人知道。"], ["周三晚 9 点揭晓", "所有配对同时公布。你会看到对方的照片、资料，以及你们最契合的三个地方。"], ["双方同意，才能聊天", "48 小时内各自决定。只有双方都选择「想认识」才会开启聊天；如果你选择跳过，对方不会知道。"]],
+  [["Take the questionnaire", "About 8 minutes, covering routines, spending habits and how you handle disagreements. There are no right answers, so just be honest."], ["Opt in each week", "Tap “I'm in” before Wednesday 6pm. If the week doesn't suit you, simply skip it. No one will know."], ["Revealed Wednesday at 9pm", "Every match is revealed at the same time. You'll see their photos, profile, and the three things you have most in common."], ["Chat when you both agree", "You each have 48 hours to decide. Chat opens only if you both say yes. If you pass, they won't know."]]
 ];
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
