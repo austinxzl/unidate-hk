@@ -1925,6 +1925,24 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
 @media (min-width:700px){.quiz-foot{grid-template-columns:auto 1fr auto}.quiz-foot .kbd-hint{grid-column:3}}
 .seg button{line-height:1.25;padding-block:6px}
 .lg-sheet .lg-card li::before,.lg-sheet .lg-card ul li::before{background:var(--d-dusk)}
+
+/* ---------- account circle, top right ---------- */
+.acct{flex:none;display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;overflow:hidden;cursor:pointer;background:var(--love);color:#FFFFFF;box-shadow:0 0 0 2px rgba(255,255,255,.9),0 0 0 3.5px rgba(106,90,224,.28);transition:transform .2s var(--out),box-shadow .2s}
+.acct img{width:100%;height:100%;object-fit:cover;display:block}
+.acct span{font-family:var(--display);font-weight:800;font-size:16px;line-height:1}
+.acct:hover{transform:scale(1.06)}
+.acct:active{transform:scale(.94)}
+.acct:focus-visible{outline:2px solid var(--d-dusk);outline-offset:3px}
+.acct.on{box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px var(--d-dusk)}
+.acct.out{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px rgba(34,30,61,.28)}
+.acct.out svg{width:19px;height:19px;stroke:currentColor}
+.landing-page .top .acct{box-shadow:0 0 0 2px rgba(255,255,255,.22)}
+.landing-page .top .acct.out{color:#FFFFFF;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)}
+.landing-page.over-light .top .acct.out{color:var(--ink);box-shadow:inset 0 0 0 1.5px rgba(34,30,61,.28)}
+.landing-page.over-light .top .acct:not(.out){box-shadow:0 0 0 2px #FFFFFF,0 0 0 3.5px rgba(106,90,224,.28)}
+.night-page .acct{box-shadow:0 0 0 2px rgba(255,255,255,.2)}
+.night-page .acct.on{box-shadow:0 0 0 2px var(--d-night),0 0 0 4px #FFFFFF}
+.landing-page .nav{gap:14px 18px;flex-wrap:nowrap}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -2538,7 +2556,7 @@ Object.assign(T, { photoCount2: ["{a} 張相", "{a} 张照片", "Photos: {a}"] }
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
    a section is [heading, blocks...]; a block is a paragraph string or an array (bullet list). */
-var LEGAL_DATE = ["2026 年 10 月 27 日", "2026 年 10 月 27 日", "27 October 2026"];
+var LEGAL_DATE = ["2026 年 10 月 30 日", "2026 年 10 月 30 日", "30 October 2026"];
 var LEGAL = {
 terms: {
 yue: { t: "用戶協議", lead: "使用 UNIdate HK 之前，請先閱讀以下條款。註冊或繼續使用，即表示你同意本協議、《私隱政策》和《社區守則》。", s: [
@@ -2592,40 +2610,40 @@ en: { t: "Terms of use", lead: "Please read these terms before using UNIdate HK.
 },
 privacy: {
 yue: { t: "私隱政策", lead: "本政策（亦作為《收集個人資料聲明》）說明我們收集甚麼資料、用來做甚麼、誰可以看到，以及你根據香港《個人資料（私隱）條例》（第 486 章）享有的權利。", s: [
-  ["1. 我們收集的資料", "必填（不提供便無法使用配對服務）：", ["學校電郵（用來登入及確認學生身份）", "名字、性別、出生年份、學系、年級、身高、來自哪裏、語言", "照片 1 至 3 張", "性格、興趣、問卷答案、理想型及配對條件（年齡、身高範圍等）"], "選填：族裔、MBTI、宗教、是否吸煙、自我介紹、對理想型的文字描述、暗戀清單、封鎖名單。", "使用期間產生：每週報名、配對結果和你的選擇、破冰答案、經端對端加密的聊天內容（我們無法讀取）、每部裝置的加密公鑰、舉報（包括你舉報時自願附上的聊天內容）。"],
+  ["1. 我們收集的資料", "必填（不提供便無法使用配對服務）：", ["學校電郵（用來登入及確認學生身份）", "名字、性別、出生年份、學系、年級、身高、來自哪裏、語言", "照片 1 至 3 張", "性格、興趣、問卷答案、理想型及配對條件（年齡、身高範圍等）"], "選填：族裔、MBTI、宗教、是否吸煙、自我介紹、對理想型的文字描述、暗戀清單、封鎖名單。", "使用期間產生：每週報名、配對結果和你的選擇、破冰答案、經端對端加密的聊天內容（我們無法讀取）、每部裝置的加密公鑰、舉報（包括你舉報時自願附上的聊天內容）。", "裝置上的資料：你的瀏覽器會在本機儲存登入狀態、語言設定和聊天加密私鑰（localStorage / IndexedDB）。我們不使用廣告或追蹤 cookies。服務供應商會為保安和運作，短期保存一般技術紀錄（例如 IP 位址和瀏覽器類型）。"],
   ["2. 資料用途", ["確認你是香港大學生並年滿 18 歲；", "每週配對：用問卷、條件和理想型計算契合度，並用年齡、身高等條件篩選；族裔只作展示，不會用來篩選；", "向你的配對對象展示配對卡；運作聊天；", "發送登入驗證碼；處理舉報，保障用戶安全。"], "我們不會出售你的資料，不會用作直接促銷，亦不會放廣告。我們現時不會用 AI 分析你的文字；如日後使用，會先更新本政策並通知你。"],
-  ["3. 誰可以看到你的資料", ["其他用戶：只有當週的配對對象可以看到你的配對卡，包括名字、學校、學系、年級、年齡、身高、照片、自我介紹、性格興趣和理想型，以及根據你們相同答案列出的「為甚麼合適」。電郵、暗戀清單和封鎖名單不會給任何用戶看到。", "暗戀清單和封鎖名單：只保存電郵經過不可還原處理後的「指紋」和打碼後的顯示；對方永遠不會知道，除非雙方都寫了對方。", "服務供應商（只按我們的指示處理資料）：Supabase（資料庫、登入、照片儲存，伺服器位於新加坡）、Resend（發送驗證碼電郵，位於美國）、Vercel（網站寄存）。網站亦會從 jsDelivr 和 Google Fonts 載入程式庫和字型，它們會收到你的 IP 位址等一般網絡資料。", "執法機構：只在法律要求時提供。"]],
+  ["3. 誰可以看到你的資料", ["其他用戶：只有當週的配對對象可以看到你的配對卡，包括名字、學校、學系、年級、年齡、身高、照片、自我介紹、性格興趣和理想型，以及根據你們相同答案列出的「為甚麼合適」。電郵、暗戀清單和封鎖名單不會給任何用戶看到。", "暗戀清單和封鎖名單：只保存電郵經過不可還原處理後的「指紋」和打碼後的顯示；對方永遠不會知道，除非雙方都寫了對方。", "服務供應商（只按我們的指示處理資料）：Supabase（資料庫、登入、照片儲存，伺服器位於新加坡）、Resend（發送驗證碼電郵，位於美國）、GitHub Pages（網站寄存，位於美國）、Cloudflare（域名解析）。網站亦會從 jsDelivr 和 Google Fonts 載入程式庫和字型，它們會收到你的 IP 位址等一般網絡資料。", "執法機構：只在法律要求時提供。"]],
   ["4. 資料存放在香港以外", "你的資料會存放及處理於香港以外的地方，包括新加坡和美國。我們會選用有適當保安措施的供應商。"],
   ["5. 保存多久", ["聊天內容和破冰答案：聊天關閉 30 天後自動刪除。", "個人資料和照片：保存至你刪除帳戶。", "配對紀錄（用來避免重複配對）：保存至其中一方刪除帳戶。", "刪除帳戶：帳戶、個人資料、照片、配對、聊天、暗戀和封鎖名單會即時刪除。舉報內容（包括舉報人自願附上的聊天內容）會保留最多 12 個月以處理安全問題，但會與已刪除的帳戶斷開連結。"]],
-  ["6. 資料保安", "資料庫設有權限控制，每位用戶只可以讀取自己有權看的資料；照片為私密儲存，只會以限時連結顯示給你本人和當週配對對象。聊天內容端對端加密：訊息在你的裝置上加密，只有你和配對對象的裝置能解開，私鑰從不離開你的裝置，伺服器只儲存密文，我們和任何管理員都無法讀取。舉報時，舉報人可以自願附上自己裝置解開的聊天內容（連同可核實真偽的訊息鑰匙），我們只會用來處理該宗舉報。破冰答案和配對卡資料需要由系統處理，因此不屬於端對端加密範圍。"],
-  ["7. 你的權利", "你有權查閱和更正你的個人資料。大部分資料可以直接在「我的」頁修改或刪除；如需索取資料副本或有其他要求，請電郵 {email}，我們會在 40 日內回覆。"],
+  ["6. 資料保安", "資料庫設有權限控制，每位用戶只可以讀取自己有權看的資料；照片為私密儲存，只會以限時連結顯示給你本人和當週配對對象。聊天內容端對端加密：訊息在你的裝置上加密，只有你和配對對象的裝置能解開，私鑰從不離開你的裝置，伺服器只儲存密文，我們和任何管理員都無法讀取。舉報時，舉報人可以自願附上自己裝置解開的聊天內容（連同可核實真偽的訊息鑰匙），我們只會用來處理該宗舉報。破冰答案和配對卡資料需要由系統處理，因此不屬於端對端加密範圍。如發生可能影響你的資料外洩，我們會盡快通知受影響的用戶，並在有需要時通報個人資料私隱專員公署。"],
+  ["7. 你的權利", "你有權查閱和更正你的個人資料。大部分資料可以直接在「我的」頁修改或刪除；如需索取資料副本、更正資料或有其他要求，請電郵我們的資料保障負責人：{email}。我們會在收到要求後 40 日內回覆。"],
   ["8. 未滿 18 歲", "本服務只供 18 歲或以上人士使用。如發現用戶未滿 18 歲，我們會刪除其帳戶。"],
   ["9. 政策更新", "我們可能更新本政策。重大變更會在網站上通知。"],
-  ["10. 聯絡我們", "私隱相關查詢，請電郵 {email}。"]
+  ["10. 聯絡我們", "私隱相關查詢，請電郵資料保障負責人：{email}。"]
 ]},
 zhs: { t: "私隐政策", lead: "本政策（也作为《收集个人资料声明》）说明我们收集什么资料、用来做什么、谁能看到，以及你根据香港《个人资料（私隐）条例》（第 486 章）享有的权利。", s: [
-  ["1. 我们收集的资料", "必填（不提供就无法使用配对服务）：", ["学校邮箱（用来登录及确认学生身份）", "名字、性别、出生年份、学系、年级、身高、来自哪里、语言", "照片 1 至 3 张", "性格、兴趣、问卷答案、理想型及配对条件（年龄、身高范围等）"], "选填：族裔、MBTI、宗教、是否抽烟、自我介绍、对理想型的文字描述、暗恋清单、屏蔽名单。", "使用期间产生：每周报名、配对结果和你的选择、破冰答案、经端到端加密的聊天内容（我们无法读取）、每部设备的加密公钥、举报（包括你举报时自愿附上的聊天内容）。"],
+  ["1. 我们收集的资料", "必填（不提供就无法使用配对服务）：", ["学校邮箱（用来登录及确认学生身份）", "名字、性别、出生年份、学系、年级、身高、来自哪里、语言", "照片 1 至 3 张", "性格、兴趣、问卷答案、理想型及配对条件（年龄、身高范围等）"], "选填：族裔、MBTI、宗教、是否抽烟、自我介绍、对理想型的文字描述、暗恋清单、屏蔽名单。", "使用期间产生：每周报名、配对结果和你的选择、破冰答案、经端到端加密的聊天内容（我们无法读取）、每部设备的加密公钥、举报（包括你举报时自愿附上的聊天内容）。", "设备上的资料：你的浏览器会在本机储存登录状态、语言设置和聊天加密私钥（localStorage / IndexedDB）。我们不使用广告或追踪 cookies。服务供应商会为安全和运作，短期保存一般技术记录（例如 IP 地址和浏览器类型）。"],
   ["2. 资料用途", ["确认你是香港大学生并年满 18 岁；", "每周配对：用问卷、条件和理想型计算契合度，并用年龄、身高等条件筛选；族裔只作展示，不会用来筛选；", "向你的配对对象展示配对卡；运作聊天；", "发送登录验证码；处理举报，保障用户安全。"], "我们不会出售你的资料，不会用作直接促销，也不会放广告。我们目前不会用 AI 分析你的文字；如日后使用，会先更新本政策并通知你。"],
-  ["3. 谁能看到你的资料", ["其他用户：只有当周的配对对象能看到你的配对卡，包括名字、学校、学系、年级、年龄、身高、照片、自我介绍、性格兴趣和理想型，以及根据你们相同答案列出的「为什么合适」。邮箱、暗恋清单和屏蔽名单不会给任何用户看到。", "暗恋清单和屏蔽名单：只保存邮箱经过不可还原处理后的「指纹」和打码后的显示；对方永远不会知道，除非双方都写了对方。", "服务供应商（只按我们的指示处理资料）：Supabase（数据库、登录、照片存储，服务器位于新加坡）、Resend（发送验证码邮件，位于美国）、Vercel（网站托管）。网站也会从 jsDelivr 和 Google Fonts 加载程序库和字体，它们会收到你的 IP 地址等一般网络资料。", "执法机构：只在法律要求时提供。"]],
+  ["3. 谁能看到你的资料", ["其他用户：只有当周的配对对象能看到你的配对卡，包括名字、学校、学系、年级、年龄、身高、照片、自我介绍、性格兴趣和理想型，以及根据你们相同答案列出的「为什么合适」。邮箱、暗恋清单和屏蔽名单不会给任何用户看到。", "暗恋清单和屏蔽名单：只保存邮箱经过不可还原处理后的「指纹」和打码后的显示；对方永远不会知道，除非双方都写了对方。", "服务供应商（只按我们的指示处理资料）：Supabase（数据库、登录、照片存储，服务器位于新加坡）、Resend（发送验证码邮件，位于美国）、GitHub Pages（网站托管，位于美国）、Cloudflare（域名解析）。网站也会从 jsDelivr 和 Google Fonts 加载程序库和字体，它们会收到你的 IP 地址等一般网络资料。", "执法机构：只在法律要求时提供。"]],
   ["4. 资料存放在香港以外", "你的资料会存放及处理于香港以外的地方，包括新加坡和美国。我们会选用有适当安全措施的供应商。"],
   ["5. 保存多久", ["聊天内容和破冰答案：聊天关闭 30 天后自动删除。", "个人资料和照片：保存到你删除账号。", "配对记录（用来避免重复配对）：保存到其中一方删除账号。", "删除账号：账号、个人资料、照片、配对、聊天、暗恋和屏蔽名单会即时删除。举报内容（包括举报人自愿附上的聊天内容）会保留最多 12 个月以处理安全问题，但会与已删除的账号断开关联。"]],
-  ["6. 资料安全", "数据库设有权限控制，每位用户只能读取自己有权看的资料；照片私密存储，只会以限时链接显示给你本人和当周配对对象。聊天内容端到端加密：消息在你的设备上加密，只有你和配对对象的设备能解开，私钥从不离开你的设备，服务器只存储密文，我们和任何管理员都无法读取。举报时，举报人可以自愿附上自己设备解开的聊天内容（连同可核实真伪的消息钥匙），我们只会用来处理该宗举报。破冰答案和配对卡资料需要由系统处理，因此不属于端到端加密范围。"],
-  ["7. 你的权利", "你有权查阅和更正你的个人资料。大部分资料可以直接在「我的」页修改或删除；如需索取资料副本或有其他要求，请发邮件到 {email}，我们会在 40 日内回复。"],
+  ["6. 资料安全", "数据库设有权限控制，每位用户只能读取自己有权看的资料；照片私密存储，只会以限时链接显示给你本人和当周配对对象。聊天内容端到端加密：消息在你的设备上加密，只有你和配对对象的设备能解开，私钥从不离开你的设备，服务器只存储密文，我们和任何管理员都无法读取。举报时，举报人可以自愿附上自己设备解开的聊天内容（连同可核实真伪的消息钥匙），我们只会用来处理该宗举报。破冰答案和配对卡资料需要由系统处理，因此不属于端到端加密范围。如发生可能影响你的资料外泄，我们会尽快通知受影响的用户，并在有需要时通报个人资料私隐专员公署。"],
+  ["7. 你的权利", "你有权查阅和更正你的个人资料。大部分资料可以直接在「我的」页修改或删除；如需索取资料副本、更正资料或有其他要求，请发邮件给我们的资料保障负责人：{email}。我们会在收到要求后 40 日内回复。"],
   ["8. 未满 18 岁", "本服务只供 18 岁或以上人士使用。如发现用户未满 18 岁，我们会删除其账号。"],
   ["9. 政策更新", "我们可能更新本政策。重大变更会在网站上通知。"],
-  ["10. 联系我们", "私隐相关查询，请发邮件到 {email}。"]
+  ["10. 联系我们", "私隐相关查询，请发邮件给资料保障负责人：{email}。"]
 ]},
 en: { t: "Privacy policy", lead: "This policy (which is also our Personal Information Collection Statement) explains what we collect, why, who can see it, and your rights under Hong Kong’s Personal Data (Privacy) Ordinance (Cap. 486).", s: [
-  ["1. What we collect", "Required (without these you can’t use matching):", ["Your school email, to sign you in and confirm you are a student", "Name, gender, birth year, faculty, year of study, height, where you’re from, languages", "1 to 3 photos", "Personality traits, interests, quiz answers, your ideal type and match criteria (age and height ranges, etc.)"], "Optional: ethnicity, MBTI, religion, smoking, bio, a written description of your ideal type, crush list, block list.", "Created as you use the service: weekly sign-ups, matches and your decisions, icebreaker answers, end-to-end encrypted chat messages (which we cannot read), each device's public encryption key, and reports (including any messages you choose to attach)."],
+  ["1. What we collect", "Required (without these you can’t use matching):", ["Your school email, to sign you in and confirm you are a student", "Name, gender, birth year, faculty, year of study, height, where you’re from, languages", "1 to 3 photos", "Personality traits, interests, quiz answers, your ideal type and match criteria (age and height ranges, etc.)"], "Optional: ethnicity, MBTI, religion, smoking, bio, a written description of your ideal type, crush list, block list.", "Created as you use the service: weekly sign-ups, matches and your decisions, icebreaker answers, end-to-end encrypted chat messages (which we cannot read), each device's public encryption key, and reports (including any messages you choose to attach).", "On your device: your browser stores your sign-in session, language setting and your private chat key locally (localStorage / IndexedDB). We don’t use advertising or tracking cookies. Our service providers keep ordinary technical logs (such as IP address and browser type) for a short time for security and operations."],
   ["2. How we use it", ["To confirm you are a Hong Kong university student aged 18 or over;", "To match you each week: we score compatibility from your quiz, criteria and ideal type, and filter by criteria such as age and height. Ethnicity is shown on your card only and is never used to filter;", "To show your match card to your match and run the chat;", "To send sign-in codes, handle reports and keep users safe."], "We don’t sell your data, use it for direct marketing, or show ads. We don’t currently use AI to analyse your text; if that changes we will update this policy and tell you first."],
-  ["3. Who can see it", ["Other users: only your match for that week sees your match card — name, school, faculty, year, age, height, photos, bio, traits, interests and ideal type, plus “why you fit” based on answers you share. Your email, crush list and block list are never shown to anyone.", "Crush and block lists: we store only an irreversible fingerprint of each email plus a masked label. The other person never finds out unless you both list each other.", "Service providers, who process data only on our instructions: Supabase (database, sign-in and photo storage, servers in Singapore), Resend (sends sign-in emails, USA) and Vercel (website hosting). The site also loads code and fonts from jsDelivr and Google Fonts, which receive general network data such as your IP address.", "Law enforcement, only where the law requires it."]],
+  ["3. Who can see it", ["Other users: only your match for that week sees your match card — name, school, faculty, year, age, height, photos, bio, traits, interests and ideal type, plus “why you fit” based on answers you share. Your email, crush list and block list are never shown to anyone.", "Crush and block lists: we store only an irreversible fingerprint of each email plus a masked label. The other person never finds out unless you both list each other.", "Service providers, who process data only on our instructions: Supabase (database, sign-in and photo storage, servers in Singapore), Resend (sends sign-in emails, USA), GitHub Pages (website hosting, USA) and Cloudflare (domain name service). The site also loads code and fonts from jsDelivr and Google Fonts, which receive general network data such as your IP address.", "Law enforcement, only where the law requires it."]],
   ["4. Storage outside Hong Kong", "Your data is stored and processed outside Hong Kong, including in Singapore and the USA. We choose providers with appropriate security measures."],
   ["5. How long we keep it", ["Chat messages and icebreaker answers: deleted automatically 30 days after the chat closes.", "Profile and photos: until you delete your account.", "Match history (to avoid repeat matches): until either person deletes their account.", "When you delete your account, your account, profile, photos, matches, chats, crush list and block list are deleted immediately. Reports, including any messages the reporter chose to attach, are kept for up to 12 months for safety reasons, unlinked from deleted accounts."]],
-  ["6. Security", "Database permissions mean each user can only read what they are allowed to see. Photos are stored privately and shown only to you and your match through links that expire. Chats are end-to-end encrypted: messages are encrypted on your device and only your and your match's devices can open them. Private keys never leave your device; the server stores only ciphertext, so neither we nor any admin can read them. When reporting, the reporter can choose to attach messages their own device decrypted (with per-message keys that let us verify them); we use these only to handle that report. Icebreaker answers and match-card details are processed by our system, so they are not end-to-end encrypted."],
-  ["7. Your rights", "You have the right to access and correct your personal data. You can edit or delete most of it yourself on the Me page. For a copy of your data or any other request, email {email} — we will reply within 40 days."],
+  ["6. Security", "Database permissions mean each user can only read what they are allowed to see. Photos are stored privately and shown only to you and your match through links that expire. Chats are end-to-end encrypted: messages are encrypted on your device and only your and your match's devices can open them. Private keys never leave your device; the server stores only ciphertext, so neither we nor any admin can read them. When reporting, the reporter can choose to attach messages their own device decrypted (with per-message keys that let us verify them); we use these only to handle that report. Icebreaker answers and match-card details are processed by our system, so they are not end-to-end encrypted. If a data breach could affect you, we will tell affected users as soon as we can and notify the Privacy Commissioner for Personal Data where appropriate."],
+  ["7. Your rights", "You have the right to access and correct your personal data. You can edit or delete most of it yourself on the Me page. For a copy of your data, a correction or any other request, email our Data Protection Officer at {email}. We will reply within 40 days of receiving your request."],
   ["8. Under 18s", "The service is only for people aged 18 or over. If we find a user is under 18, we delete their account."],
   ["9. Changes", "We may update this policy and will announce major changes on the site."],
-  ["10. Contact", "Privacy questions: {email}."]
+  ["10. Contact", "Privacy questions: our Data Protection Officer, {email}."]
 ]}
 },
 rules: {
@@ -3078,10 +3096,19 @@ function dtabs(cur) {
     return '<button type="button" class="dtab" data-act="go" data-v="' + it[0] + '"' + (cur === it[0] ? ' aria-current="page"' : "") + '>' + it[2] + t(it[1]) + dot(it[0]) + '</button>';
   }).join("") + '</nav>';
 }
+/* the round account button, top right: your photo (or initial) once signed in, an outline when not */
+function acct(app, cur) {
+  if (!D.session) return app ? "" : '<button type="button" class="acct out" data-act="start" aria-label="' + esc(t("join")) + '">' + IC.me + '</button>';
+  var done = setupComplete();
+  if (app && !done) return "";
+  var p = D.profile || {}, ph = myPhotos()[0] ? purl(myPhotos()[0]) : "";
+  var face = ph ? '<img src="' + esc(ph) + '" alt="">' : '<span>' + esc(String(p.name || S.email || "U").charAt(0).toUpperCase()) + '</span>';
+  return '<button type="button" class="acct' + (cur === "me" ? " on" : "") + '" data-act="' + (done ? "go" : "start") + '"' + (done ? ' data-v="me"' : "") + ' aria-label="' + esc(t("tabMe")) + '"' + (cur === "me" ? ' aria-current="page"' : "") + '>' + face + '</button>';
+}
 function header(app, cur) {
-  var right = app ? '<div class="row" style="gap:16px;flex-wrap:nowrap">' + (cur ? dtabs(cur) : "") + langSwitch() + '</div>' :
+  var right = app ? '<div class="row" style="gap:16px;flex-wrap:nowrap">' + (cur ? dtabs(cur) : "") + langSwitch() + acct(true, cur) + '</div>' :
     '<nav class="nav" aria-label="Main"><a class="navlink" href="#how">' + t("navHow") + '</a><a class="navlink" href="#crush">' + t("navCrush") + '</a><a class="navlink" href="#safety">' + t("navSafety") + '</a><a class="navlink" href="#privacy">' + t("navPrivacy") + '</a>' + langSwitch() +
-    '<button type="button" class="btn btn-ink btn-sm" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button></nav>';
+    '<button type="button" class="btn btn-ink btn-sm" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button>' + acct(false) + '</nav>';
   return '<header class="top' + (app ? " app" : "") + '"><div class="' + (app ? "col" : "wrap") + ' top-in"><button type="button" class="logo" data-act="logo" aria-label="UNIdate HK"><span class="plate"><b>UNIdate</b><small>HK</small></span></button>' + right + '</div></header>';
 }
 function tabs(cur) {
