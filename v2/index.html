@@ -1943,6 +1943,41 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
 .night-page .acct{box-shadow:0 0 0 2px rgba(255,255,255,.2)}
 .night-page .acct.on{box-shadow:0 0 0 2px var(--d-night),0 0 0 4px #FFFFFF}
 .landing-page .nav{gap:14px 18px;flex-wrap:nowrap}
+
+/* ---------- where to meet: date spots in chat ---------- */
+.card.coffee{display:flex;flex-direction:column;gap:14px;padding:20px 18px 16px}
+.coffee-head{display:flex;flex-direction:column;gap:4px}
+.coffee-title{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ink)}
+.spot-areas{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:2px}
+.spot-areas::-webkit-scrollbar{display:none}
+.spot-area{flex:none;min-height:36px;padding:0 14px;border:0;border-radius:999px;background:#FFFFFF;box-shadow:inset 0 0 0 1px var(--field-line);font:inherit;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;white-space:nowrap;transition:background-color .2s,box-shadow .2s,color .2s}
+.spot-area:hover{box-shadow:inset 0 0 0 1px var(--field-hover)}
+.spot-area[aria-selected="true"]{background:var(--sel-bg);color:var(--sel-ink);font-weight:600;box-shadow:inset 0 0 0 1.5px var(--sel-line)}
+.spot-area:focus-visible,.spot-send:focus-visible,.spot-map:focus-visible{outline:2px solid var(--d-dusk);outline-offset:2px}
+.spots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.spot{display:flex;flex-direction:column;gap:6px;padding:14px 0}
+.spot+.spot{border-top:1px solid #EEEBF5}
+.spot-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.spot-name{font-family:var(--display);font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
+.spot-kind{flex:none;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--fill);color:var(--body)}
+.spot-why{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
+.spot-addr{margin:0;display:flex;gap:6px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--muted)}
+.spot-addr svg{flex:none;width:14px;height:14px;margin-top:2px;color:var(--d-violet)}
+.spot-acts{display:flex;align-items:center;gap:10px;margin-top:4px}
+.spot-map{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--field-line);font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;background:#FFFFFF}
+.spot-map:hover{box-shadow:inset 0 0 0 1px var(--field-hover)}
+.spot-send{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border:0;border-radius:999px;background:var(--love);color:#FFFFFF;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 8px 18px -10px rgba(227,64,122,.8)}
+.spot-send svg{width:15px;height:15px}
+.spot-send:active,.spot-map:active,.spot-area:active{transform:scale(.96)}
+.spot-note{margin:2px 0 0;line-height:1.55}
+.spot-kinds{display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}
+.spot-kindbtn{min-height:30px;padding:0 12px;border:0;border-radius:999px;background:transparent;font:inherit;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer}
+.spot-kindbtn:hover{color:var(--ink);background:var(--fill)}
+.spot-kindbtn[aria-checked="true"]{background:var(--ink);color:#FFFFFF;font-weight:600}
+.spot-kindbtn:focus-visible{outline:2px solid var(--d-dusk);outline-offset:2px}
+.spot-kind.k-walk{background:#E7F6EF;color:var(--green)}
+.spot-kind.k-play,.spot-kind.k-art{background:#FFF1E0;color:#9A5B10}
+.spot-empty{padding:14px 0}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -2552,6 +2587,34 @@ Object.assign(T, {
   aboutG2: ["補充資料", "补充资料", "A few extras"]
 });
 Object.assign(T, { photoCount2: ["{a} 張相", "{a} 张照片", "Photos: {a}"] });
+/* ---- date spots ---- */
+Object.assign(T, {
+  dateTitle: ["約會去邊好？", "约会去哪里？", "Where should you meet?"],
+  dateSub: ["揀咗你哋兩間學校中間嘅地方。第一次見面，揀人多嘅公眾地方。", "选了你们两校之间的地方。第一次见面，选人多的公共场所。", "Places between your two campuses. For a first meet, pick somewhere busy and public."],
+  spotMap: ["喺地圖打開", "在地图打开", "Open in Maps"],
+  spotSend: ["發俾 TA", "发给 TA", "Send to them"],
+  spotMsg: ["不如一齊去 {n}？地址：{a}", "要不要一起去 {n}？地址：{a}", "Want to go to {n}? It's at {a}"],
+  spotReady: ["已經放咗入輸入框，㩒發送就得。", "已放进输入框，点发送就可以。", "Added to your message. Tap send when ready."],
+  spotNote: ["由我哋揀選，唔係合作或贊助商戶。出發前請先確認營業時間。", "由我们挑选，不是合作或赞助商家。出发前请先确认营业时间。", "Picked by us, not paid or sponsored. Check opening hours before you go."],
+  k_cafe: ["咖啡店", "咖啡店", "Café"],
+  k_brunch: ["Brunch", "Brunch", "Brunch"],
+  k_dessert: ["甜品", "甜品", "Dessert"],
+  k_meal: ["餐廳", "餐厅", "Restaurant"],
+  k_veg: ["素食", "素食", "Vegetarian"]
+});
+Object.assign(T, {
+  dateSub: ["揀咗你哋兩間學校中間嘅地方，食嘢、散步、玩都有。第一次見面，揀人多嘅公眾地方。", "选了你们两校之间的地方，吃喝、散步、玩都有。第一次见面，选人多的公共场所。", "Places between your two campuses: food, walks and things to do. For a first meet, pick somewhere busy and public."],
+  spotNote: ["由我哋揀選，唔係合作或贊助商戶。出發前請先確認開放時間。", "由我们挑选，不是合作或赞助商家。出发前请先确认开放时间。", "Picked by us, not paid or sponsored. Check opening hours before you go."],
+  spotNone: ["呢區暫時未有呢類地方，試吓其他。", "这个区暂时没有这类地方，换一个试试。", "Nothing of this kind here yet. Try another."],
+  f_all: ["全部", "全部", "All"],
+  f_eat: ["食嘢飲嘢", "吃喝", "Food & drink"],
+  f_walk: ["散步", "散步", "Walks"],
+  f_play: ["玩", "玩", "Things to do"],
+  k_walk: ["散步", "散步", "Walk"],
+  k_play: ["玩", "玩", "Fun"],
+  k_art: ["展覽", "展览", "Art"]
+});
+Object.assign(T, { coffee: ["約會去邊", "约会去哪", "Where to meet"] });
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -2788,6 +2851,237 @@ var E2E = (function () {
            volatile: function () { return volatile; }, b64: b64, unb64: unb64 };
 })();
 window.UDE2E = E2E;
+
+/* ---------- date spots: hand-picked places in each meeting area (checked October 2026) ----------
+   keyed by the English area name in AREAS. n = name (string, or [yue, zhs, en]); k = kind of place;
+   w = why it suits a first date; a = address [yue, zhs, en] */
+var SPOT_DATE = "2026-10";
+var DATE_SPOTS = {
+  "Central / Sheung Wan": [
+    { n: "Cupping Room", k: "brunch",
+      w: ["荷李活道人氣 brunch 店，熱鬧但坐得舒服，唔怕冷場。", "荷李活道人气 brunch 店，热闹但坐得舒服，不怕冷场。", "A busy Hollywood Road brunch spot, lively enough that quiet moments never feel awkward."],
+      a: ["中環荷李活道49號 Hilltop Plaza 1樓", "中环荷李活道49号 Hilltop Plaza 1楼", "1/F, Hilltop Plaza, 49 Hollywood Road, Central"] },
+    { n: "Museum Café 8", k: "cafe",
+      w: ["喺海事博物館天台，對住維港，傍晚去最靚。", "在海事博物馆天台，对着维港，傍晚去最美。", "On the Maritime Museum rooftop, facing the harbour. Best around sunset."],
+      a: ["中環8號碼頭 香港海事博物館天台", "中环8号码头 香港海事博物馆天台", "Rooftop, Hong Kong Maritime Museum, Central Pier 8"] },
+    { n: "Chocolux", k: "dessert",
+      w: ["主打朱古力嘅 café，揀飲品已經有嘢傾。", "主打巧克力的咖啡店，选饮品就有话题。", "A chocolate-focused café, so choosing drinks is already a conversation."],
+      a: ["中環德輔道中29號 The Siberian 地下", "中环德辅道中29号 The Siberian 地下", "G/F, The Siberian, 29 Des Voeux Road Central"] }
+  ],
+  "Sai Ying Pun": [
+    { n: "Winstons Coffee", k: "cafe",
+      w: ["澳洲風咖啡店，門口有吧枱位，夜晚仲有酒飲。", "澳式咖啡店，门口有吧台位，晚上还有酒。", "Australian-style café with street-side bar seats, and drinks in the evening."],
+      a: ["西營盤皇后大道西213號地下4號舖", "西营盘皇后大道西213号地下4号铺", "Shop 4, G/F, 213 Queen's Road West, Sai Ying Pun"] },
+    { n: "Coffee by Zion", k: "cafe",
+      w: ["西營盤站出口側邊，北歐風細細間，好易搵。", "西营盘站出口旁边，北欧风小店，很好找。", "A small Scandi-style café right by the Sai Ying Pun MTR exit. Easy to find."],
+      a: ["西營盤第一街83號地下1號舖", "西营盘第一街83号地下1号铺", "Shop 1, G/F, 83 First Street, Sai Ying Pun"] },
+    { n: "Rootdown", k: "cafe",
+      w: ["木系裝修，有甜品同咖啡，夜晚變 cocktail bar。", "木系装修，有甜点和咖啡，晚上变成鸡尾酒吧。", "Wood-panelled café with sweets and coffee that turns into a cocktail bar at night."],
+      a: ["西營盤正街1號 Two ArtLane 地下", "西营盘正街1号 Two ArtLane 地下", "G/F, Two ArtLane, 1 Chung Ching Street, Sai Ying Pun"] }
+  ],
+  "Tsim Sha Tsui": [
+    { n: ["Cupping Room（海港城）", "Cupping Room（海港城）", "Cupping Room (Harbour City)"], k: "brunch",
+      w: ["海洋中心 3 樓，大玻璃窗望住海，坐得耐。", "海洋中心 3 楼，大玻璃窗看海，坐得久。", "Ocean Centre, 3/F: big curved windows over the water, and nobody rushes you."],
+      a: ["尖沙咀廣東道5號海港城海洋中心3樓309號舖", "尖沙咀广东道5号海港城海洋中心3楼309号铺", "Shop 309, 3/F, Ocean Centre, Harbour City, 5 Canton Road"] },
+    { n: "Lemna of The Alchemist", k: "cafe",
+      w: ["文化中心地下，飲完可以沿海旁行去星光大道。", "文化中心地下，喝完可以沿海边走到星光大道。", "At the Cultural Centre. Afterwards, walk the waterfront to the Avenue of Stars."],
+      a: ["尖沙咀梳士巴利道10號香港文化中心地下", "尖沙咀梳士巴利道10号香港文化中心地下", "G/F, Hong Kong Cultural Centre, 10 Salisbury Road"] },
+    { n: ["Elephant Grounds（K11 MUSEA）", "Elephant Grounds（K11 MUSEA）", "Elephant Grounds (K11 MUSEA)"], k: "brunch",
+      w: ["K11 MUSEA 7 樓綠色天台，食 brunch 啱晒。", "K11 MUSEA 7 楼的绿色天台，很适合吃 brunch。", "A green rooftop on K11 MUSEA's 7th floor. Made for brunch."],
+      a: ["尖沙咀梳士巴利道18號 K11 MUSEA 7樓705號舖", "尖沙咀梳士巴利道18号 K11 MUSEA 7楼705号铺", "Shop 705, 7/F, K11 MUSEA, 18 Salisbury Road"] }
+  ],
+  "Prince Edward / Mong Kok": [
+    { n: ["agnès b. CAFÉ（朗豪坊）", "agnès b. CAFÉ（朗豪坊）", "agnès b. CAFÉ (Langham Place)"], k: "dessert",
+      w: ["朗豪坊 3 樓，主打朱古力甜品，坐低傾偈唔使驚嘈。", "朗豪坊 3 楼，主打巧克力甜点，坐下聊天不怕吵。", "Langham Place, 3/F. Chocolate desserts, and quiet enough to talk."],
+      a: ["旺角亞皆老街8號朗豪坊3樓33號舖", "旺角亚皆老街8号朗豪坊3楼33号铺", "Shop 33, 3/F, Langham Place, 8 Argyle Street, Mong Kok"] },
+    { n: "PHI Coffee & Pancake", k: "cafe",
+      w: ["雅蘭中心 2 樓，梳乎厘班戟係招牌，價錢學生負擔到。", "雅兰中心 2 楼，舒芙蕾松饼是招牌，学生也负担得起。", "Grand Plaza, 2/F. Soufflé pancakes are the thing, at student prices."],
+      a: ["旺角彌敦道625及639號雅蘭中心2樓207號舖", "旺角弥敦道625及639号雅兰中心2楼207号铺", "Shop 207, 2/F, Grand Plaza, 625 & 639 Nathan Road, Mong Kok"] },
+    { n: ["HeSheEat（THE FOREST）", "HeSheEat（THE FOREST）", "HeSheEat (THE FOREST)"], k: "cafe",
+      w: ["淺色木系，意粉同甜品都有，唔使諗食咩。", "浅色木系，意面和甜点都有，不用纠结吃什么。", "Light, woody interior with pasta and desserts, so there's no debate about where to eat."],
+      a: ["旺角奶路臣街17號 THE FOREST 地下G6號舖", "旺角奶路臣街17号 THE FOREST 地下G6号铺", "Shop G6, G/F, THE FOREST, 17 Nelson Street, Mong Kok"] }
+  ],
+  "Kowloon Tong": [
+    { n: ["Lady M（又一城）", "Lady M（又一城）", "Lady M (Festival Walk)"], k: "dessert",
+      w: ["千層蛋糕出名，坐一陣傾吓偈啱啱好。", "千层蛋糕很有名，坐一会儿聊聊天刚刚好。", "Famous for mille crêpe cakes. Just right for a short first chat."],
+      a: ["九龍塘達之路80號又一城UG樓UG-22號舖", "九龙塘达之路80号又一城UG楼UG-22号铺", "Shop UG-22, UG/F, Festival Walk, 80 Tat Chee Avenue"] },
+    { n: ["Cova Pasticceria（又一城）", "Cova Pasticceria（又一城）", "Cova Pasticceria (Festival Walk)"], k: "dessert",
+      w: ["意大利甜品店，環境靚又靜，啱慢慢傾。", "意大利甜品店，环境漂亮又安静，适合慢慢聊。", "An Italian pastry shop that's pretty and quiet. Good for a slower conversation."],
+      a: ["九龍塘達之路80號又一城LG1樓LG1-10-11號舖", "九龙塘达之路80号又一城LG1楼LG1-10-11号铺", "Shop LG1-10/11, LG1/F, Festival Walk, 80 Tat Chee Avenue"] },
+    { n: ["The Coffee Academïcs（又一城）", "The Coffee Academïcs（又一城）", "The Coffee Academïcs (Festival Walk)"], k: "cafe",
+      w: ["買杯咖啡，去溜冰場附近行吓，冇咁拘謹。", "买杯咖啡去溜冰场附近走走，没那么拘谨。", "Grab a coffee and wander past the ice rink. Less formal than sitting down."],
+      a: ["九龍塘達之路80號又一城G樓 Kiosk S3", "九龙塘达之路80号又一城G楼 Kiosk S3", "Kiosk S3, G/F, Festival Walk, 80 Tat Chee Avenue"] }
+  ],
+  "Sha Tin / Tai Wai": [
+    { n: ["noc（圍方）", "noc（围方）", "noc (The Wai)"], k: "cafe",
+      w: ["圍方 4 樓，落地大玻璃，日頭好光猛。", "围方 4 楼，落地大玻璃，白天很明亮。", "The Wai, 4/F. Floor-to-ceiling windows and lots of daylight."],
+      a: ["大圍車公廟路18號圍方4樓430號舖", "大围车公庙路18号围方4楼430号铺", "Shop 430, 4/F, The Wai, 18 Che Kung Miu Road, Tai Wai"] },
+    { n: "E FOR EGG", k: "brunch",
+      w: ["近城門河，有榻榻米座位，食完可以沿河散步。", "靠近城门河，有榻榻米座位，吃完可以沿河散步。", "Near the Shing Mun River with tatami seating. Walk along the river after."],
+      a: ["大圍城河道19-25號城河樓地舖", "大围城河道19-25号城河楼地铺", "G/F, 19–25 Shing Ho Road, Tai Wai"] },
+    { n: "The Shack", k: "cafe",
+      w: ["田心村三層木屋，寵物友善，好似去咗郊外。", "田心村的三层木屋，宠物友好，像去了郊外。", "A three-storey wooden house in Tin Sam Village. Feels like a trip out of town."],
+      a: ["大圍田心村84號地舖", "大围田心村84号地铺", "G/F, 84 Tin Sam Village, Tai Wai"] }
+  ],
+  "Tseung Kwan O": [
+    { n: "JOMO Kitchen & Health Hub", k: "cafe",
+      w: ["海濱長廊旁邊，有露天海景座位，自家製蛋糕。", "在海滨长廊旁边，有露天海景座位，自家做的蛋糕。", "Next to the waterfront promenade, with outdoor sea-view seats and house-made cakes."],
+      a: ["將軍澳唐俊街23號 MONTEREY Place 地下G01號舖", "将军澳唐俊街23号 MONTEREY Place 地下G01号铺", "Shop G01, G/F, MONTEREY Place, 23 Tong Chun Street, Tseung Kwan O"] },
+    { n: ["NOC Coffee Co.（將軍澳）", "NOC Coffee Co.（将军澳）", "NOC Coffee Co. (Tseung Kwan O)"], k: "cafe",
+      w: ["純白色分店，行兩步就到海濱長廊。", "纯白色的分店，走两步就到海滨长廊。", "An all-white branch a short walk from the waterfront."],
+      a: ["將軍澳唐俊街21號翩匯坊地下1A號舖", "将军澳唐俊街21号翩汇坊地下1A号铺", "Shop 1A, G/F, 21 Tong Chun Street, Tseung Kwan O"] },
+    { n: "Urban Coffee Roaster", k: "cafe",
+      w: ["自家烘豆嘅小店，有輕食，啱慢慢傾。", "自家烘豆的小店，有轻食，适合慢慢聊。", "A small shop that roasts its own beans, with light meals. Good for a long chat."],
+      a: ["將軍澳唐賢街29號藍塘傲地下12號舖", "将军澳唐贤街29号蓝塘傲地下12号铺", "Shop 12, G/F, 29 Tong Yin Street, Tseung Kwan O"] }
+  ],
+  "Tai Po": [
+    { n: ["WM Café & Bar（八號花園）", "WM Café & Bar（八号花园）", "WM Café & Bar (8 Garden)"], k: "meal",
+      w: ["地方闊落，有 jazz 背景音樂，可以食正餐。", "地方宽敞，有爵士背景音乐，可以吃正餐。", "Spacious, with jazz in the background and proper meals."],
+      a: ["大埔安慈路2號八號花園地下20號舖", "大埔安慈路2号八号花园地下20号铺", "Shop 20, G/F, 8 Garden, 2 On Chi Road, Tai Po"] },
+    { n: "BOUNDLESS by REACTION", k: "brunch",
+      w: ["美式 brunch，可以訂位，週末唔使排隊。", "美式 brunch，可以订位，周末不用排队。", "American-style brunch that takes bookings, so no weekend queue."],
+      a: ["大埔汀角路15號地下C號舖", "大埔汀角路15号地下C号铺", "Shop C, G/F, 15 Ting Kok Road, Tai Po"] },
+    { n: ["荳子 Beans（大埔超級城）", "荳子 Beans（大埔超级城）", "Beans (Tai Po Mega Mall)"], k: "brunch",
+      w: ["商場入面，全日早餐同甜品，搭車好方便。", "在商场里，全日早餐和甜点，交通方便。", "Inside the mall: all-day breakfast and desserts, easy to get to."],
+      a: ["大埔安邦路8&10號大埔超級城D區1樓670號舖", "大埔安邦路8&10号大埔超级城D区1楼670号铺", "Shop 670, 1/F, Zone D, Tai Po Mega Mall, 8 On Pong Road"] }
+  ],
+  "Tsuen Wan": [
+    { n: ["The uniek（南豐紗廠）", "The uniek（南丰纱厂）", "The uniek (The Mills)"], k: "cafe",
+      w: ["南豐紗廠 1 樓，工業風，食完可以行吓展覽同小店。", "南丰纱厂 1 楼，工业风，吃完可以逛展览和小店。", "The Mills, 1/F. Industrial style, with exhibitions and small shops to wander after."],
+      a: ["荃灣白田壩街45號南豐紗廠1樓111號舖", "荃湾白田坝街45号南丰纱厂1楼111号铺", "Shop 111, 1/F, The Mills, 45 Pak Tin Par Street, Tsuen Wan"] },
+    { n: "PARKSIDE@NINA", k: "cafe",
+      w: ["如心廣場 2 樓，樓底高，木系裝修，坐得舒服。", "如心广场 2 楼，层高高，木系装修，坐得舒服。", "Nina Mall, 2/F. High ceilings, wood interior, comfortable seats."],
+      a: ["荃灣楊屋道8號如心廣場一期2樓201號舖", "荃湾杨屋道8号如心广场一期2楼201号铺", "Shop 201, 2/F, Nina Mall 1, 8 Yeung Uk Road, Tsuen Wan"] },
+    { n: ["UFUFU CAFE（荃灣廣場）", "UFUFU CAFE（荃湾广场）", "UFUFU CAFE (Tsuen Wan Plaza)"], k: "cafe",
+      w: ["日本咖啡師揀豆，有季節甜品。", "日本咖啡师选豆，有季节限定甜点。", "Beans chosen by Japanese baristas, plus seasonal desserts."],
+      a: ["荃灣大壩街4-30號荃灣廣場3樓321-323號舖", "荃湾大坝街4-30号荃湾广场3楼321-323号铺", "Shops 321–323, 3/F, Tsuen Wan Plaza, 4–30 Tai Pa Street"] }
+  ],
+  "Tuen Mun": [
+    { n: ["荳子 Beans（屯門市廣場）", "荳子 Beans（屯门市广场）", "Beans (Tuen Mun Town Plaza)"], k: "brunch",
+      w: ["屯門市廣場 UG，全日早餐，近輕鐵站。", "屯门市广场 UG 层，全日早餐，靠近轻铁站。", "Tuen Mun Town Plaza, UG/F. All-day breakfast, close to the Light Rail."],
+      a: ["屯門屯順街1號屯門市廣場1期UG樓UG042號舖", "屯门屯顺街1号屯门市广场1期UG楼UG042号铺", "Shop UG042, UG/F, Tuen Mun Town Plaza Phase 1, 1 Tuen Shun Street"] },
+    { n: ["PHI Coffee & Pancake（屯門市廣場）", "PHI Coffee & Pancake（屯门市广场）", "PHI Coffee & Pancake (Tuen Mun Town Plaza)"], k: "cafe",
+      w: ["梳乎厘班戟同咖啡，價錢合理。", "舒芙蕾松饼和咖啡，价格合理。", "Soufflé pancakes and coffee at fair prices."],
+      a: ["屯門屯順街1號屯門市廣場1期3樓 Kiosk 2", "屯门屯顺街1号屯门市广场1期3楼 Kiosk 2", "Kiosk 2, 3/F, Tuen Mun Town Plaza Phase 1, 1 Tuen Shun Street"] },
+    { n: "Bougel Cafe & Bakery", k: "cafe",
+      w: ["藍帶出身嘅師傅主理，有自家烘焙麵包。", "蓝带出身的师傅主理，有自家烘焙面包。", "Run by a Le Cordon Bleu–trained chef, with bread baked in-house."],
+      a: ["屯門鄉事會路2A號 H.A.N.D.S 愛定商場A區1樓A-126號舖", "屯门乡事会路2A号 H.A.N.D.S 爱定商场A区1楼A-126号铺", "Shop A-126, 1/F, Zone A, H.A.N.D.S, 2A Heung Sze Wui Road, Tuen Mun"] }
+  ],
+  "Diamond Hill": [
+    { n: ["龍門樓 · 志蓮素齋", "龙门楼 · 志莲素斋", "Long Men Lou · Chi Lin Vegetarian"], k: "veg",
+      w: ["喺南蓮園池入面，先行園再食素齋，窗外有小瀑布。", "在南莲园池里面，先逛园林再吃素斋，窗外有小瀑布。", "Inside Nan Lian Garden: walk the garden first, then a vegetarian meal by a small waterfall."],
+      a: ["鑽石山鳳德道60號南蓮園池龍門樓", "钻石山凤德道60号南莲园池龙门楼", "Long Men Lou, Nan Lian Garden, 60 Fung Tak Road, Diamond Hill"] },
+    { n: ["WM Café & Bar（荷里活廣場）", "WM Café & Bar（荷里活广场）", "WM Café & Bar (Plaza Hollywood)"], k: "meal",
+      w: ["荷里活廣場 2 樓，木系綠色裝修，價錢中等。", "荷里活广场 2 楼，木系绿色装修，价格中等。", "Plaza Hollywood, 2/F. Green, woody decor at mid-range prices."],
+      a: ["鑽石山龍蟠街3號荷里活廣場2樓283-284號舖", "钻石山龙蟠街3号荷里活广场2楼283-284号铺", "Shops 283–284, 2/F, Plaza Hollywood, 3 Lung Poon Street"] },
+    { n: ["台蔡滷肉飯", "台蔡卤肉饭", "台蔡滷肉飯 · Taiwanese"], k: "meal",
+      w: ["米芝蓮推介嘅台灣菜，平又好食，冇壓力。", "米其林推介的台湾菜，便宜又好吃，没有压力。", "Michelin-recommended Taiwanese food. Cheap, good and zero pressure."],
+      a: ["鑽石山龍蟠街3號荷里活廣場2樓235-236號舖", "钻石山龙蟠街3号荷里活广场2楼235-236号铺", "Shops 235–236, 2/F, Plaza Hollywood, 3 Lung Poon Street"] }
+  ]
+};
+/* not every date needs a table: walks and things to do in each area */
+(function () {
+  var more = {
+    "Central / Sheung Wan": [
+      { n: ["中環海濱長廊", "中环海滨长廊", "Central Harbourfront"], k: "walk",
+        w: ["由中環碼頭行到添馬公園，一路望住維港，夜晚有燈光。", "从中环码头走到添马公园，一路看着维港，晚上有灯光。", "Walk from the Central Piers to Tamar Park along the harbour. Lovely after dark."],
+        a: ["中環海濱（中環碼頭至添馬公園）", "中环海滨（中环码头至添马公园）", "Central waterfront, from the Central Piers to Tamar Park"] },
+      { n: ["大館", "大馆", "Tai Kwun"], k: "art",
+        w: ["舊警署改建，免費入場，有展覽同大草地，行完可以飲嘢。", "旧警署改建，免费入场，有展览和大草地，逛完可以喝东西。", "A restored police compound. Free entry, exhibitions and a big courtyard, with cafés inside."],
+        a: ["中環荷李活道10號", "中环荷李活道10号", "10 Hollywood Road, Central"] },
+      { n: ["PMQ 元創方", "PMQ 元创方", "PMQ"], k: "play",
+        w: ["本地設計小店同手作，一間間行，好容易有話題。", "本地设计小店和手作，一间间逛，很容易有话题。", "Rooms of local design shops and makers. Browsing gives you plenty to talk about."],
+        a: ["中環鴨巴甸街35號", "中环鸭巴甸街35号", "35 Aberdeen Street, Central"] }
+    ],
+    "Sai Ying Pun": [
+      { n: ["卑路乍灣海濱長廊", "卑路乍湾海滨长廊", "Belcher Bay Promenade"], k: "walk",
+        w: ["堅尼地城海旁，傍晚行最舒服，可以睇日落。", "坚尼地城海边，傍晚走最舒服，可以看日落。", "The Kennedy Town waterfront. Best in the early evening, with the sunset."],
+        a: ["堅尼地城域多利道海旁", "坚尼地城域多利道海边", "Victoria Road waterfront, Kennedy Town"] },
+      { n: ["西環泳棚", "西环泳棚", "Sai Wan Swimming Shed"], k: "walk",
+        w: ["出名嘅日落影相位，人唔少，記得注意安全。", "出名的日落拍照点，人不少，记得注意安全。", "A famous sunset photo spot. It gets busy; mind your step on the pier."],
+        a: ["堅尼地城域多利道（近摩星嶺）", "坚尼地城域多利道（近摩星岭）", "Victoria Road near Mount Davis, Kennedy Town"] },
+      { n: ["龍虎山郊野公園", "龙虎山郊野公园", "Lung Fu Shan Country Park"], k: "walk",
+        w: ["輕鬆行山，行上去睇維港夜景，唔使好好體力。", "轻松的山路，走上去看维港夜景，不需要很好体力。", "An easy hike up to a view over the harbour at night. No fitness required."],
+        a: ["中西區克頓道入口", "中西区克顿道入口", "Entrance on Hatton Road, Central and Western"] }
+    ],
+    "Tsim Sha Tsui": [
+      { n: ["尖沙咀海濱 · 星光大道", "尖沙咀海滨 · 星光大道", "TST Promenade & Avenue of Stars"], k: "walk",
+        w: ["經典維港景，夜晚 8 點有幻彩詠香江。", "经典维港景，晚上 8 点有幻彩咏香江。", "The classic harbour view, with the Symphony of Lights at 8pm."],
+        a: ["尖沙咀梳士巴利道海旁", "尖沙咀梳士巴利道海边", "Salisbury Road waterfront, Tsim Sha Tsui"] },
+      { n: ["香港藝術館", "香港艺术馆", "Hong Kong Museum of Art"], k: "art",
+        w: ["一齊睇展覽，唔怕冇嘢講；頂樓望住海。", "一起看展览，不怕没话聊；顶楼可以看海。", "Seeing exhibitions together means there's always something to talk about. Sea views upstairs."],
+        a: ["尖沙咀梳士巴利道10號", "尖沙咀梳士巴利道10号", "10 Salisbury Road, Tsim Sha Tsui"] },
+      { n: ["西九文化區 · M+ 及藝術公園", "西九文化区 · M+ 及艺术公园", "West Kowloon · M+ and Art Park"], k: "art",
+        w: ["睇完 M+ 可以去海邊大草地坐低，日落好靚。", "看完 M+ 可以去海边大草地坐坐，日落很美。", "See M+, then sit on the big lawn by the water for sunset."],
+        a: ["西九龍文化區博物館道38號", "西九龙文化区博物馆道38号", "38 Museum Drive, West Kowloon Cultural District"] }
+    ],
+    "Prince Edward / Mong Kok": [
+      { n: ["花墟 · 雀鳥花園", "花墟 · 雀鸟花园", "Flower Market & Bird Garden"], k: "walk",
+        w: ["由花墟道一路行到雀鳥花園，又靚又有生活感。", "从花墟道一路走到雀鸟花园，好看又有生活气息。", "Stroll down Flower Market Road to the Bird Garden. Pretty, and very Hong Kong."],
+        a: ["太子花墟道至園圃街", "太子花墟道至园圃街", "Flower Market Road to Yuen Po Street, Prince Edward"] },
+      { n: ["女人街（通菜街）", "女人街（通菜街）", "Ladies' Market (Tung Choi Street)"], k: "play",
+        w: ["一路行一路食小食，熱鬧，唔驚冷場。", "边逛边吃小吃，热闹，不怕冷场。", "Wander and snack your way down the street. Busy enough that silences never stick."],
+        a: ["旺角通菜街", "旺角通菜街", "Tung Choi Street, Mong Kok"] }
+    ],
+    "Kowloon Tong": [
+      { n: ["又一城 Glacier 溜冰場", "又一城 Glacier 溜冰场", "Glacier ice rink, Festival Walk"], k: "play",
+        w: ["一齊溜冰，跌跌碰碰好易破冰。", "一起溜冰，跌跌撞撞很容易破冰。", "Skating together: a few wobbles break the ice fast."],
+        a: ["九龍塘達之路80號又一城", "九龙塘达之路80号又一城", "Festival Walk, 80 Tat Chee Avenue, Kowloon Tong"] },
+      { n: ["九龍寨城公園", "九龙寨城公园", "Kowloon Walled City Park"], k: "walk",
+        w: ["江南園林風，靜靜地行，有段歷史可以傾。", "江南园林风格，安静地走走，还有一段历史可以聊。", "A quiet classical garden with a story behind it."],
+        a: ["九龍城東頭村道", "九龙城东头村道", "Tung Tau Tsuen Road, Kowloon City"] }
+    ],
+    "Sha Tin / Tai Wai": [
+      { n: ["城門河畔", "城门河畔", "Shing Mun River promenade"], k: "walk",
+        w: ["沿河散步或者一齊踩單車，傍晚最舒服。", "沿河散步或者一起骑单车，傍晚最舒服。", "Walk or cycle along the river. Best in the early evening."],
+        a: ["沙田城門河兩岸", "沙田城门河两岸", "Both banks of the Shing Mun River, Sha Tin"] },
+      { n: ["香港文化博物館", "香港文化博物馆", "Hong Kong Heritage Museum"], k: "art",
+        w: ["展覽常換，有李小龍展，行完可以去河邊。", "展览常换，有李小龙展，看完可以去河边。", "Changing exhibitions plus a Bruce Lee gallery, right by the river."],
+        a: ["沙田文林路1號", "沙田文林路1号", "1 Man Lam Road, Sha Tin"] }
+    ],
+    "Tseung Kwan O": [
+      { n: ["將軍澳海濱長廊", "将军澳海滨长廊", "TKO Waterfront Promenade"], k: "walk",
+        w: ["好長好闊嘅海旁，日落同夜景都靚。", "又长又宽的海边步道，日落和夜景都好看。", "A long, wide waterfront path. Great at sunset and after dark."],
+        a: ["將軍澳南海旁（唐俊街一帶）", "将军澳南海边（唐俊街一带）", "TKO South waterfront, around Tong Chun Street"] },
+      { n: ["LOHAS Rink 溜冰場", "LOHAS Rink 溜冰场", "LOHAS Rink"], k: "play",
+        w: ["日出康城商場溜冰場，一齊玩冇咁尷尬。", "日出康城商场里的溜冰场，一起玩没那么尴尬。", "An ice rink in The LOHAS mall. Doing something together takes the pressure off."],
+        a: ["將軍澳康城路1號 The LOHAS 康城", "将军澳康城路1号 The LOHAS 康城", "The LOHAS, 1 Lohas Park Road, Tseung Kwan O"] }
+    ],
+    "Tai Po": [
+      { n: ["大埔海濱公園", "大埔海滨公园", "Tai Po Waterfront Park"], k: "walk",
+        w: ["好大嘅海旁公園，可以坐喺草地傾偈。", "很大的海边公园，可以坐在草地上聊天。", "A huge waterfront park. Sit on the grass and talk."],
+        a: ["大埔吐露港海旁（近大埔工業邨）", "大埔吐露港海边（近大埔工业村）", "Tolo Harbour waterfront, near Tai Po Industrial Estate"] },
+      { n: ["大美督 · 船灣淡水湖", "大美督 · 船湾淡水湖", "Tai Mei Tuk & Plover Cove"], k: "play",
+        w: ["租單車沿海踩，行上水壩睇湖景。", "租单车沿海骑，走上水坝看湖景。", "Rent bikes along the shore and walk out on the reservoir dam."],
+        a: ["大埔大美督", "大埔大美督", "Tai Mei Tuk, Tai Po"] }
+    ],
+    "Tsuen Wan": [
+      { n: ["南豐紗廠 The Mills", "南丰纱厂 The Mills", "The Mills"], k: "art",
+        w: ["舊紗廠改建，有展覽、小店同天台，行得耐。", "旧纱厂改建，有展览、小店和天台，可以逛很久。", "A converted cotton mill with exhibitions, small shops and a rooftop."],
+        a: ["荃灣白田壩街45號", "荃湾白田坝街45号", "45 Pak Tin Par Street, Tsuen Wan"] },
+      { n: ["荃灣海濱長廊", "荃湾海滨长廊", "Tsuen Wan waterfront"], k: "walk",
+        w: ["沿住海旁行，可以望到青馬大橋。", "沿着海边走，可以看到青马大桥。", "Follow the waterfront with views of the Tsing Ma Bridge."],
+        a: ["荃灣海濱公園一帶", "荃湾海滨公园一带", "Around Tsuen Wan Riviera Park"] },
+      { n: ["城門水塘", "城门水塘", "Shing Mun Reservoir"], k: "walk",
+        w: ["水塘行一圈，湖景好靚，記得唔好餵馬騮。", "绕水塘走一圈，湖景很美，记得不要喂猴子。", "A loop around the reservoir. Beautiful, but don't feed the monkeys."],
+        a: ["荃灣城門水塘（城門郊野公園）", "荃湾城门水塘（城门郊野公园）", "Shing Mun Country Park, Tsuen Wan"] }
+    ],
+    "Tuen Mun": [
+      { n: ["黃金海岸", "黄金海岸", "Gold Coast"], k: "walk",
+        w: ["海灘同海旁步道，傍晚影日落一流。", "沙滩和海边步道，傍晚拍日落很棒。", "Beach and seaside path. Perfect for sunset photos."],
+        a: ["屯門青山公路黃金海岸", "屯门青山公路黄金海岸", "Gold Coast, Castle Peak Road, Tuen Mun"] },
+      { n: ["屯門公園", "屯门公园", "Tuen Mun Park"], k: "walk",
+        w: ["市中心大公園，有湖同大草地，近輕鐵。", "市中心的大公园，有湖和大草地，靠近轻铁。", "A big town-centre park with a lake and lawns, near the Light Rail."],
+        a: ["屯門市中心屯門公園", "屯门市中心屯门公园", "Tuen Mun Park, Tuen Mun town centre"] }
+    ],
+    "Diamond Hill": [
+      { n: ["南蓮園池 · 志蓮淨苑", "南莲园池 · 志莲净苑", "Nan Lian Garden & Chi Lin Nunnery"], k: "walk",
+        w: ["唐式園林，免費入場，又靜又靚，行完可以食素齋。", "唐式园林，免费入场，安静又漂亮，逛完可以吃素斋。", "A Tang-style garden with free entry. Calm and beautiful, with a vegetarian lunch after."],
+        a: ["鑽石山鳳德道60號", "钻石山凤德道60号", "60 Fung Tak Road, Diamond Hill"] }
+    ]
+  };
+  for (var k in more) DATE_SPOTS[k] = (DATE_SPOTS[k] || []).concat(more[k]);
+})();
 
 /* ---------- state ---------- */
 /* S = this browser's conveniences (language, quiz in progress). D = real data from the server. */
@@ -3599,21 +3893,46 @@ function vChat() {
       (x.err ? IC.lockS + '<span>' + t({ other: "e2eOther", unsupported: "e2eUnsupported", nokey: "e2eNoKey" }[x.err] || "e2eBad") + '</span>' : esc(x.text)) + '</div>';
   }).join("");
   if (both && !D.msgs.length) msgs = '<p class="chat-start">' + t("chatStart", esc(m.name)) + '</p>';
-  var sp = spots(school(D.profile.school), school(m.school));
-  var coffee = ui.showCoffee ? '<div class="card coffee"><span class="coffee-title">' + t("coffeeTitle") + '</span><div class="areas">' + sp.map(function (a) {
-    return '<span class="area">' + IC.pin + tr(a.n) + '</span>';
-  }).join("") + '</div><span class="tiny muted">' + t("safeTip") + '</span></div>' : "";
+  var sp = spots(school(D.profile.school), school(m.school)), noE2E = D.e2eErr === "unsupported";
+  var coffee = ui.showCoffee ? datePanel(sp, both && !noE2E) : "";
   var canAttach = D.msgs.some(function (x) { return !x.err; });
   var confirm = ui.confirm === "report" ? '<div class="confirm" role="alertdialog" aria-label="' + t("report") + '"><span>' + t("reportQ", esc(m.name)) + '</span>' +
     (canAttach ? '<label class="attach"><input type="checkbox" id="repEvidence" checked><span>' + t("reportAttach") + '</span></label>' : "") + '<div class="row"><button type="button" class="btn btn-danger btn-sm" data-act="reportYes">' + t("reportYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' : "";
   var ig = ui.igOpen ? '<form class="row" data-form="ig" novalidate style="flex-wrap:nowrap"><label for="ig" class="sr">' + t("igLabel") + '</label><input class="input" id="ig" placeholder="@" maxlength="30" style="flex:1 1 auto;min-width:0"><button class="btn btn-sm" type="submit">' + t("share") + '</button></form>' : "";
-  var noE2E = D.e2eErr === "unsupported";
   var composer = both && noE2E ? '<div class="composer"><div class="composer-in"><p class="small" style="margin:0;padding:12px 4px">' + t("e2eUnsupported") + '</p></div></div>' : both ? '<div class="composer"><div class="composer-in"><form class="row" data-form="msg" novalidate style="flex:1 1 auto;flex-wrap:nowrap;gap:8px"><label for="msg" class="sr">' + t("msgLabel") + '</label><input class="input" id="msg" autocomplete="off" enterkeyhint="send" maxlength="300" placeholder="' + t("msgPh") + '" style="flex:1 1 auto;min-width:0;height:48px;border-radius:999px"><button class="send" type="submit" aria-label="' + t("send") + '">' + IC.send + '</button></form></div></div>' : "";
   return header(true, "chat") + '<main class="col app-main wide chat-main" style="padding-bottom:' + (both ? 220 : 140) + 'px"><div class="dgrid chat-grid"><div class="stack d-main" style="gap:12px">' + head +
     '<div class="chat-meta"><span class="days-pill">' + t("daysLeft", left) + '</span><span class="tiny muted text-only">' + IC.lockG + t("textOnly") + '</span></div>' +
     confirm + '<details class="disclose about-disclose"><summary>' + t("aboutTitle", esc(m.name || "")) + IC.chev + '</summary>' + aboutCard(m, "flat") + '</details>' + ice + (both ? '<div class="stack" style="gap:8px">' + msgs + '</div>' + errBox("msg") : "") + coffee +
     (both ? '<div class="chat-acts"><button type="button" class="btn btn-sm btn-soft" data-act="coffee" aria-pressed="' + !!ui.showCoffee + '">' + IC.pin + t("coffee") + '</button><button type="button" class="btn btn-sm btn-soft" data-act="igOpen" aria-pressed="' + !!ui.igOpen + '">' + t("ig") + '</button></div>' + ig : "") +
     '<p class="tiny e2e-note">' + IC.lockG + t("e2eeNote") + (E2E.volatile() ? " " + t("e2eVolatile") : "") + '</p>' + composer + '</div></div></main>' + tabs("chat");
+}
+/* where to meet: the three areas between both campuses, each with a few hand-picked places */
+function spotName(p, i) { return typeof p.n === "string" ? p.n : p.n[i === undefined ? L() : i]; }
+var SPOT_FILTERS = { all: null, eat: ["cafe", "brunch", "dessert", "meal", "veg"], walk: ["walk"], play: ["play", "art"] };
+function spotArea(areas) { return DATE_SPOTS[areas[Math.max(0, Math.min(ui.area || 0, areas.length - 1))].n[2]] || []; }
+/* the filters this area actually has something for; a filter with nothing in it isn't offered */
+function spotKinds(list) { return ["all", "eat", "walk", "play"].filter(function (k) { var f = SPOT_FILTERS[k]; return !f || list.some(function (p) { return f.indexOf(p.k) >= 0; }); }); }
+function spotList(areas) {
+  var list = spotArea(areas), kinds = spotKinds(list), kind = kinds.indexOf(ui.spotKind) >= 0 ? ui.spotKind : "all", f = SPOT_FILTERS[kind];
+  return list.map(function (p, i) { return { p: p, i: i }; }).filter(function (x) { return !f || f.indexOf(x.p.k) >= 0; });
+}
+function datePanel(areas, canSend) {
+  var ai = Math.max(0, Math.min(ui.area || 0, areas.length - 1)), avail = spotKinds(spotArea(areas)), kind = avail.indexOf(ui.spotKind) >= 0 ? ui.spotKind : "all";
+  var tabs = '<div class="spot-areas" role="tablist" aria-label="' + esc(t("dateTitle")) + '">' + areas.map(function (a, i) {
+    return '<button type="button" role="tab" class="spot-area" data-act="area" data-v="' + i + '" aria-selected="' + (i === ai) + '">' + tr(a.n) + '</button>';
+  }).join("") + '</div>';
+  var kinds = '<div class="spot-kinds" role="radiogroup" aria-label="' + esc(t("dateTitle")) + '">' + avail.map(function (k) {
+    return '<button type="button" role="radio" class="spot-kindbtn" data-act="spotKind" data-v="' + k + '" aria-checked="' + (k === kind) + '">' + t("f_" + k) + '</button>';
+  }).join("") + '</div>';
+  var items = spotList(areas).map(function (x) {
+    var p = x.p, q = encodeURIComponent(spotName(p, 0).replace(/（.*?）/g, " ") + " " + p.a[0]);
+    return '<li class="spot"><div class="spot-top"><b class="spot-name">' + esc(spotName(p)) + '</b><span class="spot-kind k-' + p.k + '">' + t("k_" + p.k) + '</span></div>' +
+      '<p class="spot-why">' + esc(tr(p.w)) + '</p><p class="spot-addr">' + IC.pin + '<span>' + esc(tr(p.a)) + '</span></p>' +
+      '<div class="spot-acts"><a class="spot-map" href="https://www.google.com/maps/search/?api=1&amp;query=' + q + '" target="_blank" rel="noopener noreferrer">' + t("spotMap") + '</a>' +
+      (canSend ? '<button type="button" class="spot-send" data-act="spotSend" data-v="' + x.i + '">' + IC.send + t("spotSend") + '</button>' : "") + '</div></li>';
+  }).join("");
+  return '<div class="card coffee"><div class="coffee-head"><span class="coffee-title">' + t("dateTitle") + '</span><span class="tiny muted">' + t("dateSub") + '</span></div>' +
+    tabs + kinds + '<ul class="spots" role="tabpanel">' + (items || '<li class="spot-empty tiny muted">' + t("spotNone") + '</li>') + '</ul><p class="tiny muted spot-note">' + t("spotNote") + '</p></div>';
 }
 function vMe() {
   var p = D.profile, s = school(p.school), ps = myPhotos();
@@ -4109,6 +4428,17 @@ var A = {
   },
   dismiss: function () { ui.confirm = ""; render(true); },
   coffee: function () { ui.showCoffee = !ui.showCoffee; render(true); },
+  area: function (el) { ui.area = +el.dataset.v || 0; render(true); },
+  spotKind: function (el) { ui.spotKind = el.dataset.v || "all"; render(true); },
+  spotSend: function (el) {
+    var m = curMatch(); if (!m) return;
+    var areas = spots(school(D.profile.school), school(m.school)), area = areas[Math.max(0, Math.min(ui.area || 0, areas.length - 1))];
+    var p = (DATE_SPOTS[area.n[2]] || [])[+el.dataset.v], box = document.getElementById("msg");
+    if (!p || !box) return;
+    box.value = t("spotMsg").replace("{n}", spotName(p)).replace("{a}", tr(p.a)).slice(0, 300);
+    try { box.focus({ preventScroll: true }); } catch (e) { box.focus(); }
+    toast(t("spotReady"));
+  },
   igOpen: function () { ui.igOpen = !ui.igOpen; render(true); var el = document.getElementById("ig"); if (el) el.focus(); },
   redo: function () { S.qi = 0; go("quiz"); },
   pause: function () {
