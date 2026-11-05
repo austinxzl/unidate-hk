@@ -1612,6 +1612,39 @@ html.landing-page,html.landing-page body{background:var(--d-mist)}
 .card-ink .route{background:rgba(255,92,138,.18);color:#FFB3C8}
 .joined{background:rgba(94,234,180,.13);color:#8EF0C6}
 
+/* ---------- facts band ---------- */
+.d-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:clamp(28px,5vw,48px)}
+.d-fact{display:flex;flex-direction:column;gap:4px;padding:20px 18px;border-radius:22px;background:#FFFFFF;box-shadow:0 1px 2px rgba(34,30,61,.04),0 10px 30px -16px rgba(34,30,61,.16)}
+.d-fact b{font-family:var(--num);font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1;letter-spacing:-.03em;background:linear-gradient(120deg,var(--d-dusk),var(--d-neon));-webkit-background-clip:text;background-clip:text;color:transparent}
+.d-fact span{font-size:14px;line-height:1.45;color:var(--body)}
+@media (min-width:760px){.d-facts{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.d-fact{padding:26px 24px}}
+
+/* ---------- sample match card ---------- */
+.d-sample{display:grid;gap:36px;align-items:center}
+.d-p{margin:14px 0 0;font-size:16.5px;line-height:1.7;color:var(--body);max-width:30em}
+.d-sample-list{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.d-sample-list li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;line-height:1.55;color:var(--ink)}
+.d-sample-list svg{flex:none;width:18px;height:18px;margin-top:3px;color:var(--d-violet)}
+.d-sample-card{position:relative;isolation:isolate;padding:clamp(28px,5vw,48px);border-radius:clamp(28px,4vw,40px);background:linear-gradient(160deg,#2B245F,var(--d-night) 75%);overflow:hidden}
+.d-sample-card::before{content:"";position:absolute;z-index:-1;width:420px;height:420px;right:-160px;top:-180px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,92,138,.45),rgba(255,92,138,0))}
+.d-sample-card .placard{max-width:420px;margin:0 auto;transform:rotate(-1.5deg)}
+.d-sample-tag{position:absolute;top:16px;left:18px;font-size:12px;font-weight:600;color:var(--night-text);padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1)}
+@media (min-width:960px){.d-sample{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px}}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:10px}
+.faq-item{border-radius:20px;background:#FFFFFF;box-shadow:0 1px 2px rgba(34,30,61,.04),0 10px 30px -18px rgba(34,30,61,.16)}
+.faq-item summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:16px 22px;cursor:pointer;font-weight:600;font-size:16px;color:var(--ink)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary i{flex:none;position:relative;width:14px;height:14px}
+.faq-item summary i::before,.faq-item summary i::after{content:"";position:absolute;left:0;top:6px;width:14px;height:2px;border-radius:2px;background:var(--d-violet);transition:transform .25s var(--d-ease)}
+.faq-item summary i::after{transform:rotate(90deg)}
+.faq-item[open] summary i::after{transform:rotate(0deg)}
+.faq-item p{margin:0;padding:0 22px 20px;font-size:15px;line-height:1.7;color:var(--body);max-width:44em}
+.faq-item summary:focus-visible{outline:2px solid var(--d-dusk);outline-offset:2px;border-radius:20px}
+@media (min-width:960px){.faq{grid-template-columns:1fr 1fr;align-items:start;gap:14px}}
+.d-end .d-cta{justify-content:center}
+
 /* ======================================================================
    Inside — the app after you sign in, in the same "Wednesday 9pm" world.
    Logic of colour:
@@ -1985,8 +2018,7 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
 .only-d,.side-panel{display:none}
 @media (max-width:1023px){
   /* phones & tablets keep the single column, in the original reading order */
-  .home-a,.home-b,.me-side,.me-main{display:contents}
-  .home-page>.hello{order:1}.home-a>.dropcard{order:2}.home-b>#prefs{order:3}.home-a>.weekly-sec{order:4}.home-b>.crush-sec{order:5}.home-b>.home-note{order:6}
+  .me-side,.me-main{display:contents}
   .me-side>.me-head{order:1}.me-main>:nth-child(1){order:2}.me-main>:nth-child(2){order:3}.me-main>:nth-child(3){order:4}.me-side>.safety-sec{order:5}.me-main>:nth-child(4){order:6}
 }
 @media (min-width:1024px){
@@ -2019,14 +2051,8 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
   .side-quote{margin:0;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;text-align:center;color:#FFFFFF}
   .quiz-grid,.signup-grid{display:block}
 
-  /* home: the week on the left, your settings on the right */
-  .home-page{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:26px 36px;align-items:start}
-  .home-page>.hello,.home-page>.notice{grid-column:1/-1}
-  .home-a,.home-b{display:flex;flex-direction:column;gap:26px;min-width:0}
-  .home-b{position:sticky;top:96px}
   .home-page .dropcard{padding:34px 36px;gap:20px}
   .home-page .dropcard .big-count{font-size:64px}
-  .home-note{text-align:left!important}
 
   /* match: photos on the left, the card and your decision on the right */
   .reveal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:56px;row-gap:22px;align-items:start}
@@ -2054,6 +2080,91 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
   .me-side .me-photo-btn{width:100%}
 }
 @media (min-width:1280px){.app-main{padding-inline:48px}}
+
+/* ======================================================================
+   Home v3: the week in order — where you are, your card, things to do
+   ====================================================================== */
+.home-page{display:flex;flex-direction:column;gap:22px}
+.home-page>.mycard{order:1}.home-page>.invite,.home-page>.tips-sec{order:2}.home-page>.home-note{order:3}
+.hello-row{display:flex;flex-direction:column;gap:6px}
+.hello-row .hello{margin:0}
+.hello-sub{margin:0;font-size:15.5px;line-height:1.6;color:var(--body)}
+.home-note{text-align:center;margin:4px 0 0}
+
+/* the week, as four steps */
+.week-track{list-style:none;margin:0;padding:14px 12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:#FFFFFF;border-radius:20px;box-shadow:var(--card-shadow);position:relative}
+.week-track li{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.week-track li+li::before{content:"";position:absolute;top:14px;right:calc(50% + 18px);width:calc(100% - 36px);height:2px;border-radius:2px;background:#E4E0F0}
+.week-track li.done+li::before,.week-track li.done+li.cur::before{background:linear-gradient(90deg,var(--d-dusk),#9B5BD6)}
+.wt-dot{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#F1EFF8;color:var(--muted);font-family:var(--num);font-weight:700;font-size:13px}
+.wt-dot svg{width:15px;height:15px}
+.week-track li.done .wt-dot{background:var(--sel-bg);color:var(--d-violet)}
+.week-track li.cur .wt-dot{background:var(--love);color:#FFFFFF;box-shadow:0 6px 16px -6px rgba(227,64,122,.8)}
+.wt-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.wt-txt b{font-size:14px;font-weight:600;color:var(--ink)}
+.wt-txt small{font-size:11.5px;color:var(--muted);line-height:1.35}
+.week-track li.cur .wt-txt small{color:var(--red-ink);font-weight:600}
+
+/* your match card */
+.mc-in{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px 16px;align-items:center;padding:18px}
+.mc-photo{display:grid;place-items:center;width:84px;height:104px;padding:0;border:0;border-radius:16px;overflow:hidden;background:var(--love);color:#FFFFFF;cursor:pointer;font-family:var(--display);font-weight:800;font-size:34px}
+.mc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.mc-body{display:flex;flex-direction:column;gap:4px;min-width:0}
+.mc-name{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--ink)}
+.mc-meta{font-size:13.5px;color:var(--muted)}
+.mc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mc-tags span{font-size:12.5px;font-weight:500;padding:3px 10px;border-radius:999px;background:var(--sel-bg);color:var(--sel-ink)}
+.mc-meter{grid-column:1/-1;display:flex;flex-direction:column;gap:8px}
+.mc-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.mc-row b{font-family:var(--num);color:var(--ink)}
+.mc-bar{height:6px;border-radius:6px;background:#ECE9F5;overflow:hidden}
+.mc-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--d-dusk),var(--d-neon))}
+.mc-tip{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:40px;padding:0 12px;border:0;border-radius:12px;background:var(--d-mist);font:inherit;font-size:13.5px;font-weight:600;color:var(--sel-ink);cursor:pointer;text-align:left}
+.mc-tip svg{flex:none;color:var(--d-violet)}
+.mc-tip.ok{justify-content:flex-start;color:var(--green);background:#E7F6EF;cursor:default}
+.mc-note{grid-column:1/-1;margin:0}
+
+/* invite */
+.invite-in{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:26px 24px}
+.inv-big{font-family:var(--num);font-weight:800;font-size:54px;line-height:.9;letter-spacing:-.04em;color:#FFF3F7;text-shadow:0 0 16px rgba(255,92,138,.75),0 0 44px rgba(255,92,138,.4)}
+.inv-title{margin:6px 0 0;font-family:var(--display);font-weight:700;font-size:22px;color:#FFFFFF}
+.inv-sub{margin:0;font-size:14.5px;line-height:1.65;color:var(--night-text);max-width:34em}
+.invite-in .btn{margin-top:6px;min-height:46px}
+
+/* first-date tips */
+.tips-in{display:flex;flex-direction:column;gap:12px;padding:18px 18px 14px}
+.tips-in .tips svg{color:var(--green)}
+.tips-in .link{align-self:flex-start;font-size:14px;font-weight:600}
+
+@media (min-width:1024px){
+  .home-page{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 30px;align-items:stretch;
+    grid-template-areas:"hello hello hello" "track track track" "drop drop card" "prefs weekly crush" "invite invite tips" "note note note"}
+  .home-page>*{order:0!important;min-width:0}
+  .home-page>.notice{grid-column:1/-1}
+  .hello-row{grid-area:hello}.week-track{grid-area:track}.home-page>.dropcard{grid-area:drop}.home-page>.mycard{grid-area:card}
+  .home-page>#prefs{grid-area:prefs}.home-page>.weekly-sec{grid-area:weekly}.home-page>.crush-sec{grid-area:crush}
+  .home-page>.invite{grid-area:invite}.home-page>.tips-sec{grid-area:tips}.home-page>.home-note{grid-area:note;text-align:center}
+  .hello-row{flex-direction:row;align-items:baseline;justify-content:space-between;gap:24px}
+  .hello-sub{font-size:16.5px}
+  .week-track{padding:18px 24px}
+  .week-track li{flex-direction:row;justify-content:center;text-align:left;gap:12px}
+  .week-track li+li::before{top:50%;left:calc(-50% + 96px);right:auto;width:calc(100% - 192px);margin-top:-1px}
+  .wt-dot{width:34px;height:34px;flex:none}
+  .wt-txt b{font-size:15.5px}
+  .wt-txt small{font-size:12.5px}
+  .mycard,.home-page>#prefs,.weekly-sec,.crush-sec,.tips-sec{display:flex;flex-direction:column;gap:10px}
+  .mycard>.card,.home-page>#prefs>.card,.weekly-sec>.card,.crush-sec>.card,.tips-sec>.card{flex:1}
+  .mc-in{grid-template-columns:1fr;align-content:start}
+  .mc-photo{width:100%;height:auto;aspect-ratio:4/3;font-size:64px}
+  .invite-in{height:100%;justify-content:center;padding:34px 36px}
+  .inv-big{font-size:72px}
+}
+
+/* desktop home: the countdown card gets the harbour skyline along its foot */
+@media (min-width:1024px){
+  .home-page>.dropcard{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' preserveAspectRatio='none'%3E%3Cpath fill='%23FFFFFF' fill-opacity='.06' d='M0 200V132h14v-18h10v26h9V96h12v-8h8v52h10V118h14v-30h6V40h4v-8h4v8h4v48h6v52h9V104h16v36h8V70h7l5-14 5 14h7v70h10V112h12v28h9V86h18v54h8v-26h12v26h10V100h14v40h9v-22h12v22h8V92h13v48h10v60z'/%3E%3Cpath fill='%23FFC979' fill-opacity='.45' d='M72 50h2v3h-2zm6 0h2v3h-2zm-6 12h2v3h-2zm6 6h2v3h-2zm-6 12h2v3h-2zm52-4h2v3h-2zm6 8h2v3h-2zm-6 12h2v3h-2zm6 10h2v3h-2zm60-2h2v3h-2zm6 8h2v3h-2zm-6 12h2v3h-2zm50-12h2v3h-2zm6 10h2v3h-2zm-152 28h2v3h-2zm8-8h2v3h-2z'/%3E%3C/svg%3E") no-repeat center bottom/100% 42%,linear-gradient(160deg,#2B245F 0%,var(--d-night) 78%)}
+  .home-page>.dropcard>.tiny.dc-label:last-child{margin-top:auto}
+}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -2697,6 +2808,70 @@ Object.assign(T, {
   sideTitleEdit: ["改好之後，下一次配對就會用新資料。", "改好之后，下一次配对就会用新资料。", "Your changes apply from the next match."],
   sideSteps: [["基本資料", "關於你", "理想型", "相片", "問卷"], ["基本资料", "关于你", "理想型", "照片", "问卷"], ["The basics", "About you", "Who you're after", "Photos", "Questionnaire"]],
   sidePriv: ["只有當週嘅配對對象先睇到你嘅配對卡；你嘅電郵永遠唔會俾人睇到。", "只有当周的配对对象能看到你的配对卡；你的邮箱永远不会给别人看到。", "Only your match for the week sees your card. Your email is never shown to anyone."]
+});
+/* ---- home: weekly track, your card, invite, tips ---- */
+Object.assign(T, {
+  trackLabel: ["今個星期", "本周进度", "This week"],
+  trackNames: [["報名", "揭曉", "決定", "傾偈"], ["报名", "揭晓", "决定", "聊天"], ["Sign up", "Reveal", "Decide", "Chat"]],
+  trackWhen: [["星期日至三 18:00", "星期三 21:00", "48 小時內", "7 日"], ["周日至周三 18:00", "周三 21:00", "48 小时内", "7 天"], ["Sun–Wed, 6pm", "Wed, 9pm", "Within 48h", "7 days"]],
+  trackNow: ["而家喺呢度", "你在这一步", "You're here"],
+  hl1: ["報名之後，星期三晚 9 點就會揭曉你嘅配對。", "报名之后，周三晚 9 点揭晓你的配对。", "Sign up and your match is revealed Wednesday at 9pm."],
+  hl2: ["已經報咗名。星期三晚 9 點見。", "已经报名了，周三晚 9 点见。", "You're in. See you Wednesday at 9pm."],
+  hl3: ["你嘅配對揭曉咗，記得 48 小時內決定。", "你的配对已揭晓，记得 48 小时内决定。", "Your match is here. Decide within 48 hours."],
+  hl4: ["你哋雙向奔赴咗，去傾偈啦。", "你们双向奔赴了，去聊天吧。", "It's mutual. Go say hi."],
+  myCardLabel: ["你嘅配對卡", "你的配对卡", "Your match card"],
+  myCardNote: ["只有當週嘅配對對象先會見到呢張卡。", "只有当周的配对对象会看到这张卡。", "Only your match for the week sees this card."],
+  cardDone: ["完成度", "完成度", "Complete"],
+  cardFull: ["配對卡已經好完整", "配对卡已经很完整", "Your card is complete"],
+  tipPhoto: ["加多張相，對方會更想認識你", "多放一张照片，对方会更想认识你", "Add another photo — it helps"],
+  tipBio: ["寫兩句自我介紹", "写两句自我介绍", "Write a line or two about you"],
+  tipMbti: ["補充 MBTI 等資料", "补充 MBTI 等资料", "Add your MBTI and a few extras"],
+  inviteTitle: ["叫朋友一齊嚟", "叫朋友一起来", "Bring your friends"],
+  inviteSub: ["人越多，每個星期配得越準。分享俾同學，一齊等星期三晚 9 點。", "人越多，每周配得越准。分享给同学，一起等周三晚 9 点。", "More people means better matches every week. Share it and wait for Wednesday 9pm together."],
+  inviteBtn: ["分享連結", "分享链接", "Share the link"],
+  inviteShare: ["UNIdate HK：港校學生嘅每週配對，一星期一位，星期三晚 9 點揭曉。", "UNIdate HK：港校学生的每周配对，一周一位，周三晚 9 点揭晓。", "UNIdate HK: one match a week for HK uni students, revealed Wednesdays at 9pm."],
+  inviteCopied: ["已經複製連結", "已复制链接", "Link copied"],
+  tipsLabel: ["第一次見面", "第一次见面", "Meeting for the first time"],
+  readRules: ["睇社區守則", "查看社区守则", "Read the community guidelines"]
+});
+/* ---- landing: facts, sample card, FAQ ---- */
+Object.assign(T, {
+  factsLabel: ["UNIdate 一覽", "UNIdate 一览", "UNIdate at a glance"],
+  facts: [[["9", "間港校，同一個配對池"], ["1", "個星期一位，唔使滑"], ["21:00", "逢星期三晚揭曉"], ["$0", "完全免費"]],
+          [["9", "所港校，同一个配对池"], ["1", "周一位，不用滑"], ["21:00", "每周三晚揭晓"], ["$0", "完全免费"]],
+          [["9", "universities, one pool"], ["1", "match a week, no swiping"], ["21:00", "every Wednesday"], ["$0", "completely free"]]],
+  sampleTitle: ["星期三晚 9 點，|你會收到呢張卡", "周三晚 9 点，|你会收到这张卡", "Wednesday, 9pm: |this lands on your phone"],
+  sampleBody: ["唔係一堆相俾你滑，而係一個人，同埋你哋點解啱。", "不是一堆照片让你滑，而是一个人，和你们为什么合适。", "Not a stack of photos to swipe. One person, and why you two click."],
+  sampleList: [["對方嘅名、學校、學系同年級", "你哋點解啱：根據你哋相同嘅答案", "契合度分數，同對方嘅相片同自我介紹", "48 小時內決定；兩個都想認識，先開聊天"],
+               ["对方的名字、学校、学系和年级", "你们为什么合适：根据你们相同的答案", "契合度分数，以及对方的照片和自我介绍", "48 小时内决定；两个人都想认识，才开放聊天"],
+               ["Their name, school, faculty and year", "Why you click, from answers you share", "A fit score, plus their photos and bio", "Decide within 48 hours; chat opens only if you both say yes"]],
+  sampleTag: ["示例", "示例", "Example"],
+  navFaq: ["常見問題", "常见问题", "FAQ"],
+  faqTitle: ["常見問題", "常见问题", "Questions"],
+  faq: [[["使唔使錢？", "完全免費。如果日後收費，我哋會事先通知，你可以揀繼續用定唔用。"],
+         ["邊個可以加入？", "年滿 18 歲、持有九間港校學生電郵嘅同學：港大、中大、科大、理大、城大、浸大、嶺大、教大同都大。"],
+         ["邊個睇到我嘅資料？", "只有當週嘅配對對象睇到你嘅配對卡。你嘅電郵、暗戀清單同屏蔽名單永遠唔會俾任何用戶睇到。"],
+         ["一星期得一位，配唔到點算？", "唔係每個星期都一定有配對。配唔到嘅話下星期繼續，你嘅資料同答案會保留。"],
+         ["可唔可以跨校？", "可以。喺主頁「今個星期」揀「跨校都得」；只想配本校都得。"],
+         ["點知對方真係學生？", "每個人都要用學校電郵收驗證碼登入。我哋唔會做背景調查，第一次見面記得揀人多嘅地方。"],
+         ["傾偈安全嗎？", "聊天係端對端加密，連我哋都睇唔到。聊天關閉 30 日後會自動刪除。"],
+         ["唔想用可以點？", "可以暫停配對，或者隨時喺「我」頁刪除帳戶，資料會即時刪除。"]],
+        [["要钱吗？", "完全免费。如果以后收费，我们会事先通知，你可以选择是否继续使用。"],
+         ["谁可以加入？", "年满 18 岁、持有九所港校学生邮箱的同学：港大、中大、科大、理大、城大、浸大、岭大、教大和都大。"],
+         ["谁能看到我的资料？", "只有当周的配对对象能看到你的配对卡。你的邮箱、暗恋清单和屏蔽名单永远不会给任何用户看到。"],
+         ["一周只有一位，配不到怎么办？", "不是每周都一定有配对。没配到的话下周继续，你的资料和答案会保留。"],
+         ["可以跨校吗？", "可以。在主页「本周偏好」里选「跨校也行」；只想配本校也可以。"],
+         ["怎么知道对方真的是学生？", "每个人都要用学校邮箱收验证码登录。我们不做背景调查，第一次见面记得选人多的地方。"],
+         ["聊天安全吗？", "聊天是端到端加密的，连我们也看不到。聊天关闭 30 天后会自动删除。"],
+         ["不想用了怎么办？", "可以暂停配对，或者随时在「我的」页删除账号，资料会即时删除。"]],
+        [["Does it cost anything?", "It's free. If that ever changes, we'll tell you first and you can decide whether to stay."],
+         ["Who can join?", "Students aged 18+ with an email from one of nine HK universities: HKU, CUHK, HKUST, PolyU, CityU, HKBU, LingU, EdUHK and HKMU."],
+         ["Who can see my profile?", "Only your match for the week sees your card. Your email, crush list and block list are never shown to any user."],
+         ["One a week — what if I don't get matched?", "Not every week has a match for everyone. If you're not matched, you're in again next week and your answers are kept."],
+         ["Can I match across universities?", "Yes. Choose \"Any campus\" under This week on your home page, or keep it to your own campus."],
+         ["How do I know they're really a student?", "Everyone signs in with a code sent to their university email. We don't run background checks, so meet somewhere busy the first time."],
+         ["Is chat private?", "Chat is end-to-end encrypted, so even we can't read it. Chats are deleted 30 days after they close."],
+         ["What if I want to stop?", "Pause matching, or delete your account any time from the Me page — your data is deleted straight away."]]]
 });
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
@@ -3484,7 +3659,7 @@ function acct(app, cur) {
 }
 function header(app, cur) {
   var right = app ? '<div class="row" style="gap:16px;flex-wrap:nowrap">' + (cur ? dtabs(cur) : "") + langSwitch() + acct(true, cur) + '</div>' :
-    '<nav class="nav" aria-label="Main"><a class="navlink" href="#how">' + t("navHow") + '</a><a class="navlink" href="#crush">' + t("navCrush") + '</a><a class="navlink" href="#safety">' + t("navSafety") + '</a><a class="navlink" href="#privacy">' + t("navPrivacy") + '</a>' + langSwitch() +
+    '<nav class="nav" aria-label="Main"><a class="navlink" href="#how">' + t("navHow") + '</a><a class="navlink" href="#crush">' + t("navCrush") + '</a><a class="navlink" href="#safety">' + t("navSafety") + '</a><a class="navlink" href="#faq">' + t("navFaq") + '</a>' + langSwitch() +
     '<button type="button" class="btn btn-ink btn-sm" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button>' + acct(false) + '</nav>';
   return '<header class="top' + (app ? " app" : "") + '"><div class="' + (app ? "col" : "wrap") + ' top-in"><button type="button" class="logo" data-act="logo" aria-label="UNIdate HK"><span class="plate"><b>UNIdate</b><small>HK</small></span></button>' + right + '</div></header>';
 }
@@ -3602,8 +3777,12 @@ function vLanding() {
       '<div class="d-stage">' + lockScreen() + '</div>' +
       '<div class="d-ticker" aria-label="' + t("schoolsLabel") + '"><div class="marquee-track">' + tick + tick.replace("<div>", '<div aria-hidden="true">') + '</div></div>' +
     '</section>' +
+    '<section class="wrap d-facts" aria-label="' + esc(t("factsLabel")) + '">' + tr(T.facts).map(function (f) { return '<div class="d-fact"><b>' + f[0] + '</b><span>' + f[1] + '</span></div>'; }).join("") + '</section>' +
     '<section id="how" class="d-sec wrap"><h2 class="d-h2">' + tph("howTitle") + '</h2>' +
       '<ol class="tl">' + steps.map(function (st, i) { return '<li class="tl-step"><span class="tl-when">' + marks[i] + '</span><span class="tl-dot" aria-hidden="true"></span><div class="tl-body"><h3>' + st[0] + '</h3><p>' + st[1] + '</p></div></li>'; }).join("") + '</ol></section>' +
+    '<section id="card" class="d-sec wrap d-sample"><div class="d-sample-copy"><h2 class="d-h2">' + tph("sampleTitle") + '</h2><p class="d-p">' + t("sampleBody") + '</p>' +
+      '<ul class="d-sample-list">' + tr(T.sampleList).map(function (x) { return '<li>' + IC.check + '<span>' + x + '</span></li>'; }).join("") + '</ul></div>' +
+      '<div class="d-sample-card"><span class="d-sample-tag">' + t("sampleTag") + '</span>' + placardHTML("Chloe", t("heroMeta"), tr(T.heroReasons), t("fitGreat"), "", false, 93) + '</div></section>' +
     '<section class="d-sec wrap d-why"><h2 class="d-h2">' + tph("diffTitle") + '</h2>' +
       '<div class="thread" role="list">' +
         '<div class="bub q" role="listitem">' + t("diffQ") + '</div>' +
@@ -3614,10 +3793,12 @@ function vLanding() {
     '<section id="safety" class="d-sec wrap"><span id="privacy" class="anchor" aria-hidden="true"></span><h2 class="d-h2">' + tph("trustTitle") + '</h2>' +
       '<ul class="d-trust">' + tr(T.trust).map(function (x) { return '<li><span class="d-ic">' + TRUST_IC[x[0]] + '</span><div><h3>' + x[1] + '</h3><p>' + x[2] + '</p></div></li>'; }).join("") + '</ul>' +
       '<button type="button" class="d-link dark" data-act="legal" data-v="privacy">' + t("readPolicy") + '</button></section>' +
+    '<section id="faq" class="d-sec wrap d-faq"><h2 class="d-h2">' + tph("faqTitle") + '</h2><div class="faq">' + tr(T.faq).map(function (f) {
+      return '<details class="faq-item"><summary><span>' + f[0] + '</span><i aria-hidden="true"></i></summary><p>' + f[1] + '</p></details>'; }).join("") + '</div></section>' +
     '<section class="d-end"><div class="d-sky" aria-hidden="true"><i class="glow g1"></i><i class="glow g2"></i></div><div class="wrap d-end-in">' +
       '<span class="d-big num">21:00</span><h2 class="d-h2">' + tph("ctaTitle") + '</h2>' +
       '<p class="d-count"><span>' + t("nextDrop") + '</span><b data-countdown>' + countdown() + '</b></p>' +
-      '<button type="button" class="d-btn" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button><span class="d-note">' + t("protoNote") + '</span></div></section>' +
+      '<div class="d-cta"><button type="button" class="d-btn" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button><button type="button" class="d-link" data-act="invite">' + t("inviteBtn") + '</button></div><span class="d-note">' + t("protoNote") + '</span></div></section>' +
     '</main>' + footer();
 }
 function footer() {
@@ -3907,10 +4088,47 @@ function vHome() {
     (cr.length ? '<div class="list">' + cr.map(function (c, i) { return '<div class="list-row static"><span class="mono">' + esc(c.label) + '</span><button type="button" class="x" data-act="crushDel" data-v="' + i + '" aria-label="' + t("remove") + '">' + IC.x + '</button></div>'; }).join("") + '</div>' : "") +
     (cr.length < 3 ? '<form class="inline-form" data-form="crush" novalidate><label for="crushEmail" class="sr">' + t("emailLabel") + '</label><input class="input" id="crushEmail" type="email" autocapitalize="off" spellcheck="false" placeholder="name@link.cuhk.edu.hk"><button class="btn" type="submit"' + busyAttr("crush") + '>' + t("crushAdd") + '</button></form>' : "") +
     errBox("crush") + '<p class="tiny muted">' + t("crushNote") + '</p>' + (cr.length ? '<p class="tiny secure">' + IC.lockG + t("crushHashed") + '</p>' : "") + '</div></section>';
-  return shell('<div class="stack home-page">' +
+  return shell('<div class="home-page">' +
     (st.test_mode ? '<p class="notice">' + t("testMode") + '</p>' : "") +
-    '<h1 class="serif hello">' + tph("hi", esc(p.name)) + '</h1><div class="home-a">' + drop + weekly + '</div><div class="home-b">' + prefs + crush +
-    '<p class="tiny muted center home-note">' + t("protoNote") + '</p></div></div>', "home", true);
+    '<div class="hello-row"><h1 class="serif hello">' + tph("hi", esc(p.name)) + '</h1><p class="hello-sub">' + t(homeLine(st, m)) + '</p></div>' +
+    weekTrack(st, m) + drop + myCard(p) + prefs + weekly + crush + inviteCard() + tipsCard() +
+    '<p class="tiny muted home-note">' + t("protoNote") + '</p></div>', "home", true);
+}
+/* home: where you are in this week's cycle */
+function weekStage(st, m) {
+  if (m && m.state === "mutual" && chatDaysLeft(m) > 0) return 4;
+  if (m && (m.state === "pending" || m.state === "waiting")) return 3;
+  return st.opted_in ? 2 : 1;
+}
+function homeLine(st, m) { return ["hl1", "hl2", "hl3", "hl4"][weekStage(st, m) - 1]; }
+function weekTrack(st, m) {
+  var n = weekStage(st, m), names = tr(T.trackNames), when = tr(T.trackWhen);
+  return '<ol class="week-track" aria-label="' + esc(t("trackLabel")) + '">' + names.map(function (nm, i) {
+    var k = i + 1, cls = k < n ? "done" : k === n ? "cur" : "";
+    return '<li class="' + cls + '"' + (k === n ? ' aria-current="step"' : "") + '><span class="wt-dot">' + (k < n ? IC.check : k) + '</span><span class="wt-txt"><b>' + nm + '</b><small>' + (k === n ? t("trackNow") : when[i]) + '</small></span></li>';
+  }).join("") + '</ol>';
+}
+/* home: the card your match will see, and what would make it better */
+function myCard(p) {
+  var ps = myPhotos(), img = ps[0] && purl(ps[0]), s = school(p.school);
+  var checks = [ps.length >= 1, ps.length >= 2, !!p.bio, (p.traits || []).length >= 3, (p.interests || []).length >= 3, (p.want_traits || []).length >= 3, !!p.quiz_done, !!p.mbti];
+  var pct = Math.round(checks.filter(Boolean).length / checks.length * 100);
+  var tip = ps.length < 2 ? ["tipPhoto", "goPhoto"] : !p.bio ? ["tipBio", "editAbout"] : !p.mbti ? ["tipMbti", "editAbout"] : null;
+  return '<section class="mycard"><h2 class="sec-label">' + t("myCardLabel") + '</h2><div class="card mc-in">' +
+    '<button type="button" class="mc-photo" data-act="goPhoto" aria-label="' + t("managePhotos") + '">' + (img ? '<img src="' + esc(img) + '" alt="">' : '<span>' + esc(String(p.name || "?").charAt(0)) + '</span>') + '</button>' +
+    '<div class="mc-body"><b class="mc-name">' + esc(p.name || "") + '</b><span class="mc-meta">' + [tr(s.n), esc(p.faculty || ""), yearText(p.year_of_study)].filter(Boolean).join(" · ") + '</span>' +
+    '<div class="mc-tags">' + (p.traits || []).slice(0, 3).map(function (k) { return '<span>' + esc(optLabel("traits", k)) + '</span>'; }).join("") + '</div></div>' +
+    '<div class="mc-meter"><div class="mc-row"><span>' + t("cardDone") + '</span><b>' + pct + '%</b></div><div class="mc-bar"><i style="width:' + pct + '%"></i></div>' +
+    (tip ? '<button type="button" class="mc-tip" data-act="' + tip[1] + '">' + t(tip[0]) + IC.chev + '</button>' : '<span class="mc-tip ok">' + IC.check + t("cardFull") + '</span>') + '</div>' +
+    '<p class="tiny muted mc-note">' + t("myCardNote") + '</p></div></section>';
+}
+function inviteCard() {
+  return '<section class="invite"><div class="card-ink invite-in"><span class="inv-big">+1</span><h2 class="inv-title">' + t("inviteTitle") + '</h2><p class="inv-sub">' + t("inviteSub") + '</p>' +
+    '<button type="button" class="btn btn-red" data-act="invite">' + t("inviteBtn") + '</button></div></section>';
+}
+function tipsCard() {
+  return '<section class="tips-sec"><h2 class="sec-label">' + t("tipsLabel") + '</h2><div class="card tips-in"><ul class="tips">' + tr(T.safetyList).map(function (x) { return '<li>' + IC.check + '<span>' + x + '</span></li>'; }).join("") + '</ul>' +
+    '<button type="button" class="link" data-act="legal" data-v="rules">' + t("readRules") + '</button></div></section>';
 }
 function vDrop() {
   var p = D.profile, st = D.st, m = curMatch(), inner;
@@ -4437,6 +4655,12 @@ var A = {
   resend: function (el) { if (Number(el.dataset.wait)) return; sendCode(true); },
   editProfile: function () { S.draft = draftFromProfile(); go("profile"); },
   goPhoto: function () { go("photo"); },
+  invite: function () {
+    var url = "https://unidatehk.com/", text = t("inviteShare");
+    if (navigator.share) { navigator.share({ title: "UNIdate HK", text: text, url: url }).catch(function () {}); return; }
+    var done = function () { toast(t("inviteCopied")); };
+    try { navigator.clipboard.writeText(text + " " + url).then(done, function () { window.prompt("", url); }); } catch (e) { window.prompt("", url); }
+  },
   editAbout: function () { S.draft = draftFromProfile(); go("about"); },
   editWant: function () { S.draft = draftFromProfile(); go("want"); },
   goPrio: function () { go("prio"); },
