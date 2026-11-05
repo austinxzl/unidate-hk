@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>UNIdate HK 体验版</title>
+<title>UNIdate HK</title>
 <meta name="description" content="港校学生专属。完成一份问卷，每周三晚 9 点为你揭晓一位真正合得来的同学。">
 <meta name="theme-color" content="#14112F">
 <meta name="format-detection" content="telephone=no">
@@ -1993,6 +1993,23 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
     DB.session = { access_token: "preview", user: { id: demoId, email: demoEmail } };
     try { localStorage.setItem(LSK, JSON.stringify(DB)); } catch (e) {}
   }
+  /* demo: fill a sample profile so a match can be shown straight away */
+  function demoFill() {
+    var p = me(); if (!p) return;
+    var c = document.createElement("canvas"); c.width = 480; c.height = 600;
+    var g = c.getContext("2d"), gr = g.createLinearGradient(0, 0, 480, 600);
+    gr.addColorStop(0, "#6A5AE0"); gr.addColorStop(1, "#FF5C8A"); g.fillStyle = gr; g.fillRect(0, 0, 480, 600);
+    g.fillStyle = "rgba(255,255,255,.92)"; g.font = "bold 220px Arial"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("A", 240, 310);
+    var path = p.id + "/demo.jpg"; DB.files[path] = c.toDataURL("image/jpeg", .85);
+    Object.assign(p, { name: p.name || "Alex", gender: p.gender || "m", birth_year: p.birth_year || 2005, faculty: p.faculty || "工程", year_of_study: p.year_of_study || 2,
+      langs: (p.langs && p.langs.length) ? p.langs : ["yue", "en"], height_cm: p.height_cm || 175, hometown: p.hometown || "hk", agreed_at: p.agreed_at || new Date().toISOString(),
+      traits: (p.traits && p.traits.length >= 3) ? p.traits : ["stable", "caring", "honest"], interests: (p.interests && p.interests.length >= 3) ? p.interests : ["run", "coffee", "photo"],
+      seek: p.seek || "f", intent: p.intent || "serious", want_traits: (p.want_traits && p.want_traits.length >= 3) ? p.want_traits : ["funny", "curious", "gentle"],
+      photos: (p.photos && p.photos.length) ? p.photos : [path],
+      ans_b: p.ans_b || [6, 2, 5, 6, 3, 7, 2, 5, 6, 1, 5, 6, 3, 6, 5], ans_c: p.ans_c || [0, 1, 2, 0, 1, 2, 0, 1, 2, 0], ans_d: p.ans_d || [5, 4, 6, 3, 5],
+      e1: p.e1 || "手冲咖啡", e2: p.e2 || "海边散步", quiz_done: true });
+    save();
+  }
   function save() { try { localStorage.setItem(LSK, JSON.stringify(DB)); } catch (e) { try { var lite = JSON.parse(JSON.stringify(DB)); lite.files = {}; localStorage.setItem(LSK, JSON.stringify(lite)); } catch (x) {} } }
   function lang() { try { return JSON.parse(localStorage.getItem("unidate-demo-v1") || "{}").lang || "zhs"; } catch (e) { return "zhs"; } }
   function L3(a) { var l = lang(); return a[l === "yue" ? 0 : l === "en" ? 2 : 1]; }
@@ -2238,7 +2255,7 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
     revealNeed: ["先做完註冊（資料、相片、問卷）先可以開出。", "先完成注册（资料、照片、问卷）才能开奖。", "Finish signing up first (profile, a photo, quiz)."],
     reset: ["清除所有資料，由頭開始", "清除全部资料，从头开始", "Erase everything and start over"],
     close: ["關閉", "关闭", "Close"],
-    tip: ["體驗版：唔使註冊，㩒「用學校電郵加入」就會直接開始填資料。做完問卷之後，喺呢度㩒「立即開出配對」。資料只會存喺你部機。", "体验版：不用注册，点「用学校邮箱加入」就直接开始填资料。做完问卷后，在这里点「立即开奖」。资料只存在你这部设备上。", "Demo: no sign-up needed. Tap \"Join with your uni email\" to start your profile. After the quiz, tap \"Reveal a match now\" here. Everything stays on this device."],
+    tip: ["體驗版：唔使註冊。想即刻睇配對之後嘅樣，㩒右下角「預覽控制」→「即刻配對」。資料只會存喺你部機。", "体验版：不用注册。想马上看配对后的样子，点右下角「预览控制」→「即刻配对」。资料只存在你这部设备上。", "Demo: no sign-up. To see what happens after a match right away, tap the preview button, then \"Match me now\". Everything stays on this device."],
     gotIt: ["知道", "知道了", "Got it"]
   };
   function tx(k) { return L3(TXT[k]); }
@@ -2269,8 +2286,9 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
     function close() { if (sheet) { sheet.remove(); sheet = null; fab.setAttribute("aria-expanded", "false"); } }
     function open() {
       close(); fab.setAttribute("aria-expanded", "true");
-      sheet = el('<div class="pv-sheet" role="dialog" aria-label="' + tx("btn") + '"><h2>' + tx("title") + '</h2><p>' + tx("lead") + '</p><span class="pv-code">' + tx("code") + '</span>' +
-        '<button type="button" class="pv-act" data-pv="reveal">' + tx("reveal") + '<small>' + tx("revealSub") + '</small></button>' +
+      sheet = el('<div class="pv-sheet" role="dialog" aria-label="' + tx("btn") + '"><h2>' + tx("title") + '</h2><p>' + tx("lead") + '</p>' +
+        '<button type="button" class="pv-act" data-pv="instant">' + L3(["即刻配對", "即刻配对", "Match me now"]) + '<small>' + L3(["跳過填資料，直接睇配對之後嘅畫面", "跳过填资料，直接看配对后的画面", "Skip the setup and see what happens after a match"]) + '</small></button>' +
+        '<button type="button" class="pv-act ghost" data-pv="reveal">' + tx("reveal") + '<small>' + tx("revealSub") + '</small></button>' +
         (note ? '<p class="pv-note" role="alert">' + note + '</p>' : "") +
         '<button type="button" class="pv-act ghost" data-pv="reset">' + tx("reset") + '</button><button type="button" class="pv-x" data-pv="close">' + tx("close") + '</button></div>');
       document.body.appendChild(sheet);
@@ -2279,6 +2297,11 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
         var a = b.getAttribute("data-pv");
         if (a === "close") return close();
         if (a === "reset") { try { localStorage.removeItem(LSK); var s = JSON.parse(localStorage.getItem("unidate-demo-v1") || "{}"); localStorage.setItem("unidate-demo-v1", JSON.stringify({ lang: s.lang || "zhs", view: "landing" })); } catch (x) {} location.reload(); return; }
+        if (a === "instant") {
+          demoFill(); reveal();
+          try { var s3 = JSON.parse(localStorage.getItem("unidate-demo-v1") || "{}"); s3.view = "drop"; localStorage.setItem("unidate-demo-v1", JSON.stringify(s3)); } catch (x) {}
+          location.reload(); return;
+        }
         if (a === "reveal") {
           var p = me();
           if (!DB.session || !p || !p.quiz_done || (p.photos || []).length < 1 || !(p.interests || []).length || !(p.want_traits || []).length) { note = tx("revealNeed"); open(); return; }
