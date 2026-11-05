@@ -1978,6 +1978,82 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
 .spot-kind.k-walk{background:#E7F6EF;color:var(--green)}
 .spot-kind.k-play,.spot-kind.k-art{background:#FFF1E0;color:#9A5B10}
 .spot-empty{padding:14px 0}
+
+/* ======================================================================
+   Wide screens (laptops, desktops): use the width instead of one narrow column
+   ====================================================================== */
+.only-d,.side-panel{display:none}
+@media (max-width:1023px){
+  /* phones & tablets keep the single column, in the original reading order */
+  .home-a,.home-b,.me-side,.me-main{display:contents}
+  .home-page>.hello{order:1}.home-a>.dropcard{order:2}.home-b>#prefs{order:3}.home-a>.weekly-sec{order:4}.home-b>.crush-sec{order:5}.home-b>.home-note{order:6}
+  .me-side>.me-head{order:1}.me-main>:nth-child(1){order:2}.me-main>:nth-child(2){order:3}.me-main>:nth-child(3){order:4}.me-side>.safety-sec{order:5}.me-main>:nth-child(4){order:6}
+}
+@media (min-width:1024px){
+  .only-m{display:none!important}
+  .only-d{display:block}
+  .top.app .top-in.col,.app-main,.app-main.wide{max-width:1160px}
+  .app-main{padding-inline:40px;padding-top:28px}
+
+  /* sign-in and setup: form on the left, a night panel on the right */
+  .side-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,440px);gap:64px;align-items:start}
+  .side-main{min-width:0;max-width:640px}
+  .side-panel{display:flex;flex-direction:column;gap:18px;position:sticky;top:96px;isolation:isolate;overflow:hidden;min-height:min(640px,calc(100vh - 140px));padding:40px 36px;border-radius:32px;background:linear-gradient(165deg,#2B245F 0%,var(--d-night) 70%);color:#FFFFFF;box-shadow:0 40px 80px -40px rgba(20,17,47,.7)}
+  .side-glow{position:absolute;z-index:-1;border-radius:50%;pointer-events:none}
+  .side-glow.g1{width:520px;height:520px;left:-200px;top:-260px;background:radial-gradient(closest-side,rgba(106,90,224,.55),rgba(106,90,224,0))}
+  .side-glow.g2{width:460px;height:460px;right:-200px;bottom:-200px;background:radial-gradient(closest-side,rgba(255,92,138,.4),rgba(255,92,138,0))}
+  .side-time{font-family:var(--num);font-weight:800;font-size:76px;line-height:.9;letter-spacing:-.045em;color:#FFF3F7;text-shadow:0 0 4px rgba(255,255,255,.5),0 0 18px rgba(255,92,138,.8),0 0 48px rgba(255,92,138,.45)}
+  .side-title{margin:6px 0 4px;font-family:var(--display);font-weight:700;font-size:26px;line-height:1.25;letter-spacing:-.015em;color:#FFFFFF}
+  .side-steps{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+  .side-steps li{display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:16px;color:rgba(232,229,248,.62);font-size:16px;font-weight:500}
+  .side-steps li.done{color:rgba(232,229,248,.9)}
+  .side-steps li.cur{background:rgba(255,255,255,.08);box-shadow:0 0 0 1px rgba(255,255,255,.1) inset;color:#FFFFFF;font-weight:600}
+  .ss-dot{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-family:var(--num);font-size:13px;font-weight:700;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)}
+  .ss-dot svg{width:15px;height:15px}
+  .side-steps li.done .ss-dot{background:rgba(94,234,180,.16);box-shadow:none;color:#8EF0C6}
+  .side-steps li.cur .ss-dot{background:var(--love);box-shadow:0 0 18px -2px rgba(255,92,138,.8);color:#FFFFFF}
+  .side-note{margin:auto 0 0;display:flex;gap:8px;align-items:flex-start;font-size:13.5px;line-height:1.6;color:var(--night-text)}
+  .side-note svg{flex:none;margin-top:3px;color:#8EF0C6}
+  .side-signin{align-items:center;justify-content:center;gap:26px;padding:44px 32px}
+  .side-signin .phone{width:280px;animation:none}
+  .side-quote{margin:0;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;text-align:center;color:#FFFFFF}
+  .quiz-grid,.signup-grid{display:block}
+
+  /* home: the week on the left, your settings on the right */
+  .home-page{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:26px 36px;align-items:start}
+  .home-page>.hello,.home-page>.notice{grid-column:1/-1}
+  .home-a,.home-b{display:flex;flex-direction:column;gap:26px;min-width:0}
+  .home-b{position:sticky;top:96px}
+  .home-page .dropcard{padding:34px 36px;gap:20px}
+  .home-page .dropcard .big-count{font-size:64px}
+  .home-note{text-align:left!important}
+
+  /* match: photos on the left, the card and your decision on the right */
+  .reveal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:56px;row-gap:22px;align-items:start}
+  .reveal>.gallery,.reveal>.mphoto{grid-column:1;grid-row:1/span 8;position:sticky;top:96px}
+  .reveal>:not(.gallery):not(.mphoto){grid-column:2}
+  .reveal .mphoto{max-width:none}
+  .waitdrop{padding-top:56px}
+  .cm{max-width:600px;margin-inline:auto;align-items:center;text-align:center}
+  .cm .cm-actions{width:100%;max-width:380px}
+  .cm .pair-ph{align-self:center}
+
+  /* chat: the conversation, with who they are and where to meet beside it */
+  .chat-cols{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px;align-items:start}
+  .chat-conv{min-width:0}
+  .chat-side{display:flex;flex-direction:column;gap:18px;position:sticky;top:96px;max-height:calc(100vh - 116px);overflow-y:auto;overscroll-behavior:contain;padding:2px 4px 24px;scrollbar-width:thin}
+  .side-about{background:#FFFFFF;border:0;border-radius:24px;box-shadow:var(--card-shadow)}
+  .chat-side .card.coffee{margin:0}
+
+  /* me: your card and safety on the left, settings on the right */
+  .me-page{display:grid;grid-template-columns:360px minmax(0,1fr);gap:28px 40px;align-items:start}
+  .me-side{display:flex;flex-direction:column;gap:24px;position:sticky;top:96px}
+  .me-main{display:flex;flex-direction:column;gap:26px;min-width:0}
+  .me-side .me-head{flex-direction:column;align-items:flex-start;padding:22px}
+  .me-side .me-photo{width:100%;height:auto;aspect-ratio:4/5;max-width:none;border-radius:20px}
+  .me-side .me-photo-btn{width:100%}
+}
+@media (min-width:1280px){.app-main{padding-inline:48px}}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
@@ -2615,6 +2691,13 @@ Object.assign(T, {
   k_art: ["展覽", "展览", "Art"]
 });
 Object.assign(T, { coffee: ["約會去邊", "约会去哪", "Where to meet"] });
+/* ---- wide-screen side panel ---- */
+Object.assign(T, {
+  sideTitle: ["填好資料，星期三晚 9 點見。", "填好资料，周三晚 9 点见。", "Finish your profile. See you Wednesday at 9."],
+  sideTitleEdit: ["改好之後，下一次配對就會用新資料。", "改好之后，下一次配对就会用新资料。", "Your changes apply from the next match."],
+  sideSteps: [["基本資料", "關於你", "理想型", "相片", "問卷"], ["基本资料", "关于你", "理想型", "照片", "问卷"], ["The basics", "About you", "Who you're after", "Photos", "Questionnaire"]],
+  sidePriv: ["只有當週嘅配對對象先睇到你嘅配對卡；你嘅電郵永遠唔會俾人睇到。", "只有当周的配对对象能看到你的配对卡；你的邮箱永远不会给别人看到。", "Only your match for the week sees your card. Your email is never shown to anyone."]
+});
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -3594,7 +3677,21 @@ function closeLegal() {
   ui.legalClosing = true; render(true);
   setTimeout(function () { ui.legal = null; ui.legalClosing = false; render(true); var o = ui.legalFrom; ui.legalFrom = null; if (o && document.body.contains(o)) try { o.focus({ preventScroll: true }); } catch (e) {} }, 240);
 }
-function shell(inner, tab, wide) { return header(true, tab) + '<main class="col app-main' + (wide ? " wide" : "") + '">' + inner + '</main>' + (tab ? tabs(tab) : ""); }
+var SIDE_STEP = { email: 0, code: 0, profile: 1, about: 2, want: 3, photo: 4, quiz: 5, prio: 5 };
+function shell(inner, tab, wide) {
+  if (SIDE_STEP[S.view] !== undefined) inner = '<div class="side-layout"><div class="side-main">' + inner + '</div>' + sideAside() + '</div>';
+  return header(true, tab) + '<main class="col app-main' + (wide ? " wide" : "") + '">' + inner + '</main>' + (tab ? tabs(tab) : "");
+}
+/* wide screens: a night panel beside sign-in and setup — the lock screen while signing in, then the steps */
+function sideAside() {
+  var n = SIDE_STEP[S.view], done = setupComplete();
+  var glow = '<i class="side-glow g1" aria-hidden="true"></i><i class="side-glow g2" aria-hidden="true"></i>';
+  if (!n) return '<aside class="side-panel side-signin" aria-hidden="true">' + glow + lockScreen() + '<p class="side-quote">' + t("h1a") + ' ' + t("h1b") + '</p></aside>';
+  var names = tr(T.sideSteps);
+  return '<aside class="side-panel">' + glow + '<span class="side-time">21:00</span><h2 class="side-title">' + t(done ? "sideTitleEdit" : "sideTitle") + '</h2>' +
+    (done ? "" : '<ol class="side-steps">' + names.map(function (nm, i) { var k = i + 1; return '<li class="' + (k < n ? "done" : k === n ? "cur" : "") + '"' + (k === n ? ' aria-current="step"' : "") + '><span class="ss-dot">' + (k < n ? IC.check : k) + '</span><span>' + nm + '</span></li>'; }).join("") + '</ol>') +
+    '<p class="side-note">' + IC.lockS + '<span>' + t("sidePriv") + '</span></p></aside>';
+}
 function shellSignup(inner) { return shell('<div class="dgrid signup-grid"><div class="d-main">' + inner + '</div></div>', null, true); }
 function errBox(at) { return ui.err && (!at || ui.errAt === at) ? '<p class="err" role="alert">' + IC.alert + '<span>' + esc(ui.err) + '</span></p>' : ""; }
 function vLoading() { return shell('<div class="loading" role="status"><span class="plate"><b>UNIdate</b><small>HK</small></span><span class="sr">' + t("loading") + '</span><span class="loading-bar" aria-hidden="true"><i></i></span></div>', null); }
@@ -3801,19 +3898,19 @@ function vHome() {
     '<div class="pref"><span class="label">' + t("goalLabel") + '</span>' + seg("goal", [t("iSerious"), t("iFriends"), t("iEither")], S.prefs.goal, t("goalLabel")) + '</div>' +
     '<div class="pref"><span class="label">' + t("scopeLabel") + '</span>' + seg("scope", [t("scopeMine"), t("scopeAll")], S.prefs.scope, t("scopeLabel")) + '</div></div></section>';
   var wsel = D.weekly, wopts = tr(T.weeklyOpts);
-  var weekly = '<section class="me-sec"><h2 class="sec-label">' + t("weeklyLabel") + '</h2><div class="card weekly"><span class="serif weekly-q">' + t("weeklyQ") + '</span>' +
+  var weekly = '<section class="me-sec weekly-sec"><h2 class="sec-label">' + t("weeklyLabel") + '</h2><div class="card weekly"><span class="serif weekly-q">' + t("weeklyQ") + '</span>' +
     '<div class="weekly-opts" role="radiogroup" aria-label="' + t("weeklyQ") + '">' + wopts.map(function (o, i) {
       return '<button type="button" class="chip" role="radio" aria-checked="' + (wsel === i) + '" data-act="weekly" data-v="' + i + '">' + o + '</button>';
     }).join("") + '</div></div></section>';
   var cr = D.crushes;
-  var crush = '<section class="me-sec"><div class="sec-row"><h2 class="sec-label">' + IC.heart + t("crushHome") + '</h2><span class="tiny muted">' + cr.length + ' / 3</span></div><div class="card crush-card">' +
+  var crush = '<section class="me-sec crush-sec"><div class="sec-row"><h2 class="sec-label">' + IC.heart + t("crushHome") + '</h2><span class="tiny muted">' + cr.length + ' / 3</span></div><div class="card crush-card">' +
     (cr.length ? '<div class="list">' + cr.map(function (c, i) { return '<div class="list-row static"><span class="mono">' + esc(c.label) + '</span><button type="button" class="x" data-act="crushDel" data-v="' + i + '" aria-label="' + t("remove") + '">' + IC.x + '</button></div>'; }).join("") + '</div>' : "") +
     (cr.length < 3 ? '<form class="inline-form" data-form="crush" novalidate><label for="crushEmail" class="sr">' + t("emailLabel") + '</label><input class="input" id="crushEmail" type="email" autocapitalize="off" spellcheck="false" placeholder="name@link.cuhk.edu.hk"><button class="btn" type="submit"' + busyAttr("crush") + '>' + t("crushAdd") + '</button></form>' : "") +
     errBox("crush") + '<p class="tiny muted">' + t("crushNote") + '</p>' + (cr.length ? '<p class="tiny secure">' + IC.lockG + t("crushHashed") + '</p>' : "") + '</div></section>';
   return shell('<div class="stack home-page">' +
     (st.test_mode ? '<p class="notice">' + t("testMode") + '</p>' : "") +
-    '<h1 class="serif hello">' + tph("hi", esc(p.name)) + '</h1>' + drop + prefs + weekly + crush +
-    '<p class="tiny muted center">' + t("protoNote") + '</p></div>', "home", true);
+    '<h1 class="serif hello">' + tph("hi", esc(p.name)) + '</h1><div class="home-a">' + drop + weekly + '</div><div class="home-b">' + prefs + crush +
+    '<p class="tiny muted center home-note">' + t("protoNote") + '</p></div></div>', "home", true);
 }
 function vDrop() {
   var p = D.profile, st = D.st, m = curMatch(), inner;
@@ -3862,7 +3959,7 @@ function pairPhotos(m) {
   return '<span class="pair-ph" aria-hidden="true">' + one(mine, D.profile && D.profile.name) + '<i>' + IC.heart.replace('stroke="#E3407A"', 'stroke="#fff"') + '</i>' + one(theirs, m.name) + '</span>';
 }
 function centerMsg(title, sub, actions, icon) {
-  return '<div class="stack" style="gap:18px;padding-top:48px">' + (icon && icon.indexOf("pair-ph") >= 0 ? icon : icon ? '<span class="ok-badge">' + icon + '</span>' : '<span class="cm-mark" aria-hidden="true">' + IC.moon + '</span>') +
+  return '<div class="stack cm" style="gap:18px;padding-top:48px">' + (icon && icon.indexOf("pair-ph") >= 0 ? icon : icon ? '<span class="ok-badge">' + icon + '</span>' : '<span class="cm-mark" aria-hidden="true">' + IC.moon + '</span>') +
     '<h1 class="serif cm-title">' + ph(title) + '</h1>' + (sub ? '<p class="muted cm-sub">' + sub + '</p>' : "") + '<div class="stack cm-actions">' + actions + '</div></div>';
 }
 function centerMsgDay(msg) { return '<div class="stack empty-day"><span class="cm-mark light" aria-hidden="true">' + IC.chat + '</span><p class="empty-title">' + msg + '</p></div>'; }
@@ -3900,11 +3997,12 @@ function vChat() {
     (canAttach ? '<label class="attach"><input type="checkbox" id="repEvidence" checked><span>' + t("reportAttach") + '</span></label>' : "") + '<div class="row"><button type="button" class="btn btn-danger btn-sm" data-act="reportYes">' + t("reportYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' : "";
   var ig = ui.igOpen ? '<form class="row" data-form="ig" novalidate style="flex-wrap:nowrap"><label for="ig" class="sr">' + t("igLabel") + '</label><input class="input" id="ig" placeholder="@" maxlength="30" style="flex:1 1 auto;min-width:0"><button class="btn btn-sm" type="submit">' + t("share") + '</button></form>' : "";
   var composer = both && noE2E ? '<div class="composer"><div class="composer-in"><p class="small" style="margin:0;padding:12px 4px">' + t("e2eUnsupported") + '</p></div></div>' : both ? '<div class="composer"><div class="composer-in"><form class="row" data-form="msg" novalidate style="flex:1 1 auto;flex-wrap:nowrap;gap:8px"><label for="msg" class="sr">' + t("msgLabel") + '</label><input class="input" id="msg" autocomplete="off" enterkeyhint="send" maxlength="300" placeholder="' + t("msgPh") + '" style="flex:1 1 auto;min-width:0;height:48px;border-radius:999px"><button class="send" type="submit" aria-label="' + t("send") + '">' + IC.send + '</button></form></div></div>' : "";
-  return header(true, "chat") + '<main class="col app-main wide chat-main" style="padding-bottom:' + (both ? 220 : 140) + 'px"><div class="dgrid chat-grid"><div class="stack d-main" style="gap:12px">' + head +
+  return header(true, "chat") + '<main class="col app-main wide chat-main" style="padding-bottom:' + (both ? 220 : 140) + 'px"><div class="chat-cols"><div class="stack chat-conv" style="gap:12px">' + head +
     '<div class="chat-meta"><span class="days-pill">' + t("daysLeft", left) + '</span><span class="tiny muted text-only">' + IC.lockG + t("textOnly") + '</span></div>' +
-    confirm + '<details class="disclose about-disclose"><summary>' + t("aboutTitle", esc(m.name || "")) + IC.chev + '</summary>' + aboutCard(m, "flat") + '</details>' + ice + (both ? '<div class="stack" style="gap:8px">' + msgs + '</div>' + errBox("msg") : "") + coffee +
-    (both ? '<div class="chat-acts"><button type="button" class="btn btn-sm btn-soft" data-act="coffee" aria-pressed="' + !!ui.showCoffee + '">' + IC.pin + t("coffee") + '</button><button type="button" class="btn btn-sm btn-soft" data-act="igOpen" aria-pressed="' + !!ui.igOpen + '">' + t("ig") + '</button></div>' + ig : "") +
-    '<p class="tiny e2e-note">' + IC.lockG + t("e2eeNote") + (E2E.volatile() ? " " + t("e2eVolatile") : "") + '</p>' + composer + '</div></div></main>' + tabs("chat");
+    confirm + '<details class="disclose about-disclose only-m"><summary>' + t("aboutTitle", esc(m.name || "")) + IC.chev + '</summary>' + aboutCard(m, "flat") + '</details>' + ice + (both ? '<div class="stack" style="gap:8px">' + msgs + '</div>' + errBox("msg") : "") + (coffee ? '<div class="only-m">' + coffee + '</div>' : "") +
+    (both ? '<div class="chat-acts"><button type="button" class="btn btn-sm btn-soft only-m" data-act="coffee" aria-pressed="' + !!ui.showCoffee + '">' + IC.pin + t("coffee") + '</button><button type="button" class="btn btn-sm btn-soft" data-act="igOpen" aria-pressed="' + !!ui.igOpen + '">' + t("ig") + '</button></div>' + ig : "") +
+    '<p class="tiny e2e-note">' + IC.lockG + t("e2eeNote") + (E2E.volatile() ? " " + t("e2eVolatile") : "") + '</p>' + composer + '</div>' +
+    '<aside class="chat-side only-d">' + aboutCard(m, "side-about") + (both ? datePanel(sp, !noE2E) : "") + '</aside></div></main>' + tabs("chat");
 }
 /* where to meet: the three areas between both campuses, each with a few hand-picked places */
 function spotName(p, i) { return typeof p.n === "string" ? p.n : p.n[i === undefined ? L() : i]; }
@@ -3945,23 +4043,22 @@ function vMe() {
     (D.blocks.length ? '<div class="list">' + D.blocks.map(function (b, i) { return '<div class="list-row static"><span class="mono">' + esc(b.label) + '</span><button type="button" class="x" data-act="blockDel" data-v="' + i + '" aria-label="' + t("remove") + '">' + IC.x + '</button></div>'; }).join("") + '</div>' : "") +
     '<form class="inline-form" data-form="block" novalidate><label for="blockEmail" class="sr">' + t("emailLabel") + '</label><input class="input" id="blockEmail" type="email" autocapitalize="off" spellcheck="false" placeholder="name@connect.polyu.hk"><button class="btn" type="submit"' + busyAttr("block") + '>' + t("crushAdd") + '</button></form>' + errBox("block") + '</section>';
   var del = ui.confirm === "delete" ? '<div class="confirm" role="alertdialog" aria-label="' + t("delTitle") + '"><span>' + t("delQ") + '</span><div class="row"><button type="button" class="btn btn-danger btn-sm" data-act="delYes"' + busyAttr("delete") + '>' + t("delYes") + '</button><button type="button" class="btn btn-sm" data-act="dismiss">' + t("cancel") + '</button></div></div>' + errBox("delete") : "";
-  return shell('<div class="stack me-page">' +
+  return shell('<div class="stack me-page"><div class="me-side">' +
     '<div class="me-head"><button type="button" class="me-photo-btn" data-act="goPhoto" aria-label="' + t("managePhotos") + '">' + img + '</button><div class="me-id"><div class="serif me-name">' + esc(p.name) + '</div><div class="small muted">' + [ageOf(p.birth_year) ? t("ageN", ageOf(p.birth_year)) : "", tr(s.n), esc(p.faculty), yearText(p.year_of_study), p.height_cm ? t("cm", p.height_cm) : ""].filter(Boolean).join(" · ") + '</div>' +
-      '<span class="verified">' + IC.verified + t("verified", tr(s.n)) + '</span></div></div>' +
-    '<section class="me-sec"><h2 class="sec-label">' + t("meProfile") + '</h2><div class="list">' +
+      '<span class="verified">' + IC.verified + t("verified", tr(s.n)) + '</span></div></div>' + '<section class="me-sec safety-sec"><h2 class="sec-label">' + t("safetyCenter") + '</h2><div class="card safety-card">' + tr(T.safetyList).map(function (x) { return '<span class="small safety-item">' + IC.check + '<span>' + x + '</span></span>'; }).join("") + '<span class="small sos">' + t("emergency") + '</span></div></section>' +
+    '</div><div class="me-main"><section class="me-sec"><h2 class="sec-label">' + t("meProfile") + '</h2><div class="list">' +
       row("editProfile", t("editProfile"), [tr(s.n), optLabel("hometown", p.hometown)].filter(Boolean).join(" · ")) + row("editAbout", t("editAbout"), (p.interests || []).map(function (k) { return optLabel("interests", k); }).join(" · ")) +
       row("editWant", t("editWant"), (p.want_traits || []).map(function (k) { return optLabel("traits", k); }).join(" · ")) + row("goPhoto", t("managePhotos"), t("photoCount2", ps.length)) + row("redo", t("redo")) + row("goPrio", t("editPrio"), t("starred", S.star.length) + " · " + t("locked", S.lock.length)) + '</div></section>' +
     '<section class="me-sec"><h2 class="sec-label">' + t("meMatching") + '</h2><div class="list"><div class="list-row static"><span class="lr-main"><span>' + t("pause") + '</span><span class="tiny muted">' + t("pauseSub") + '</span></span>' +
       '<button type="button" class="switch" role="switch" aria-checked="' + !!p.paused + '" aria-label="' + t("pause") + '" data-act="pause"' + busyAttr("pause") + '></button></div></div>' + errBox("pause") + '</section>' +
     block +
-    '<section class="me-sec"><h2 class="sec-label">' + t("safetyCenter") + '</h2><div class="card safety-card">' + tr(T.safetyList).map(function (x) { return '<span class="small safety-item">' + IC.check + '<span>' + x + '</span></span>'; }).join("") + '<span class="small sos">' + t("emergency") + '</span></div></section>' +
     '<section class="me-sec"><h2 class="sec-label">' + t("meAccount") + '</h2><div class="list">' +
       '<div class="list-row static"><span class="lr-main"><span class="tiny muted">' + t("emailLabel") + '</span><span class="mono">' + esc(S.email) + '</span></span></div>' +
       (CFG.CONTACT_EMAIL ? '<a class="list-row" href="mailto:' + esc(CFG.CONTACT_EMAIL) + '"><span>' + t("contact") + '</span>' + IC.chev + '</a>' : "") +
       '<button type="button" class="list-row" data-act="legal" data-v="terms"><span class="lr-main"><span>' + t("lgRow") + '</span><span class="tiny muted">' + LEGAL_KEYS.map(function (k) { return t("lg_" + k); }).join(" · ") + '</span></span>' + IC.chev + '</button>' +
       row("signOut", t("signOut"), "", " ") +
       '<button type="button" class="list-row danger" data-act="delAsk"><span>' + t("delTitle") + '</span></button></div>' + del + '</section>' +
-    '</div>', "me", true);
+    '</div></div>', "me", true);
 }
 
 /* ---------- render ---------- */
