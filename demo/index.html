@@ -2156,6 +2156,150 @@ html[data-lang="yue"] .dest.cjk,html[data-lang="zhs"] .dest.cjk{font-weight:800}
   .home-page>.dropcard{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' preserveAspectRatio='none'%3E%3Cpath fill='%23FFFFFF' fill-opacity='.06' d='M0 200V132h14v-18h10v26h9V96h12v-8h8v52h10V118h14v-30h6V40h4v-8h4v8h4v48h6v52h9V104h16v36h8V70h7l5-14 5 14h7v70h10V112h12v28h9V86h18v54h8v-26h12v26h10V100h14v40h9v-22h12v22h8V92h13v48h10v60z'/%3E%3Cpath fill='%23FFC979' fill-opacity='.45' d='M72 50h2v3h-2zm6 0h2v3h-2zm-6 12h2v3h-2zm6 6h2v3h-2zm-6 12h2v3h-2zm52-4h2v3h-2zm6 8h2v3h-2zm-6 12h2v3h-2zm6 10h2v3h-2zm60-2h2v3h-2zm6 8h2v3h-2zm-6 12h2v3h-2zm50-12h2v3h-2zm6 10h2v3h-2zm-152 28h2v3h-2zm8-8h2v3h-2z'/%3E%3C/svg%3E") no-repeat center bottom/100% 42%,linear-gradient(160deg,#2B245F 0%,var(--d-night) 78%)}
   .home-page>.dropcard>.tiny.dc-label:last-child{margin-top:auto}
 }
+
+/* ======================================================================
+   Finish — texture, light and edges. The same dusk system, made tactile.
+   ====================================================================== */
+:root{
+  /* fine film grain: white specks at low alpha, tiled */
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .2 0 0 0 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-ink:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .13 0 0 0 0 .12 0 0 0 0 .24 .16 0 0 0 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --night-bg:linear-gradient(160deg,#2B245F 0%,#14112F 78%);
+  --edge-dark:inset 0 1px 0 rgba(255,255,255,.09),inset 0 0 0 1px rgba(255,255,255,.04);
+  --card-shadow:0 0 0 1px rgba(34,30,61,.045),inset 0 1px 0 rgba(255,255,255,.9),0 2px 4px -2px rgba(34,30,61,.06),0 16px 36px -22px rgba(34,30,61,.28);
+  --lift:0 0 0 1px rgba(34,30,61,.05),inset 0 1px 0 rgba(255,255,255,.9),0 4px 8px -4px rgba(34,30,61,.08),0 24px 48px -24px rgba(34,30,61,.34);
+}
+
+/* the mist itself gets the faintest paper grain */
+html:not(.night-page) body{background-image:var(--grain-ink),radial-gradient(90% 340px at 12% -60px,rgba(106,90,224,.13),rgba(106,90,224,0) 70%),radial-gradient(70% 300px at 95% -80px,rgba(255,92,138,.10),rgba(255,92,138,0) 70%)}
+html.landing-page body{background-image:var(--grain-ink)}
+
+/* night surfaces: grain + a lit top edge */
+.d-hero{background:var(--grain),linear-gradient(180deg,#14112F 0%,#1B1650 55%,#2A1D5C 100%)}
+.d-end{background:var(--grain),linear-gradient(180deg,#2A1D5C 0%,#1B1650 40%,#14112F 100%)}
+.card-ink,.d-crush,.d-sample-card,.side-panel,.lg-foot{background:var(--grain),var(--night-bg);box-shadow:var(--edge-dark),0 30px 60px -32px rgba(20,17,47,.75)}
+.night-page body{background-image:var(--grain),radial-gradient(80% 420px at 50% -120px,rgba(106,90,224,.42),rgba(106,90,224,0) 70%),radial-gradient(60% 360px at 100% 30%,rgba(255,92,138,.16),rgba(255,92,138,0) 70%)}
+.landing-page .foot{background:var(--grain),#14112F}
+
+/* light surfaces: hairline, inner highlight, layered shadow */
+.card,.list,.legend,.sentto,.disclose,.agree,.d-fact,.faq-item,.thread,.week-track,.me-head,.prio-list,.form-page .group,.pslot,.side-about,.lg-hero{box-shadow:var(--card-shadow)}
+.d-fact,.faq-item,.promise-item{transition:transform .35s var(--d-ease),box-shadow .35s var(--d-ease)}
+@media (hover:hover){
+  .d-fact:hover,.promise-item:hover{transform:translateY(-3px);box-shadow:var(--lift)}
+  .faq-item:hover{box-shadow:var(--lift)}
+}
+.btn-red{box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 24px -14px rgba(34,30,61,.7)}
+.btn-love,.d-btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 12px 28px -12px rgba(227,64,122,.7)}
+.d-btn{box-shadow:inset 0 -2px 0 rgba(20,17,47,.06),0 12px 32px -12px rgba(255,92,138,.6),0 0 0 1px rgba(255,255,255,.5) inset}
+
+/* ---------- landing: a floating glass nav on wide screens ---------- */
+@media (min-width:1024px){
+  .landing-page .top,.landing-page.scrolled .top,.landing-page.over-light .top{padding-top:14px;margin-bottom:-78px;background:transparent!important;border-bottom-color:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+  .landing-page .top .top-in{width:calc(100% - 48px);max-width:1180px;height:64px;padding:0 10px 0 26px;border-radius:999px;background:rgba(20,17,47,.38);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),inset 0 1px 0 rgba(255,255,255,.08);-webkit-backdrop-filter:saturate(160%) blur(18px);backdrop-filter:saturate(160%) blur(18px);transition:background-color .35s,box-shadow .35s}
+  .landing-page.scrolled .top .top-in{background:rgba(20,17,47,.66)}
+  .landing-page.over-light .top .top-in{background:rgba(255,255,255,.8);box-shadow:0 0 0 1px rgba(34,30,61,.06),0 14px 34px -18px rgba(34,30,61,.35)}
+  .d-hero{padding-top:calc(78px + clamp(48px,6vw,88px))}
+}
+
+/* ---------- welcome back (signed-in visitors on the front page) ---------- */
+.d-welcome{display:flex;align-items:center;gap:14px;padding:10px 18px 10px 10px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.08);text-align:left;max-width:100%}
+.dw-face{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;overflow:hidden;background:var(--love);font-family:var(--display);font-weight:800;font-size:20px;color:#FFFFFF;box-shadow:0 0 0 2px rgba(255,255,255,.2)}
+.dw-face img{width:100%;height:100%;object-fit:cover}
+.dw-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.dw-txt b{font-size:16px;font-weight:700;color:#FFFFFF}
+.dw-txt span{font-size:13.5px;line-height:1.45;color:var(--night-text)}
+
+/* ---------- how it works: little pictures of the product ---------- */
+.mk{margin-top:16px;padding:14px;border-radius:18px;background:#FFFFFF;box-shadow:var(--card-shadow);max-width:340px}
+.mk-quiz{display:flex;flex-direction:column;gap:10px}
+.mk-q{font-family:var(--display);font-weight:700;font-size:15px;color:var(--ink)}
+.mk-likert{display:flex;justify-content:space-between;gap:4px}
+.mk-likert i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;font-style:normal;font-family:var(--num);font-size:11px;font-weight:600;color:var(--muted);box-shadow:inset 0 0 0 1.5px #E1DDEE}
+.mk-likert i.on{background:var(--d-dusk);color:#FFFFFF;box-shadow:0 6px 14px -6px rgba(106,90,224,.9)}
+.mk-opt{display:flex;flex-direction:column;gap:8px;background:var(--night-bg);background:var(--grain),var(--night-bg)}
+.mk-love{display:grid;place-items:center;min-height:38px;border-radius:999px;background:var(--love);color:#FFFFFF;font-size:13.5px;font-weight:600}
+.mk-ok{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px;border-radius:999px;background:rgba(94,234,180,.13);color:#8EF0C6;font-size:13.5px;font-weight:600}
+.mk-ok svg{width:15px;height:15px}
+.mk-note{display:flex;gap:10px;align-items:flex-start;background:linear-gradient(135deg,rgba(106,90,224,.10),rgba(255,92,138,.10)),#FFFFFF}
+.mk-note .ls-app{width:32px;height:32px}
+.mk-nt{display:flex;flex-direction:column;gap:2px;min-width:0;font-size:13px}
+.mk-row{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--muted)}
+.mk-row b{font-weight:600;color:var(--ink)}
+.mk-nt strong{font-size:13.5px;font-weight:600;color:var(--ink)}
+.mk-chat{display:flex;flex-direction:column;gap:6px;background:var(--d-mist)}
+.mk-b{max-width:85%;padding:8px 12px;border-radius:16px;font-size:13.5px;line-height:1.4}
+.mk-b.them{align-self:flex-start;background:#FFFFFF;color:var(--ink);border-bottom-left-radius:6px;box-shadow:0 1px 2px rgba(34,30,61,.08)}
+.mk-b.me{align-self:flex-end;background:linear-gradient(135deg,#7A62F0,var(--d-dusk));color:#FFFFFF;border-bottom-right-radius:6px}
+@media (min-width:960px){.mk{max-width:none}}
+
+/* ---------- home: what we promise ---------- */
+.promise{display:flex;flex-direction:column;gap:14px;order:2}
+.promise-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.promise-title{margin:0;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.015em;color:var(--ink)}
+.promise-head .link{font-size:14px;font-weight:600}
+.promise-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.promise-item{display:flex;flex-direction:column;gap:6px;padding:18px 16px;border-radius:20px;background:#FFFFFF;box-shadow:var(--card-shadow)}
+.pr-ic{display:grid;place-items:center;width:40px;height:40px;margin-bottom:4px;border-radius:12px;background:var(--sel-bg);color:var(--d-violet)}
+.promise-item b{font-size:15.5px;font-weight:650;color:var(--ink)}
+.promise-item>span:last-child{font-size:13.5px;line-height:1.55;color:var(--body)}
+@media (min-width:1024px){
+  .home-page{grid-template-areas:"hello hello hello" "track track track" "drop drop card" "prefs weekly crush" "invite invite tips" "promise promise promise" "note note note"}
+  .home-page>.promise{grid-area:promise}
+  .promise-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  .promise-item{padding:24px 22px}
+}
+
+/* ---------- app footer: the whole site, from inside the app ---------- */
+.afoot{margin-top:24px;border-top:1px solid rgba(34,30,61,.07);background:rgba(255,255,255,.35)}
+.afoot-in{display:flex;flex-direction:column;gap:22px;padding-top:28px;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+.afoot-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}
+.afoot-col{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.afoot-h{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.afoot-btn{padding:4px 0;border:0;background:none;font:inherit;font-size:14px;color:var(--body);text-align:left;cursor:pointer;text-decoration:none}
+.afoot-btn:hover{color:var(--ink)}
+.afoot-btn.muted{color:var(--muted);cursor:default}
+.afoot-base{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid rgba(34,30,61,.07);font-size:12.5px;color:var(--muted)}
+.afoot-base .plate b{font-size:18px}
+@media (min-width:1024px){
+  .afoot .col{max-width:1160px;padding-inline:40px}
+  .afoot-in{padding-bottom:40px}
+  .afoot-cols{grid-template-columns:repeat(3,minmax(0,220px))}
+}
+.night-page .afoot{border-top-color:rgba(255,255,255,.06);background:transparent}
+.night-page .afoot-h,.night-page .afoot-base{color:var(--night-muted)}
+.night-page .afoot-btn{color:var(--night-text)}
+.night-page .afoot-btn:hover{color:#FFFFFF}
+.night-page .afoot-base{border-top-color:rgba(255,255,255,.06)}
+.night-page .afoot-base .plate b{color:#FFFFFF}
+
+/* ---------- front-page footer with the big wordmark ---------- */
+.foot2{position:relative;overflow:hidden;padding-top:clamp(48px,7vw,80px)}
+.foot2 .foot-top{display:grid;gap:36px}
+.foot-brand2 p{margin:12px 0 0;max-width:22em;font-size:15px;line-height:1.6;color:var(--night-text)}
+.foot-brand2 .plate b{font-size:26px}
+.foot-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px}
+.foot-col{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.foot-h{font-size:12.5px;font-weight:600;color:var(--night-muted);margin-bottom:4px}
+.foot-a{padding:3px 0;border:0;background:none;font:inherit;font-size:14.5px;color:var(--night-text);text-decoration:none;cursor:pointer;text-align:left}
+.foot-a:hover{color:#FFFFFF}
+.foot-a.dim{color:var(--night-muted);cursor:default}
+.foot-mark{margin-top:clamp(40px,6vw,72px);font-family:var(--display);font-weight:800;font-size:clamp(84px,21vw,300px);line-height:.8;letter-spacing:-.06em;text-align:center;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.02) 85%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none;transform:translateY(.08em)}
+.foot-base{position:relative;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:18px 0 28px;border-top:1px solid rgba(255,255,255,.07);font-size:12.5px;color:var(--night-muted)}
+@media (min-width:960px){
+  .foot2 .foot-top{grid-template-columns:minmax(0,1fr) auto;align-items:start}
+  .foot-cols{grid-template-columns:repeat(3,minmax(140px,200px));gap:40px}
+}
+
+/* ---------- small refinements ---------- */
+.hello{font-size:clamp(30px,7vw,44px)}
+.sec-label{letter-spacing:.01em}
+.week-track{border-radius:22px}
+.d-sec{scroll-margin-top:90px}
+.faq-item[open]{box-shadow:var(--lift)}
+@media (prefers-reduced-motion: reduce){.d-fact,.faq-item,.promise-item{transition:none}}
+html:not(.night-page):not(.landing-page) body{background-repeat:repeat,no-repeat,no-repeat}
+.night-page body{background-repeat:repeat,no-repeat,no-repeat}
+.home-page>*,.me-page>*,.reveal>*{position:relative}
 </style>
 <script>
 /* UNIdate HK preview: a stand-in for the real backend that runs entirely in this browser.
@@ -3215,6 +3359,26 @@ Object.assign(T, {
          ["Is chat private?", "Chat is end-to-end encrypted, so even we can't read it. Chats are deleted 30 days after they close."],
          ["What if I want to stop?", "Pause matching, or delete your account any time from the Me page — your data is deleted straight away."]]]
 });
+/* ---- structure: welcome back, footer, promises ---- */
+Object.assign(T, {
+  wbHi: ["歡迎返嚟，{a}", "欢迎回来，{a}", "Welcome back, {a}"],
+  wbHiAnon: ["歡迎返嚟", "欢迎回来", "Welcome back"],
+  wbSetup: ["你嘅資料仲未填完，填好就可以報名今個星期。", "你的资料还没填完，填好就能报名本周。", "Your profile isn't finished yet. Finish it to join this week."],
+  wbContinue: ["繼續填資料", "继续填资料", "Finish my profile"],
+  enter: ["返去我嘅主頁", "回到我的主页", "Back to my home"],
+  aboutUs: ["關於 UNIdate", "关于 UNIdate", "About UNIdate"],
+  navCard: ["配對卡", "配对卡", "The match card"],
+  promiseTitle: ["UNIdate 嘅承諾", "UNIdate 的承诺", "What we promise"],
+  promiseMore: ["睇返首頁介紹", "查看首页介绍", "See the full story"],
+  promises: [[["一星期一位", "唔使滑，唔使揀，每次只認真認識一個人。"], ["只限港校學生", "每個人都用學校電郵驗證，九間港校同一個配對池。"], ["聊天端對端加密", "訊息只喺你哋兩部機解得開，連我哋都睇唔到。"], ["刪除即刻生效", "隨時刪除帳戶，資料即時清除，唔會保留。"]],
+             [["一周一位", "不用滑，不用挑，每次只认真认识一个人。"], ["只限港校学生", "每个人都用学校邮箱验证，九所港校同一个配对池。"], ["聊天端到端加密", "消息只在你们两部设备上解得开，连我们也看不到。"], ["删除立即生效", "随时删除账号，资料即时清除，不会保留。"]],
+             [["One a week", "No swiping, no picking. Get to know one person properly."], ["HK uni students only", "Everyone verifies with a university email. Nine universities, one pool."], ["Encrypted chat", "Messages only open on your two devices. Not even we can read them."], ["Delete means delete", "Delete your account any time and your data is gone straight away."]]]
+});
+Object.assign(T, {
+  mkQ: ["約會食飯應該 AA。", "约会吃饭应该 AA。", "Split the bill on dates."],
+  mkThem: ["星期四圖書館三樓見？", "周四图书馆三楼见？", "Library, 3/F, Thursday?"],
+  mkMe: ["好呀，4 點！", "好呀，4 点！", "Yes! 4pm?"]
+});
 
 /* UNIdate HK · 用户协议 / 私隐政策 / 社区守则
    order of languages: yue (繁體書面語), zhs, en.  {email} → contact email, {schools} → supported schools.
@@ -4113,7 +4277,7 @@ function vLanding() {
         '<span class="d-tag">' + t("eyebrow") + '</span>' +
         '<h1 class="d-h1"><span>' + tph("h1a") + '</span><span>' + tph("h1b") + '</span></h1>' +
         '<p class="d-lead">' + t("sub") + '</p>' +
-        '<div class="d-cta"><button type="button" class="d-btn" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button><a class="d-link" href="#how">' + t("seeHow2") + '</a></div>' + errBox() +
+        (D.session ? welcomeBack() : '<div class="d-cta"><button type="button" class="d-btn" data-act="start">' + t("join") + '</button><a class="d-link" href="#how">' + t("seeHow2") + '</a></div>') + errBox() +
         '<p class="d-count"><span>' + t("nextDrop") + '</span><b data-countdown>' + countdown() + '</b></p>' +
       '</div>' +
       '<div class="d-stage">' + lockScreen() + '</div>' +
@@ -4121,7 +4285,7 @@ function vLanding() {
     '</section>' +
     '<section class="wrap d-facts" aria-label="' + esc(t("factsLabel")) + '">' + tr(T.facts).map(function (f) { return '<div class="d-fact"><b>' + f[0] + '</b><span>' + f[1] + '</span></div>'; }).join("") + '</section>' +
     '<section id="how" class="d-sec wrap"><h2 class="d-h2">' + tph("howTitle") + '</h2>' +
-      '<ol class="tl">' + steps.map(function (st, i) { return '<li class="tl-step"><span class="tl-when">' + marks[i] + '</span><span class="tl-dot" aria-hidden="true"></span><div class="tl-body"><h3>' + st[0] + '</h3><p>' + st[1] + '</p></div></li>'; }).join("") + '</ol></section>' +
+      '<ol class="tl">' + steps.map(function (st, i) { return '<li class="tl-step"><span class="tl-when">' + marks[i] + '</span><span class="tl-dot" aria-hidden="true"></span><div class="tl-body"><h3>' + st[0] + '</h3><p>' + st[1] + '</p>' + howMock(i) + '</div></li>'; }).join("") + '</ol></section>' +
     '<section id="card" class="d-sec wrap d-sample"><div class="d-sample-copy"><h2 class="d-h2">' + tph("sampleTitle") + '</h2><p class="d-p">' + t("sampleBody") + '</p>' +
       '<ul class="d-sample-list">' + tr(T.sampleList).map(function (x) { return '<li>' + IC.check + '<span>' + x + '</span></li>'; }).join("") + '</ul></div>' +
       '<div class="d-sample-card"><span class="d-sample-tag">' + t("sampleTag") + '</span>' + placardHTML("Chloe", t("heroMeta"), tr(T.heroReasons), t("fitGreat"), "", false, 93) + '</div></section>' +
@@ -4143,10 +4307,42 @@ function vLanding() {
       '<div class="d-cta"><button type="button" class="d-btn" data-act="start">' + (D.session ? t("enter") : t("join")) + '</button><button type="button" class="d-link" data-act="invite">' + t("inviteBtn") + '</button></div><span class="d-note">' + t("protoNote") + '</span></div></section>' +
     '</main>' + footer();
 }
+/* small pictures of the product for each step of "how it works" */
+function howMock(i) {
+  if (i === 0) return '<div class="mk mk-quiz" aria-hidden="true"><span class="mk-q">' + t("mkQ") + '</span><span class="mk-likert">' + [1, 2, 3, 4, 5, 6, 7].map(function (k) { return '<i' + (k === 5 ? ' class="on"' : "") + '>' + k + '</i>'; }).join("") + '</span></div>';
+  if (i === 1) return '<div class="mk mk-opt" aria-hidden="true"><span class="mk-love">' + t("optIn") + '</span><span class="mk-ok">' + IC.check + t("optedIn") + '</span></div>';
+  if (i === 2) return '<div class="mk mk-note" aria-hidden="true"><span class="ls-app"><span class="ls-mark">U</span></span><span class="mk-nt"><span class="mk-row"><b>UNIdate</b><small>21:00</small></span><strong>' + t("n1Title") + '</strong></span></div>';
+  return '<div class="mk mk-chat" aria-hidden="true"><span class="mk-b them">' + t("mkThem") + '</span><span class="mk-b me">' + t("mkMe") + '</span></div>';
+}
+function welcomeBack() {
+  var p = D.profile || {}, done = setupComplete(), ph = myPhotos()[0] ? purl(myPhotos()[0]) : "";
+  var face = ph ? '<img src="' + esc(ph) + '" alt="">' : '<span>' + esc(String(p.name || S.email || "U").charAt(0).toUpperCase()) + '</span>';
+  var line = done && D.st ? t(homeLine(D.st, curMatch())) : t("wbSetup");
+  return '<div class="d-welcome"><span class="dw-face">' + face + '</span><span class="dw-txt"><b>' + (p.name ? t("wbHi", esc(p.name)) : t("wbHiAnon")) + '</b><span>' + line + '</span></span></div>' +
+    '<div class="d-cta"><button type="button" class="d-btn" ' + (done ? 'data-act="go" data-v="home"' : 'data-act="start"') + '>' + t(done ? "enter" : "wbContinue") + '</button><a class="d-link" href="#how">' + t("seeHow2") + '</a></div>';
+}
+/* every in-app page ends with the same map of the site */
+function appFooter() {
+  var b = function (v, k) { return '<button type="button" class="afoot-btn" data-act="toLanding" data-v="' + v + '">' + t(k) + '</button>'; };
+  return '<footer class="afoot"><div class="col afoot-in"><div class="afoot-cols">' +
+    '<div class="afoot-col"><span class="afoot-h">UNIdate</span>' + b("top", "aboutUs") + b("how", "navHow") + b("card", "navCard") + b("faq", "navFaq") + '</div>' +
+    '<div class="afoot-col"><span class="afoot-h">' + t("navSafety") + '</span>' + b("safety", "trustTitle") + legalLinks("afoot-btn") + '</div>' +
+    '<div class="afoot-col"><span class="afoot-h">' + t("contact") + '</span>' + (CFG.CONTACT_EMAIL ? '<a class="afoot-btn" href="mailto:' + esc(CFG.CONTACT_EMAIL) + '">' + esc(CFG.CONTACT_EMAIL) + '</a>' : '<span class="afoot-btn muted">' + t("emailTBD") + '</span>') +
+      '<button type="button" class="afoot-btn" data-act="invite">' + t("inviteBtn") + '</button></div></div>' +
+    '<div class="afoot-base"><span class="plate"><b>UNIdate</b><small>HK</small></span><span>© 2026 UNIdate HK · ' + t("notOfficial") + '</span></div></div></footer>';
+}
 function footer() {
-  return '<footer class="foot"><div class="wrap foot-in"><div class="foot-brand"><span class="plate"><b>UNIdate</b><small>HK</small></span><span>' + t("footLine") + '</span></div>' +
-    '<nav class="foot-links" aria-label="Footer">' + (CFG.CONTACT_EMAIL ? '<a href="mailto:' + esc(CFG.CONTACT_EMAIL) + '">' + t("contact") + '</a>' : "") + '<a href="#how">' + t("navHow") + '</a>' + legalLinks("foot-btn") + '</nav>' +
-    '<span class="foot-legal">© 2026 UNIdate HK · ' + t("notOfficial") + '</span></div></footer>';
+  var a = function (h, k) { return '<a class="foot-a" href="#' + h + '">' + t(k) + '</a>'; };
+  return '<footer class="foot foot2"><div class="wrap"><div class="foot-top">' +
+    '<div class="foot-brand2"><span class="plate"><b>UNIdate</b><small>HK</small></span><p>' + t("footLine") + '</p></div>' +
+    '<nav class="foot-cols" aria-label="Footer">' +
+      '<div class="foot-col"><span class="foot-h">UNIdate</span>' + a("how", "navHow") + a("card", "navCard") + a("crush", "navCrush") + a("faq", "navFaq") + '</div>' +
+      '<div class="foot-col"><span class="foot-h">' + t("navSafety") + '</span>' + a("safety", "trustTitle") + legalLinks("foot-a") + '</div>' +
+      '<div class="foot-col"><span class="foot-h">' + t("contact") + '</span>' + (CFG.CONTACT_EMAIL ? '<a class="foot-a" href="mailto:' + esc(CFG.CONTACT_EMAIL) + '">' + esc(CFG.CONTACT_EMAIL) + '</a>' : '<span class="foot-a dim">' + t("emailTBD") + '</span>') +
+        '<button type="button" class="foot-a" data-act="invite">' + t("inviteBtn") + '</button></div>' +
+    '</nav></div>' +
+    '<div class="foot-mark" aria-hidden="true">UNIdate</div>' +
+    '<div class="foot-base"><span>© 2026 UNIdate HK</span><span>' + t("notOfficial") + '</span></div></div></footer>';
 }
 /* ---------- terms / privacy / guidelines: a sheet over the current page ---------- */
 var LEGAL_KEYS = ["terms", "privacy", "rules"];
@@ -4203,7 +4399,7 @@ function closeLegal() {
 var SIDE_STEP = { email: 0, code: 0, profile: 1, about: 2, want: 3, photo: 4, quiz: 5, prio: 5 };
 function shell(inner, tab, wide) {
   if (SIDE_STEP[S.view] !== undefined) inner = '<div class="side-layout"><div class="side-main">' + inner + '</div>' + sideAside() + '</div>';
-  return header(true, tab) + '<main class="col app-main' + (wide ? " wide" : "") + '">' + inner + '</main>' + (tab ? tabs(tab) : "");
+  return header(true, tab) + '<main class="col app-main' + (wide ? " wide" : "") + '">' + inner + '</main>' + (tab && tab !== "chat" ? appFooter() : "") + (tab ? tabs(tab) : "");
 }
 /* wide screens: a night panel beside sign-in and setup — the lock screen while signing in, then the steps */
 function sideAside() {
@@ -4433,7 +4629,7 @@ function vHome() {
   return shell('<div class="home-page">' +
     (st.test_mode ? '<p class="notice">' + t("testMode") + '</p>' : "") +
     '<div class="hello-row"><h1 class="serif hello">' + tph("hi", esc(p.name)) + '</h1><p class="hello-sub">' + t(homeLine(st, m)) + '</p></div>' +
-    weekTrack(st, m) + drop + myCard(p) + prefs + weekly + crush + inviteCard() + tipsCard() +
+    weekTrack(st, m) + drop + myCard(p) + prefs + weekly + crush + inviteCard() + tipsCard() + homePromise() +
     '<p class="tiny muted home-note">' + t("protoNote") + '</p></div>', "home", true);
 }
 /* home: where you are in this week's cycle */
@@ -4463,6 +4659,13 @@ function myCard(p) {
     '<div class="mc-meter"><div class="mc-row"><span>' + t("cardDone") + '</span><b>' + pct + '%</b></div><div class="mc-bar"><i style="width:' + pct + '%"></i></div>' +
     (tip ? '<button type="button" class="mc-tip" data-act="' + tip[1] + '">' + t(tip[0]) + IC.chev + '</button>' : '<span class="mc-tip ok">' + IC.check + t("cardFull") + '</span>') + '</div>' +
     '<p class="tiny muted mc-note">' + t("myCardNote") + '</p></div></section>';
+}
+function homePromise() {
+  var ic = { one: '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.5 9.5L12.5 8v8"/></svg>',
+    del: '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>' };
+  var items = tr(T.promises), icons = [ic.one, TRUST_IC.school, TRUST_IC.lock, ic.del];
+  return '<section class="promise"><div class="promise-head"><h2 class="promise-title">' + t("promiseTitle") + '</h2><button type="button" class="link" data-act="toLanding" data-v="top">' + t("promiseMore") + '</button></div>' +
+    '<div class="promise-grid">' + items.map(function (x, i) { return '<div class="promise-item"><span class="pr-ic">' + icons[i] + '</span><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join("") + '</div></section>';
 }
 function inviteCard() {
   return '<section class="invite"><div class="card-ink invite-in"><span class="inv-big">+1</span><h2 class="inv-title">' + t("inviteTitle") + '</h2><p class="inv-sub">' + t("inviteSub") + '</p>' +
@@ -4977,7 +5180,12 @@ var A = {
     go(v);
     if (v === "drop" || v === "home") refreshState().then(function () { if (S.view === v) render(true); }).catch(function () {});
   },
-  logo: function () { if (D.session && setupComplete()) { if (S.view === "home") { try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {} } else go("home"); } else go("landing"); },
+  logo: function () { if (S.view === "landing") { try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) { window.scrollTo(0, 0); } } else go("landing"); },
+  /* from inside the app: open the front page at a section */
+  toLanding: function (el) {
+    var id = el.dataset.v; go("landing");
+    if (id && id !== "top") setTimeout(function () { var x = document.getElementById(id); if (x) x.scrollIntoView({ behavior: "smooth", block: "start" }); }, 420);
+  },
   start: function () { if (!sb) { ui.err = t("noConfig"); return render(true); } if (!D.session) go("email"); else route(); },
   chip: function (el) {
     var f = el.dataset.f, v = el.dataset.v;
